@@ -54,6 +54,24 @@ export const updateOccupationForm1 = occupation => {
   };
 };
 
+export const updateDateofOccuranceForm1 = dateofOccurance => {
+  return dispatch => {
+    dispatch({
+      type: 'updateDateofOccuranceForm1',
+      payload: dateofOccurance,
+    });
+  };
+};
+
+export const updateDateofAssessmentForm1 = dateofAssessment => {
+  return dispatch => {
+    dispatch({
+      type: 'updateDateofAssessmentForm1',
+      payload: dateofAssessment,
+    });
+  };
+};
+
 export const updateDiagnosisForm1 = diagnosis => {
   return dispatch => {
     dispatch({
@@ -252,11 +270,20 @@ export const updateBowelBladderForm1 = bowelBladderForm1 => {
   };
 };
 
-export const updateBalanceSitting = balanceSitting => {
+export const updateBalance = balance => {
   return dispatch => {
     dispatch({
-      type: 'updateBalanceSitting',
-      payload: balanceSitting,
+      type: 'updateBalance',
+      payload: balance,
+    });
+  };
+};
+
+export const updateSitting = sitting => {
+  return dispatch => {
+    dispatch({
+      type: 'updateSitting',
+      payload: sitting,
     });
   };
 };
@@ -315,13 +342,21 @@ export const updateRemarks = remarks => {
   };
 };
 
-
+export const updateTherapistNameForm1 = therapistName => {
+  return dispatch => {
+    dispatch({
+      type: 'updateTherapistNameForm1',
+      payload: therapistName,
+    });
+  };
+};
 
 // Neurological Evaluation Form Creators
+
 export const updateNameForm2 = name => {
   return dispatch => {
     dispatch({
-      type: 'updateName',
+      type: 'updateNameForm2',
       payload: name,
     });
   };
@@ -330,7 +365,7 @@ export const updateNameForm2 = name => {
 export const updateHandDominanceForm2 = handDominance => {
   return dispatch => {
     dispatch({
-      type: 'updateHandDominance',
+      type: 'updateHandDominanceForm2',
       payload: handDominance,
     });
   };
@@ -339,7 +374,7 @@ export const updateHandDominanceForm2 = handDominance => {
 export const updateAgeForm2 = age => {
   return dispatch => {
     dispatch({
-      type: 'updateAge',
+      type: 'updateAgeForm2',
       payload: age,
     });
   };
@@ -348,8 +383,26 @@ export const updateAgeForm2 = age => {
 export const updateGenderForm2 = gender => {
   return dispatch => {
     dispatch({
-      type: 'updateGender',
+      type: 'updateGenderForm2',
       payload: gender,
+    });
+  };
+};
+
+export const updateDateOfOccuranceForm2 = dateOfOccurance => {
+  return dispatch => {
+    dispatch({
+      type: 'updateDateOfOccuranceForm2',
+      payload: dateOfOccurance,
+    });
+  };
+};
+
+export const updateDateOfAssessmentForm2 = dateofAssessment => {
+  return dispatch => {
+    dispatch({
+      type: 'updateDateOfAssessmentForm2',
+      payload: dateofAssessment,
     });
   };
 };
@@ -357,7 +410,7 @@ export const updateGenderForm2 = gender => {
 export const updateAddressForm2 = address => {
   return dispatch => {
     dispatch({
-      type: 'updateAddress',
+      type: 'updateAddressForm2',
       payload: address,
     });
   };
@@ -366,7 +419,7 @@ export const updateAddressForm2 = address => {
 export const updateOccupationForm2 = occupation => {
   return dispatch => {
     dispatch({
-      type: 'updateOccupation',
+      type: 'updateOccupationForm2',
       payload: occupation,
     });
   };
@@ -375,7 +428,7 @@ export const updateOccupationForm2 = occupation => {
 export const updateDiagnosisForm2 = diagnosis => {
   return dispatch => {
     dispatch({
-      type: 'updateDiagnosis',
+      type: 'updateDiagnosisForm2',
       payload: diagnosis,
     });
   };
@@ -384,7 +437,7 @@ export const updateDiagnosisForm2 = diagnosis => {
 export const updateChiefComplaintForm2 = chiefComplaint => {
   return dispatch => {
     dispatch({
-      type: 'updateChiefComplaint',
+      type: 'updateChiefComplaintForm2',
       payload: chiefComplaint,
     });
   };
@@ -393,7 +446,7 @@ export const updateChiefComplaintForm2 = chiefComplaint => {
 export const updateHistoryForm2 = history => {
   return dispatch => {
     dispatch({
-      type: 'updateHistory',
+      type: 'updateHistoryForm2',
       payload: history,
     });
   };
@@ -402,7 +455,7 @@ export const updateHistoryForm2 = history => {
 export const updatePastMedicalForm2 = pastMedical => {
   return dispatch => {
     dispatch({
-      type: 'updatePastMedical',
+      type: 'updatePastMedicalForm2',
       payload: pastMedical,
     });
   };
@@ -411,7 +464,7 @@ export const updatePastMedicalForm2 = pastMedical => {
 export const updateInvestigationForm2 = investigation => {
   return dispatch => {
     dispatch({
-      type: 'updateInvestigation',
+      type: 'updateInvestigationForm2',
       payload: investigation,
     });
   };
@@ -420,7 +473,7 @@ export const updateInvestigationForm2 = investigation => {
 export const updateAttitudeofLimbForm2 = attitudeofLimb => {
   return dispatch => {
     dispatch({
-      type: 'updateAttitudeofLimb',
+      type: 'updateAttitudeofLimbForm2',
       payload: attitudeofLimb,
     });
   };
@@ -429,7 +482,7 @@ export const updateAttitudeofLimbForm2 = attitudeofLimb => {
 export const updateExternalAidsForm2 = externalAids => {
   return dispatch => {
     dispatch({
-      type: 'updateExternalAids',
+      type: 'updateExternalAidsForm2',
       payload: externalAids,
     });
   };
@@ -438,7 +491,7 @@ export const updateExternalAidsForm2 = externalAids => {
 export const updateGaitForm2 = gait => {
   return dispatch => {
     dispatch({
-      type: 'updateGait',
+      type: 'updateGaitForm2',
       payload: gait,
     });
   };
@@ -447,7 +500,7 @@ export const updateGaitForm2 = gait => {
 export const updateTransferAbilityForm2 = transferAbility => {
   return dispatch => {
     dispatch({
-      type: 'updateTransferAbility',
+      type: 'updateTransferAbilityForm2',
       payload: transferAbility,
     });
   };
@@ -456,7 +509,7 @@ export const updateTransferAbilityForm2 = transferAbility => {
 export const updateBedSoresForm2 = bedSores => {
   return dispatch => {
     dispatch({
-      type: 'updateBedSores',
+      type: 'updateBedSoresForm2',
       payload: bedSores,
     });
   };
@@ -465,7 +518,7 @@ export const updateBedSoresForm2 = bedSores => {
 export const updateDeformityForm2 = deformity => {
   return dispatch => {
     dispatch({
-      type: 'updateDeformity',
+      type: 'updateDeformityForm2',
       payload: deformity,
     });
   };
