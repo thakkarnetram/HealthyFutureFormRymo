@@ -7,6 +7,8 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
+  Image,
+  PermissionsAndroid,
   ScrollView,
   TextInput,
   StyleSheet,
@@ -17,11 +19,13 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Orientation from 'react-native-orientation-locker';
+import {Picker} from '@react-native-picker/picker';
 import Immersive from 'react-native-immersive';
 import {useSelector, useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../Redux/index';
 import Generateform1 from '../../GenerateHtml/Generateform1';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const Form1 = () => {
   useEffect(() => {
@@ -40,6 +44,12 @@ const Form1 = () => {
   const gender = useSelector(state => state.form1.gender);
   const address = useSelector(state => state.form1.address);
   const occupation = useSelector(state => state.form1.occupation);
+  const patientImageClicked = useSelector(
+    state => state.form1.patientImageClicked,
+  );
+  const patientImagePicked = useSelector(
+    state => state.form1.patientImagePicked,
+  );
   const [dooDatePickerVisible, setDooDatePickerVisible] = useState(false);
   const [doaDatePickerVisible, setDoaDatePickerVisible] = useState(false);
   const dateOfOccurance = useSelector(state => state.form1.dateOfOccurance);
@@ -75,6 +85,17 @@ const Form1 = () => {
   const shortTermGoal = useSelector(state => state.form1.shortTermGoal);
   const remarks = useSelector(state => state.form1.remarks);
   const therapistName = useSelector(state => state.form1.therapistName);
+  const clickedImage1 = useSelector(state => state.form1.clickedImage1);
+  const clickedImage2 = useSelector(state => state.form1.clickedImage2);
+  const clickedImage3 = useSelector(state => state.form1.clickedImage3);
+  const clickedImage4 = useSelector(state => state.form1.clickedImage4);
+  const clickedImage5 = useSelector(state => state.form1.clickedImage5);
+  const pickedImage1 = useSelector(state => state.form1.pickedImage1);
+  const pickedImage2 = useSelector(state => state.form1.pickedImage2);
+  const pickedImage3 = useSelector(state => state.form1.pickedImage3);
+  const pickedImage4 = useSelector(state => state.form1.pickedImage4);
+  const pickedImage5 = useSelector(state => state.form1.pickedImage5);
+
   // handlers
   const actions = bindActionCreators(actionCreators, dispatch);
   const nameHandler = name => {
@@ -86,6 +107,7 @@ const Form1 = () => {
   const ageHandler = age => {
     actions.updateAgeForm1(age);
   };
+
   const genderHandler = gender => {
     actions.updateGenderForm1(gender);
   };
@@ -202,6 +224,107 @@ const Form1 = () => {
   const therapistNameHandler = therapistName => {
     actions.updateTherapistNameForm1(therapistName);
   };
+  // opening camera
+  let options = {
+    saveToPhotos: true,
+    mediaType: 'photo',
+  };
+  // Patient image
+  const openCamera0 = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      const result = await launchCamera(options);
+      actions.updatePatientImageClicked1(result.assets[0].uri);
+    } else {
+      console.log('Camera permission denied');
+    }
+  };
+  const openGallery0 = async () => {
+    const result = await launchImageLibrary(options);
+    actions.updatePatientImagePicked1(result.assets[0].uri);
+  };
+  // 1
+  const openCamera1 = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      const result = await launchCamera(options);
+      actions.updateClickedImage1F1(result.assets[0].uri);
+    } else {
+      console.log('Camera permission denied');
+    }
+  };
+  const openGallery1 = async () => {
+    const result = await launchImageLibrary(options);
+    actions.updatePickedImage1F1(result.assets[0].uri);
+  };
+  // 2
+  const openCamera2 = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      const result = await launchCamera(options);
+      actions.updateClickedImage2F1(result.assets[0].uri);
+    } else {
+      console.log('Camera permission denied');
+    }
+  };
+  const openGallery2 = async () => {
+    const result = await launchImageLibrary(options);
+    actions.updatePickedImage2F1(result.assets[0].uri);
+  };
+  // 3
+  const openCamera3 = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      const result = await launchCamera(options);
+      actions.updateClickedImage3F1(result.assets[0].uri);
+    } else {
+      console.log('Camera permission denied');
+    }
+  };
+  const openGallery3 = async () => {
+    const result = await launchImageLibrary(options);
+    actions.updatePickedImage3F1(result.assets[0].uri);
+  };
+  // 4
+  const openCamera4 = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      const result = await launchCamera(options);
+      actions.updateClickedImage4F1(result.assets[0].uri);
+    } else {
+      console.log('Camera permission denied');
+    }
+  };
+  const openGallery4 = async () => {
+    const result = await launchImageLibrary(options);
+    actions.updatePickedImage4F1(result.assets[0].uri);
+  };
+  // 5
+  const openCamera5 = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      const result = await launchCamera(options);
+      actions.updateClickedImage5F1(result.assets[0].uri);
+    } else {
+      console.log('Camera permission denied');
+    }
+  };
+  const openGallery5 = async () => {
+    const result = await launchImageLibrary(options);
+    actions.updatePickedImage5F1(result.assets[0].uri);
+  };
   return (
     <SafeAreaView>
       <ScrollView>
@@ -237,30 +360,193 @@ const Form1 = () => {
               style={styles.age}
             />
           </View>
+          {/* Patient Image */}
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: '#07235e',
+              fontSize: wp('4%'),
+              marginHorizontal: wp('5%'),
+              marginVertical: wp('1%'),
+            }}>
+            Patient Image
+          </Text>
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <TouchableOpacity onPress={openGallery0} style={styles.newBtn}>
+                <Text style={styles.newBtnText}>Select Image</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={openCamera0} style={styles.newBtn}>
+              <Text style={styles.newBtnText}>Click Image</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            {patientImagePicked && !patientImageClicked ? (
+              <View>
+                <Image
+                  source={{uri: patientImagePicked}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updatePatientImagePicked1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: patientImagePicked}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {patientImagePicked ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updatePatientImagePicked1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+            {patientImageClicked && !patientImagePicked ? (
+              <View>
+                <Image
+                  source={{uri: patientImageClicked}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updatePatientImageClicked1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: patientImageClicked}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {patientImageClicked ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updatePatientImageClicked1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+          </View>
+          {/* End */}
           <View style={styles.inputTextContainer}>
-            <TextInput
-              value={gender}
-              onChangeText={genderHandler}
-              keyboardType="ascii-capable"
-              placeholder="Gender"
-              placeholderTextColor="#FFFFFF"
-              style={styles.age}
-            />
+            <View style={styles.row}>
+              <Text style={styles.rowText}>Select Gender</Text>
+              <View style={styles.bigContainer}>
+                <Picker selectedValue={gender} onValueChange={genderHandler}>
+                  <Picker.Item label="Select" value="" />
+                  <Picker.Item
+                    label="Male"
+                    value="Male"
+                    style={{color: 'black', fontSize: wp('2%')}}
+                  />
+                  <Picker.Item
+                    label="Female"
+                    value="Female"
+                    style={{color: 'black', fontSize: wp('2%')}}
+                  />
+                </Picker>
+              </View>
+            </View>
           </View>
           <View style={styles.inputTextContainer}>
-            <TextInput
-              value={handDominance}
-              onChangeText={handDominanceHandler}
-              keyboardType="ascii-capable"
-              placeholder="Hand Dominance"
-              placeholderTextColor="#FFFFFF"
-              style={{
-                marginVertical: wp('1%'),
-                color: 'white',
-                fontSize: wp('3.5%'),
-                marginHorizontal: wp('1.5%'),
-              }}
-            />
+            <View style={styles.row}>
+              <Text style={styles.rowText}>Hand Dominance</Text>
+              <View style={styles.bigContainer}>
+                <Picker
+                  selectedValue={handDominance}
+                  onValueChange={handDominanceHandler}>
+                  <Picker.Item label="Select" value="" />
+                  <Picker.Item
+                    label="Left"
+                    value="Left"
+                    style={{color: 'black', fontSize: wp('2%')}}
+                  />
+                  <Picker.Item
+                    label="Right"
+                    value="Right"
+                    style={{color: 'black', fontSize: wp('2%')}}
+                  />
+                </Picker>
+              </View>
+            </View>
           </View>
           <View style={styles.inputTextContainer}>
             <TextInput
@@ -395,6 +681,681 @@ const Form1 = () => {
               placeholderTextColor="#FFFFFF"
               style={styles.diagnosisText}
             />
+          </View>
+          {/* Image 1 */}
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <TouchableOpacity onPress={openGallery1} style={styles.newBtn}>
+                <Text style={styles.newBtnText}>Select Image</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={openCamera1} style={styles.newBtn}>
+              <Text style={styles.newBtnText}>Click Image</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            {pickedImage1 && !clickedImage1 ? (
+              <View>
+                <Image
+                  source={{uri: pickedImage1}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updatePickedImage1F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: pickedImage1}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {pickedImage1 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updatePickedImage1F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+            {clickedImage1 && !pickedImage1 ? (
+              <View>
+                <Image
+                  source={{uri: clickedImage1}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updateClickedImage1F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: clickedImage1}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {clickedImage1 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updateClickedImage1F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+          </View>
+          {/* Image 2 */}
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <TouchableOpacity onPress={openGallery2} style={styles.newBtn}>
+                <Text style={styles.newBtnText}>Select Image</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={openCamera2} style={styles.newBtn}>
+              <Text style={styles.newBtnText}>Click Image</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            {pickedImage2 && !clickedImage2 ? (
+              <View>
+                <Image
+                  source={{uri: pickedImage2}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updatePickedImage2F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: pickedImage2}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {pickedImage2 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updatePickedImage2F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+            {clickedImage2 && !pickedImage2 ? (
+              <View>
+                <Image
+                  source={{uri: clickedImage2}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updateClickedImage2F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: clickedImage2}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {clickedImage2 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updateClickedImage2F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+          </View>
+          {/* Image 3 */}
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <TouchableOpacity onPress={openGallery3} style={styles.newBtn}>
+                <Text style={styles.newBtnText}>Select Image</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={openCamera3} style={styles.newBtn}>
+              <Text style={styles.newBtnText}>Click Image</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            {pickedImage3 && !clickedImage3 ? (
+              <View>
+                <Image
+                  source={{uri: pickedImage3}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updatePickedImage3F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: pickedImage3}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {pickedImage3 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updatePickedImage3F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+            {clickedImage3 && !pickedImage3 ? (
+              <View>
+                <Image
+                  source={{uri: clickedImage3}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updateClickedImage3F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: clickedImage3}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {clickedImage3 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updateClickedImage3F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+          </View>
+          {/* Image 4 */}
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <TouchableOpacity onPress={openGallery4} style={styles.newBtn}>
+                <Text style={styles.newBtnText}>Select Image</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={openCamera4} style={styles.newBtn}>
+              <Text style={styles.newBtnText}>Click Image</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            {pickedImage4 && !clickedImage4 ? (
+              <View>
+                <Image
+                  source={{uri: pickedImage4}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updatePickedImage4F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: pickedImage4}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {pickedImage4 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updatePickedImage4F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+            {clickedImage4 && !pickedImage4 ? (
+              <View>
+                <Image
+                  source={{uri: clickedImage4}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updateClickedImage4F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: clickedImage4}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {clickedImage4 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updateClickedImage4F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+          </View>
+          {/* Image 5*/}
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <TouchableOpacity onPress={openGallery5} style={styles.newBtn}>
+                <Text style={styles.newBtnText}>Select Image</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={openCamera5} style={styles.newBtn}>
+              <Text style={styles.newBtnText}>Click Image</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            {pickedImage5 && !clickedImage5 ? (
+              <View>
+                <Image
+                  source={{uri: pickedImage5}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updatePickedImage5F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: pickedImage5}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {pickedImage5 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updatePickedImage5F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
+            {clickedImage5 && !pickedImage5 ? (
+              <View>
+                <Image
+                  source={{uri: clickedImage5}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                <View>
+                  <TouchableOpacity
+                    onPress={() => actions.updateClickedImage5F1('')}>
+                    <Image
+                      source={require('../../Assets/cross.png')}
+                      style={{
+                        tintColor: '#808080',
+                        marginHorizontal: wp('20%'),
+                        marginVertical: wp('6%'),
+                        width: 50,
+                        height: 50,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <Image
+                  source={{uri: clickedImage5}}
+                  style={{
+                    marginHorizontal: wp('15%'),
+                    marginVertical: wp('6%'),
+                    width: 100,
+                    height: 100,
+                    borderRadius: 5,
+                  }}
+                />
+                {clickedImage5 ? (
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => actions.updateClickedImage5F1('')}>
+                      <Image
+                        source={require('../../Assets/cross.png')}
+                        style={{
+                          tintColor: '#808080',
+                          marginHorizontal: wp('20%'),
+                          marginVertical: wp('6%'),
+                          width: 50,
+                          height: 50,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+            )}
           </View>
           {/* New Section */}
           <Text
@@ -939,6 +1900,21 @@ const styles = StyleSheet.create({
     fontSize: wp('3.5%'),
     marginHorizontal: wp('1.5%'),
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  rowText: {
+    marginVertical: wp('2.26%'),
+    color: 'white',
+    fontSize: wp('2.85%'),
+    marginHorizontal: wp('5%'),
+  },
+  bigContainer: {
+    width: wp('20%'),
+    height: hp('5%'),
+    marginHorizontal: wp('5%'),
+  },
   inputFieldContainerDOB: {
     width: wp('90%'),
     height: hp('6%'),
@@ -1050,6 +2026,22 @@ const styles = StyleSheet.create({
     height: hp('5%'),
     marginHorizontal: wp('5%'),
     marginVertical: wp('0.5%'),
+  },
+  newBtn: {
+    marginHorizontal: wp('5%'),
+    marginVertical: wp('3%'),
+    borderRadius: 20,
+    backgroundColor: '#2e5db0',
+    height: hp('5%'),
+    width: wp('35%'),
+  },
+  newBtnText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white',
+    marginVertical: hp('1%'),
+    marginHorizontal: hp('1%'),
+    fontSize: hp('2%'),
   },
 });
 

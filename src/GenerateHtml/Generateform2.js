@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  PermissionsAndroid,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Share from 'react-native-share';
@@ -11,9 +17,27 @@ import {
 import {useSelector} from 'react-redux';
 
 const Generateform2 = () => {
+  const [permission, setPermission] = useState(false);
   const name = useSelector(state => state.form2.name);
   const handDominance = useSelector(state => state.form2.handDominance);
   const age = useSelector(state => state.form2.age);
+  const patientImageClicked = useSelector(
+    state => state.form2.patientImageClicked,
+  );
+  const patientImagePicked = useSelector(
+    state => state.form2.patientImagePicked,
+  );
+  
+  const clickedImage1 = useSelector(state => state.form2.clickedImage1);
+  const clickedImage2 = useSelector(state => state.form2.clickedImage2);
+  const clickedImage3 = useSelector(state => state.form2.clickedImage3);
+  const clickedImage4 = useSelector(state => state.form2.clickedImage4);
+  const clickedImage5 = useSelector(state => state.form2.clickedImage5);
+  const pickedImage1 = useSelector(state => state.form2.pickedImage1);
+  const pickedImage2 = useSelector(state => state.form2.pickedImage2);
+  const pickedImage3 = useSelector(state => state.form2.pickedImage3);
+  const pickedImage4 = useSelector(state => state.form2.pickedImage4);
+  const pickedImage5 = useSelector(state => state.form2.pickedImage5);
   const gender = useSelector(state => state.form2.gender);
   const address = useSelector(state => state.form2.address);
   const occupation = useSelector(state => state.form2.occupation);
@@ -159,6 +183,8 @@ const Generateform2 = () => {
       name ||
       handDominance ||
       age ||
+      patientImageClicked ||
+      patientImagePicked ||
       gender ||
       address ||
       occupation ||
@@ -263,6 +289,24 @@ const Generateform2 = () => {
         `;
     }
 
+    html += `
+    <div class="label">
+      ${
+        patientImageClicked && patientImagePicked
+          ? `
+          <h1>Patient Image</h1>
+             <img src="${patientImageClicked}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
+             <img src="${patientImagePicked}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
+          : patientImageClicked || patientImagePicked
+          ? `
+          <h1>Patient Image</h1>
+             <img src="${
+               patientImageClicked || patientImagePicked
+             }" alt="Image" style="max-width: 100%; height: auto;" />`
+          : ''
+      }
+    </div>`;
+
     if (gender) {
       html += `
         <div class="label">
@@ -356,6 +400,87 @@ const Generateform2 = () => {
         </div>
         `;
     }
+
+    html += `
+    <div class="label">
+      ${
+        clickedImage1 && pickedImage1
+          ? `
+          <h2> Investigation  </h2>
+             <img src="${clickedImage1}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
+             <img src="${pickedImage1}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
+          : clickedImage1 || pickedImage1
+          ? `<h2> Investigation  </h2>
+             <img src="${
+               clickedImage1 || pickedImage1
+             }" alt="Image" style="max-width: 100%; height: auto;" />`
+          : ''
+      }
+    </div>`;
+
+    html += `
+    <div class="label">
+      ${
+        clickedImage2 && pickedImage2
+          ? `<h2> Investigation  </h2>
+             <img src="${clickedImage2}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
+             <img src="${pickedImage2}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
+          : clickedImage2 || pickedImage2
+          ? `<h2> Investigation  </h2>
+             <img src="${
+               clickedImage2 || pickedImage2
+             }" alt="Image" style="max-width: 100%; height: auto;" />`
+          : ''
+      }
+    </div>`;
+
+    html += `
+    <div class="label">
+      ${
+        clickedImage3 && pickedImage3
+          ? `<h2> Investigation  </h2>
+             <img src="${clickedImage3}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
+             <img src="${pickedImage3}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
+          : clickedImage3 || pickedImage3
+          ? `<h2> Investigation  </h2>
+             <img src="${
+               clickedImage3 || pickedImage3
+             }" alt="Image" style="max-width: 100%; height: auto;" />`
+          : ''
+      }
+    </div>`;
+
+    html += `
+    <div class="label">
+      ${
+        clickedImage4 && pickedImage4
+          ? `<h2> Investigation  </h2>
+             <img src="${clickedImage4}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
+             <img src="${pickedImage4}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
+          : clickedImage4 || pickedImage4
+          ? `<h2> Investigation  </h2>
+             <img src="${
+               clickedImage4 || pickedImage4
+             }" alt="Image" style="max-width: 100%; height: auto;" />`
+          : ''
+      }
+    </div>`;
+
+    html += `
+    <div class="label">
+      ${
+        clickedImage5 && pickedImage5
+          ? `<h2> Investigation  </h2>
+             <img src="${clickedImage5}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
+             <img src="${pickedImage5}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
+          : clickedImage5 || pickedImage5
+          ? `<h2> Investigation  </h2>
+             <img src="${
+               clickedImage5 || pickedImage5
+             }" alt="Image" style="max-width: 100%; height: auto;" />`
+          : ''
+      }
+    </div>`;
 
     if (attitudeofLimb) {
       html += `
@@ -878,7 +1003,6 @@ const Generateform2 = () => {
                 `;
     }
 
-    
     if (bowelBladder) {
       html += `
         <div class="label">
@@ -889,6 +1013,63 @@ const Generateform2 = () => {
     }
 
     return html;
+  };
+
+  async function requestStoragePermission() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission',
+          message:
+            'Your app needs access to your device storage to save files.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Storage permission granted');
+      } else {
+        console.log('Storage permission denied', granted);
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
+  const handleSaveToLocal = async () => {
+    const permissionGranted = await requestStoragePermission();
+    if (permissionGranted) {
+      setPermission(true);
+      handleExportPdf();
+      handleSharePdf();
+    } else {
+      setPermission(false);
+      // Handle permission denied case
+    }
+  };
+  // Saving to Local Storage Logic
+  const handleExportPdf = async (attachmentUrl, directory, fileName) => {
+    try {
+      // Request storage permission if needed
+      handleSaveToLocal();
+      // Generate the HTML to convert to PDF
+      const htmlContent = generateHtml(attachmentUrl, directory, fileName);
+
+      // Create the options for the PDF conversion
+      const pdfOptions = {
+        html: htmlContent,
+        fileName: `${name}_${new Date().toISOString().slice(0, 10)}`,
+        directory: RNHTMLtoPDF.DocumentDirectory,
+      };
+
+      // Convert HTML to PDF and save to device
+      const file = await RNHTMLtoPDF.convert(pdfOptions);
+      console.log(`PDF saved to ${file.filePath} + PDF NAME ${fileName}`);
+    } catch (error) {
+      console.error('Failed to export PDF:', error);
+    }
   };
 
   const handleSharePdf = async () => {
@@ -923,6 +1104,11 @@ const Generateform2 = () => {
           <Text style={styles.exportText}>Share PDF</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.inputFieldContainerEXPORT}>
+        <TouchableOpacity style={styles.exportBtn} onPress={handleExportPdf}>
+          <Text style={styles.exportText}>Save to Local Storage </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -937,6 +1123,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     borderRadius: 10,
     marginBottom: 20,
+    marginRight: 50,
+    elevation: 10,
+  },
+  inputFieldContainerEXPORT: {
+    width: wp('80%'),
+    height: hp('5%'),
+    marginHorizontal: wp('10%'),
+    flexDirection: 'column',
+    backgroundColor: '#0a5e78',
+    borderRadius: 10,
+    marginBottom: 40,
     marginRight: 50,
     elevation: 10,
   },

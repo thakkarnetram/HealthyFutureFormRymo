@@ -33,9 +33,9 @@ const HomeScreen = ({navigation}) => {
           <Image
             source={require('../Assets/logo.png')}
             style={{
-              width: wp('100%'),
-              height: hp('10%'),
-              alignSelf: 'center',
+              width: wp('80%'),
+              height: hp('7%'),
+              marginHorizontal: wp('7%'),
               marginVertical: wp('10%'),
             }}
           />

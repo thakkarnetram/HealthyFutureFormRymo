@@ -1000,3 +1000,667 @@ export const updateBowelBladderForm2 = bowelBladderForm2 => {
     });
   };
 };
+
+// Form 3
+export const updateNameForm3 = name => {
+  return dispatch => {
+    dispatch({
+      type: 'updateNameForm3',
+      payload: name,
+    });
+  };
+};
+
+export const updateAgeForm3 = age => {
+  return dispatch => {
+    dispatch({
+      type: 'updateAgeForm3',
+      payload: age,
+    });
+  };
+};
+
+export const updateMale = male => {
+  return dispatch => {
+    dispatch({
+      type: 'updateMale',
+      payload: male,
+    });
+  };
+};
+
+export const updateFemale = female => {
+  return dispatch => {
+    dispatch({
+      type: 'updateFemale',
+      payload: female,
+    });
+  };
+};
+
+export const updateOccupationForm3 = occupation => {
+  return dispatch => {
+    dispatch({
+      type: 'updateOccupationForm3',
+      payload: occupation,
+    });
+  };
+};
+
+export const updateReferredBy = referredBy => {
+  return dispatch => {
+    dispatch({
+      type: 'updateReferredBy',
+      payload: referredBy,
+    });
+  };
+};
+
+export const updateChiefComplaintForm3 = chiefComplaint => {
+  return dispatch => {
+    dispatch({
+      type: 'updateChiefComplaintForm3',
+      payload: chiefComplaint,
+    });
+  };
+};
+
+export const updatePainSeverity = painSeverity => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePainSeverity',
+      payload: painSeverity,
+    });
+  };
+};
+
+export const updateHistory = history => {
+  return dispatch => {
+    dispatch({
+      type: 'updateHistory',
+      payload: history,
+    });
+  };
+};
+
+export const updatePain = pain => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePain',
+      payload: pain,
+    });
+  };
+};
+
+export const updateOnSet = onSet => {
+  return dispatch => {
+    dispatch({
+      type: 'updateOnset',
+      payload: onSet,
+    });
+  };
+};
+
+export const updateType = type => {
+  return dispatch => {
+    dispatch({
+      type: 'updateType',
+      payload: type,
+    });
+  };
+};
+
+export const updateAggravatingFactor = aggravatingFactor => {
+  return dispatch => {
+    dispatch({
+      type: 'updateAggravatingFactor',
+      payload: aggravatingFactor,
+    });
+  };
+};
+
+export const updateRelievingFactor = relievingFactor => {
+  return dispatch => {
+    dispatch({
+      type: 'updateRelievingFactor',
+      payload: relievingFactor,
+    });
+  };
+};
+
+export const updateSwelling1 = swelling1 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateSwelling1',
+      payload: swelling1,
+    });
+  };
+};
+
+export const updateDeformity = deformity => {
+  return dispatch => {
+    dispatch({
+      type: 'updateDeformity',
+      payload: deformity,
+    });
+  };
+};
+
+export const updateGaitImbalance = gaitImbalance => {
+  return dispatch => {
+    dispatch({
+      type: 'updateGaitImbalance',
+      payload: gaitImbalance,
+    });
+  };
+};
+
+export const updateScarWound = scarWound => {
+  return dispatch => {
+    dispatch({
+      type: 'updateScarWound',
+      payload: scarWound,
+    });
+  };
+};
+
+export const updateSwelling2 = swelling => {
+  return dispatch => {
+    dispatch({
+      type: 'updateSwelling2',
+      payload: swelling,
+    });
+  };
+};
+
+export const updateOedema = oedema => {
+  return dispatch => {
+    dispatch({
+      type: 'updateOedema',
+      payload: oedema,
+    });
+  };
+};
+
+export const updateTemperature = temeperature => {
+  return dispatch => {
+    dispatch({
+      type: 'updateTemeperature',
+      payload: temeperature,
+    });
+  };
+};
+
+export const updateTenderness = tenderness => {
+  return dispatch => {
+    dispatch({
+      type: 'updateTenderness',
+      payload: tenderness,
+    });
+  };
+};
+
+export const updateWasting = wasting => {
+  return dispatch => {
+    dispatch({
+      type: 'updateWasting',
+      payload: wasting,
+    });
+  };
+};
+
+export const updateCapsularPattern = capsularPattern => {
+  return dispatch => {
+    dispatch({
+      type: 'updateCapsularPattern',
+      payload: capsularPattern,
+    });
+  };
+};
+
+export const updateJointPlay = jointPlay => {
+  return dispatch => {
+    dispatch({
+      type: 'updateJointPlay',
+      payload: jointPlay,
+    });
+  };
+};
+
+export const updateLLD = lld => {
+  return dispatch => {
+    dispatch({
+      type: 'updateLLD',
+      payload: lld,
+    });
+  };
+};
+
+export const updateRemarks2 = remarks => {
+  return dispatch => {
+    dispatch({
+      type: 'updateRemarks2',
+      payload: remarks,
+    });
+  };
+};
+
+export const updateMMT = mmt => {
+  return dispatch => {
+    dispatch({
+      type: 'updateMMT',
+      payload: mmt,
+    });
+  };
+};
+
+export const updateROM = rom => {
+  return dispatch => {
+    dispatch({
+      type: 'updateROM',
+      payload: rom,
+    });
+  };
+};
+
+export const updateInvestigations = investigations => {
+  return dispatch => {
+    dispatch({
+      type: 'updateInvestigations',
+      payload: investigations,
+    });
+  };
+};
+
+export const updateReflexes = reflexes => {
+  return dispatch => {
+    dispatch({
+      type: 'updateReflexes',
+      payload: reflexes,
+    });
+  };
+};
+
+export const updateSensoryExamination = sensoryExamination => {
+  return dispatch => {
+    dispatch({
+      type: 'updateSensoryExamination',
+      payload: sensoryExamination,
+    });
+  };
+};
+
+export const updateDermatomes = dermatomes => {
+  return dispatch => {
+    dispatch({
+      type: 'updateDermatomes',
+      payload: dermatomes,
+    });
+  };
+};
+
+export const updateMyotomes = myotomes => {
+  return dispatch => {
+    dispatch({
+      type: 'updateMyotomes',
+      payload: myotomes,
+    });
+  };
+};
+
+export const updateSpecialTest = specialTest => {
+  return dispatch => {
+    dispatch({
+      type: 'updateSpecialTest',
+      payload: specialTest,
+    });
+  };
+};
+
+export const updateDiagnosis = diagnosis => {
+  return dispatch => {
+    dispatch({
+      type: 'updateDiagnosis',
+      payload: diagnosis,
+    });
+  };
+};
+
+export const updateTreatment = treatment => {
+  return dispatch => {
+    dispatch({
+      type: 'updateTreatment',
+      payload: treatment,
+    });
+  };
+};
+
+
+// form1 
+export const updateClickedImage1F1 = clickedImage1 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage1F1',
+      payload: clickedImage1,
+    });
+  };
+};
+
+export const updateClickedImage2F1 = clickedImage2 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage2F1',
+      payload: clickedImage2,
+    });
+  };
+};
+
+export const updateClickedImage3F1 = clickedImage3 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage3F1',
+      payload: clickedImage3,
+    });
+  };
+};
+
+export const updateClickedImage4F1 = clickedImage4 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage4F1',
+      payload: clickedImage4,
+    });
+  };
+};
+
+export const updateClickedImage5F1 = clickedImage5 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage5F1',
+      payload: clickedImage5,
+    });
+  };
+};
+
+export const updatePickedImage1F1 = pickedImage1 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage1F1',
+      payload: pickedImage1,
+    });
+  };
+};
+
+export const updatePickedImage2F1 = pickedImage2 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage2F1',
+      payload: pickedImage2,
+    });
+  };
+};
+
+export const updatePickedImage3F1 = pickedImage3 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage3F1',
+      payload: pickedImage3,
+    });
+  };
+};
+
+export const updatePickedImage4F1 = pickedImage4 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage4F1',
+      payload: pickedImage4,
+    });
+  };
+};
+
+export const updatePickedImage5F1 = pickedImage5 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage5F1',
+      payload: pickedImage5,
+    });
+  };
+};
+
+// form2
+
+export const updateClickedImage1F2 = clickedImage1 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage1F2',
+      payload: clickedImage1,
+    });
+  };
+};
+
+export const updateClickedImage2F2 = clickedImage2 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage2F2',
+      payload: clickedImage2,
+    });
+  };
+};
+
+export const updateClickedImage3F2 = clickedImage3 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage3F2',
+      payload: clickedImage3,
+    });
+  };
+};
+
+export const updateClickedImage4F2 = clickedImage4 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage4F2',
+      payload: clickedImage4,
+    });
+  };
+};
+
+export const updateClickedImage5F2 = clickedImage5 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage5F2',
+      payload: clickedImage5,
+    });
+  };
+};
+
+export const updatePickedImage1F2 = pickedImage1 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage1F2',
+      payload: pickedImage1,
+    });
+  };
+};
+
+export const updatePickedImage2F2 = pickedImage2 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage2F2',
+      payload: pickedImage2,
+    });
+  };
+};
+
+export const updatePickedImage3F2 = pickedImage3 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage3F2',
+      payload: pickedImage3,
+    });
+  };
+};
+
+export const updatePickedImage4F2 = pickedImage4 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage4F2',
+      payload: pickedImage4,
+    });
+  };
+};
+
+export const updatePickedImage5F2 = pickedImage5 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage5F2',
+      payload: pickedImage5,
+    });
+  };
+};
+
+// form3
+// 5 images handler
+export const updateClickedImage1 = clickedImage1 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage1',
+      payload: clickedImage1,
+    });
+  };
+};
+
+export const updateClickedImage2 = clickedImage2 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage2',
+      payload: clickedImage2,
+    });
+  };
+};
+
+export const updateClickedImage3 = clickedImage3 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage3',
+      payload: clickedImage3,
+    });
+  };
+};
+
+export const updateClickedImage4 = clickedImage4 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage4',
+      payload: clickedImage4,
+    });
+  };
+};
+
+export const updateClickedImage5 = clickedImage5 => {
+  return dispatch => {
+    dispatch({
+      type: 'updateClickedImage5',
+      payload: clickedImage5,
+    });
+  };
+};
+
+export const updatePickedImage1 = pickedImage1 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage1',
+      payload: pickedImage1,
+    });
+  };
+};
+
+export const updatePickedImage2 = pickedImage2 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage2',
+      payload: pickedImage2,
+    });
+  };
+};
+
+export const updatePickedImage3 = pickedImage3 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage3',
+      payload: pickedImage3,
+    });
+  };
+};
+
+export const updatePickedImage4 = pickedImage4 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage4',
+      payload: pickedImage4,
+    });
+  };
+};
+
+export const updatePickedImage5 = pickedImage5 => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePickedImage5',
+      payload: pickedImage5,
+    });
+  };
+};
+
+export const updatePatientImageClicked1 = patientImageClicked => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImageClicked1',
+      payload: patientImageClicked,
+    });
+  };
+};
+
+export const updatePatientImageClicked2 = patientImageClicked => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImageClicked2',
+      payload: patientImageClicked,
+    });
+  };
+};
+
+export const updatePatientImageClicked3 = patientImageClicked => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImageClicked3',
+      payload: patientImageClicked,
+    });
+  };
+};
+
+export const updatePatientImagePicked1 = patientImagePicked => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImagePicked1',
+      payload: patientImagePicked,
+    });
+  };
+};
+
+export const updatePatientImagePicked2 = patientImagePicked => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImagePicked2',
+      payload: patientImagePicked,
+    });
+  };
+};
+
+export const updatePatientImagePicked3 = patientImagePicked => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImagePicked3',
+      payload: patientImagePicked,
+    });
+  };
+};

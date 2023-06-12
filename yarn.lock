@@ -6569,6 +6569,11 @@
   "resolved" "https://registry.npmjs.org/react-native-html-to-pdf/-/react-native-html-to-pdf-0.12.0.tgz"
   "version" "0.12.0"
 
+"react-native-image-picker@^5.4.0":
+  "integrity" "sha512-qtLroIqpHADaR0/XJBD7E0boq+AAVT6wXvY4+pzrHjx12Lx2BhpFZH0rlWc/HIqeWBhZckAIpZ0ndapiGEMdYg=="
+  "resolved" "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-5.4.0.tgz"
+  "version" "5.4.0"
+
 "react-native-immersive@^2.0.0":
   "integrity" "sha512-9TL05nTHN/x9sN1wbUlBoGyzH4NCuZ/7WEEUp5CvOoKuUABvdYosov0O0SAMbm/5J913RRoy98VB6tGNi9lRSw=="
   "resolved" "https://registry.npmjs.org/react-native-immersive/-/react-native-immersive-2.0.0.tgz"
