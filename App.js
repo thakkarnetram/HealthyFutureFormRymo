@@ -13,6 +13,7 @@ import HomeScreen from './src/Screens/HomeScreen';
 import Form1 from './src/Screens/Forms/Form1';
 import Form2 from './src/Screens/Forms/Form2';
 import Form3 from './src/Screens/Forms/Form3';
+import Form4 from './src/Screens/Forms/Form4';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,11 @@ function App() {
           <Stack.Screen
             name="Form3"
             component={Form3}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Form4"
+            component={Form4}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

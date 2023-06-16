@@ -8,6 +8,7 @@ const initialState = {
   referredBy: '',
   chiefComplaint: '',
   painSeverity: '',
+  painSeverityBox: '',
   history: '',
   pain: '',
   onSet: '',
@@ -104,6 +105,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         painSeverity: action.payload,
+      };
+    case 'updatePainSeverityBox':
+      return {
+        ...state,
+        painSeverityBox: action.payload,
       };
     case 'updateHistory':
       return {

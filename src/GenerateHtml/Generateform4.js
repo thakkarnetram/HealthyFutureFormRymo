@@ -16,65 +16,26 @@ import {
 } from 'react-native-responsive-screen';
 import {useSelector} from 'react-redux';
 
-const Generateform1 = () => {
+const Generateform4 = () => {
   const [permission, setPermission] = useState(false);
-  const name = useSelector(state => state.form1.name);
+  const name = useSelector(state => state.form4.name);
+  const date = useSelector(state => state.form4.date);
   const patientImageClicked = useSelector(
-    state => state.form1.patientImageClicked,
+    state => state.form4.patientImageClicked,
   );
   const patientImagePicked = useSelector(
-    state => state.form1.patientImagePicked,
+    state => state.form4.patientImagePicked,
   );
-
-  const clickedImage1 = useSelector(state => state.form1.clickedImage1);
-  const clickedImage2 = useSelector(state => state.form1.clickedImage2);
-  const clickedImage3 = useSelector(state => state.form1.clickedImage3);
-  const clickedImage4 = useSelector(state => state.form1.clickedImage4);
-  const clickedImage5 = useSelector(state => state.form1.clickedImage5);
-  const pickedImage1 = useSelector(state => state.form1.pickedImage1);
-  const pickedImage2 = useSelector(state => state.form1.pickedImage2);
-  const pickedImage3 = useSelector(state => state.form1.pickedImage3);
-  const pickedImage4 = useSelector(state => state.form1.pickedImage4);
-  const pickedImage5 = useSelector(state => state.form1.pickedImage5);
-
-  const handDominance = useSelector(state => state.form1.handDominance);
-  const age = useSelector(state => state.form1.age);
-  const gender = useSelector(state => state.form1.gender);
-  const address = useSelector(state => state.form1.address);
-  const occupation = useSelector(state => state.form1.occupation);
-  const dateOfOccurance = useSelector(state => state.form1.dateOfOccurance);
-  const dateOfAssessment = useSelector(state => state.form1.dateOfAssessment);
-  const diagnosis = useSelector(state => state.form1.diagnosis);
-  const chiefComplaint = useSelector(state => state.form1.chiefComplaint);
-  const history = useSelector(state => state.form1.history);
-  const pastMedical = useSelector(state => state.form1.pastMedical);
-  const investigation = useSelector(state => state.form1.investigation);
-  const attitudeofLimb = useSelector(state => state.form1.attitudeofLimb);
-  const externalAids = useSelector(state => state.form1.externalAids);
-  const gait = useSelector(state => state.form1.gait);
-  const transferAbility = useSelector(state => state.form1.transferAbility);
-  const bedSores = useSelector(state => state.form1.bedSores);
-  const deformity = useSelector(state => state.form1.deformity);
-  const bicepLT = useSelector(state => state.form1.bicepLT);
-  const bicepRT = useSelector(state => state.form1.bicepRT);
-  const tricepsLT = useSelector(state => state.form1.tricepsLT);
-  const tricepsRT = useSelector(state => state.form1.tricepsRT);
-  const brachioradialisLT = useSelector(state => state.form1.brachioradialisLT);
-  const brachioradialisRT = useSelector(state => state.form1.brachioradialisRT);
-  const kneeLT = useSelector(state => state.form1.kneeLT);
-  const kneeRT = useSelector(state => state.form1.kneeRT);
-  const ankleLT = useSelector(state => state.form1.ankleLT);
-  const ankleRT = useSelector(state => state.form1.ankleRT);
-  const bowelBladder = useSelector(state => state.form1.bowelBladder);
-  const balance = useSelector(state => state.form1.balance);
-  const sitting = useSelector(state => state.form1.sitting);
-  const standing = useSelector(state => state.form1.standing);
-  const scoringSystem = useSelector(state => state.form1.scoringSystem);
-  const asiaScale = useSelector(state => state.form1.asiaScale);
-  const longTermGoal = useSelector(state => state.form1.longTermGoal);
-  const shortTermGoal = useSelector(state => state.form1.shortTermGoal);
-  const remarks = useSelector(state => state.form1.remarks);
-  const therapistName = useSelector(state => state.form1.therapistName);
+  const therapist = useSelector(state => state.form4.therapist);
+  const mainTherapist = useSelector(state => state.form4.mainTherapistName);
+  const presentProgress = useSelector(state => state.form4.presentProgress);
+  const presentConcern = useSelector(state => state.form4.presentConcern);
+  const commentAndPlan = useSelector(state => state.form4.commentAndPlan);
+  const planWithPatient = useSelector(state => state.form4.planWithPatient);
+  const videoOfProgressTaken = useSelector(
+    state => state.form4.videoOfProgressTaken,
+  );
+  const therapistName = useSelector(state => state.form4.therapistName);
 
   const generateHtml = () => {
     let html = `
@@ -134,81 +95,42 @@ const Generateform1 = () => {
     </div>
     `;
 
-    // Form 1
     if (
       name ||
-      handDominance ||
-      age ||
+      date ||
       patientImageClicked ||
       patientImagePicked ||
-      gender ||
-      address ||
-      occupation ||
-      dateOfAssessment ||
-      dateOfOccurance ||
-      diagnosis ||
-      chiefComplaint ||
-      history ||
-      pastMedical ||
-      investigation ||
-      attitudeofLimb ||
-      externalAids ||
-      gait ||
-      transferAbility ||
-      bedSores ||
-      deformity ||
-      bicepLT ||
-      bicepRT ||
-      tricepsLT ||
-      tricepsRT ||
-      brachioradialisLT ||
-      brachioradialisRT ||
-      kneeLT ||
-      kneeRT ||
-      ankleLT ||
-      ankleRT ||
-      bowelBladder ||
-      balance ||
-      sitting ||
-      standing ||
-      scoringSystem ||
-      asiaScale ||
-      longTermGoal ||
-      shortTermGoal ||
-      remarks ||
+      therapist ||
+      mainTherapist ||
+      presentProgress ||
+      presentConcern ||
+      commentAndPlan ||
+      planWithPatient ||
+      videoOfProgressTaken ||
       therapistName
     ) {
       html += `
-      <div class="label">
-        <h1><b>Spinal Cord Evaluation Form</b></h1>
-      </div>
-      <div class="value">
-      </div>
-      `;
+        <div class="label">
+          <h1><b>Weekly Review Form</b></h1>
+        </div>
+        <div class="value">
+        </div>
+        `;
     }
 
     if (name) {
       html += `
-        <div class="label">
-            <h1>Name - ${name}</h1>
-        </div>
-        `;
+          <div class="label">
+              <h1>Name - ${name}</h1>
+          </div>
+          `;
     }
-
-    if (handDominance) {
+    if (date) {
       html += `
-            <div class="label">
-                <h1>Hand Dominance - ${handDominance}</h1>
-            </div>
-            `;
-    }
-
-    if (age) {
-      html += `
-        <div class="label">
-            <h1>Age - ${age}</h1>
-        </div>
-        `;
+          <div class="label">
+              <h1>Date - ${date}</h1>
+          </div>
+          `;
     }
 
     html += `
@@ -216,7 +138,7 @@ const Generateform1 = () => {
       ${
         patientImageClicked && patientImagePicked
           ? `
-              <h1>Patient Image</h1>
+          <h1>Patient Image</h1>
              <img src="${patientImageClicked}" alt="Clicked Image" style="max-width: 20%; height: auto;" />
              <img src="${patientImagePicked}" alt="Selected Image" style="max-width: 20%; height: auto;" />`
           : patientImageClicked || patientImagePicked
@@ -229,433 +151,144 @@ const Generateform1 = () => {
       }
     </div>`;
 
-    if (gender) {
+    if (therapist) {
       html += `
+          <div class="label">
+              <h1>Therapist- ${therapist}</h1>
+          </div>
+          `;
+    }
+
+    if (mainTherapist) {
+      html += `
+              <div class="label">
+              <h1>Main Therapist- ${mainTherapist}</h1>
+              </div>
+          `;
+    }
+
+    if (presentProgress) {
+      const lines = presentProgress.split('\n');
+      const bulletPoints = lines
+        .map(line => (line.trim() !== '' ? `<li>${line}</li>` : ''))
+        .join('');
+      if (bulletPoints) {
+        html += `
         <div class="label">
-            <h1>Gender - ${gender}</h1>
+        <h2>Present Progress : ${bulletPoints}</h2>
         </div>
         `;
+      }
     }
 
-    if (address) {
-      html += `
-            <div class="label">
-                <h1>Address - ${address}</h1>
-            </div>
-            `;
-    }
-
-    if (occupation) {
-      html += `
-            <div class="label">
-            <h1>Occupation - ${occupation}</h1>
-            </div>
-        `;
-    }
-
-    const today = new Date();
-    const doeString =
-      dateOfOccurance.getTime() === 0
-        ? '00/00/0000'
-        : dateOfOccurance.toLocaleDateString();
-    if (dateOfOccurance.getTime() !== today.getTime()) {
-      html += `
-    <div class="label">
-    <h2>Date of Occurance: ${doeString}</h2>
-    </div>`;
-    }
-
-    const dobString =
-      dateOfAssessment.getTime() === 0
-        ? '00/00/0000'
-        : dateOfAssessment.toLocaleDateString();
-    if (dateOfAssessment.getTime() !== today.getTime()) {
-      html += `
-      <div class="label">
-      <h2> Date of Assessment : ${dobString} </h2>
-      </div><div class="value dob">
-      </div>
-      `;
-    }
-
-    if (diagnosis) {
-      html += `
+    if (presentConcern) {
+      const lines = presentConcern.split('\n');
+      const bulletPoints = lines
+        .map(line => (line.trim() !== '' ? `<li>${line}</li>` : ''))
+        .join('');
+      if (bulletPoints) {
+        html += `
         <div class="label">
-        <h2> Diagnosis : ${diagnosis} </h2>
-        </div><div class="value dob">
+        <h2>Present Concern : ${bulletPoints}</h2>
         </div>
         `;
+      }
     }
 
-    if (chiefComplaint) {
-      html += `
-            <div class="label">
-            <h2> Chief Complaint : ${chiefComplaint} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (history) {
-      html += `
+    if (commentAndPlan) {
+      const lines = commentAndPlan.split('\n');
+      const bulletPoints = lines
+        .map(line => (line.trim() !== '' ? `<li>${line}</li>` : ''))
+        .join('');
+      if (bulletPoints) {
+        html += `
         <div class="label">
-        <h2> History : ${history} </h2>
-        </div><div class="value dob">
+        <h2>Comment and Plan : ${bulletPoints}</h2>
         </div>
         `;
+      }
     }
 
-    if (pastMedical) {
-      html += `
-                <div class="label">
-                <h2> Past Medical : ${pastMedical} </h2>
-                </div><div class="value dob">
-                </div>
-                `;
+    if (planWithPatient) {
+      const lines = planWithPatient.split('\n');
+      const bulletPoints = lines
+        .map(line => (line.trim() !== '' ? `<li>${line}</li>` : ''))
+        .join('');
+      if (bulletPoints) {
+        html += `
+        <div class="label">
+        <h2>Plan Discussed With Patient : ${bulletPoints}</h2>
+        </div>
+        `;
+      }
     }
 
-    if (investigation) {
+    if (videoOfProgressTaken) {
       html += `
         <div class="label">
-        <h2> Investigation : ${investigation} </h2>
-        </div><div class="value dob">
+        <h2>Video Of Progress Taken : ${videoOfProgressTaken}</h2>
         </div>
         `;
     }
 
     html += `
-    <div class="label">
-      ${
-        clickedImage1 && pickedImage1
-          ? `<h2> Investigation  </h2>
-             <img src="${clickedImage1}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
-             <img src="${pickedImage1}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
-          : clickedImage1 || pickedImage1
-          ? `<h2> Investigation  </h2>
-             <img src="${
-               clickedImage1 || pickedImage1
-             }" alt="Image" style="max-width: 100%; height: auto;" />`
-          : ''
-      }
-    </div>`;
-
-    html += `
-    <div class="label">
-      ${
-        clickedImage2 && pickedImage2
-          ? `<h2> Investigation  </h2>
-             <img src="${clickedImage2}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
-             <img src="${pickedImage2}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
-          : clickedImage2 || pickedImage2
-          ? `<h2> Investigation  </h2>
-             <img src="${
-               clickedImage2 || pickedImage2
-             }" alt="Image" style="max-width: 100%; height: auto;" />`
-          : ''
-      }
-    </div>`;
-
-    html += `
-    <div class="label">
-      ${
-        clickedImage3 && pickedImage3
-          ? `<h2> Investigation  </h2>
-             <img src="${clickedImage3}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
-             <img src="${pickedImage3}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
-          : clickedImage3 || pickedImage3
-          ? `<h2> Investigation  </h2>
-             <img src="${
-               clickedImage3 || pickedImage3
-             }" alt="Image" style="max-width: 100%; height: auto;" />`
-          : ''
-      }
-    </div>`;
-
-    html += `
-    <div class="label">
-      ${
-        clickedImage4 && pickedImage4
-          ? `<h2> Investigation  </h2>
-             <img src="${clickedImage4}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
-             <img src="${pickedImage4}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
-          : clickedImage4 || pickedImage4
-          ? `<h2> Investigation  </h2>
-             <img src="${
-               clickedImage4 || pickedImage4
-             }" alt="Image" style="max-width: 100%; height: auto;" />`
-          : ''
-      }
-    </div>`;
-
-    html += `
-    <div class="label">
-      ${
-        clickedImage5 && pickedImage5
-          ? `<h2> Investigation  </h2>
-             <img src="${clickedImage5}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
-             <img src="${pickedImage5}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
-          : clickedImage5 || pickedImage5
-          ? `<h2> Investigation  </h2>
-             <img src="${
-               clickedImage5 || pickedImage5
-             }" alt="Image" style="max-width: 100%; height: auto;" />`
-          : ''
-      }
-    </div>`;
-
-    if (attitudeofLimb) {
-      html += `
-        <div class="label">
-        <h2> Attitude of Limb : ${attitudeofLimb} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (externalAids) {
-      html += `
-            <div class="label">
-            <h2> External Aids : ${externalAids} </h2>
-            </div><div class="value dob">
+    <footer id="footer">
+    <table>
+      <tr>
+        <td>
+          <div class="d-flex flex-column">
+          <img id="image"
+          alt=""
+           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAA1BMVEX///+nxBvIAAAAR0lEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBgxUwAAU+n3sIAAAAASUVORK5CYII=" />
+          </div>
+          <h2>Patient Sign </h2>
+        </td>
+        <td>
+          <div class="d-flex flex-column">
+          <img id="image"
+          alt=""
+           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAA1BMVEX///+nxBvIAAAAR0lEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBgxUwAAU+n3sIAAAAASUVORK5CYII=" />
+            <div style="text-align:right;">
+             <h2>Therapist Name : ${therapistName}</h2>
             </div>
-            `;
-    }
-
-    if (gait) {
-      html += `
-        <div class="label">
-        <h2> Gait : ${gait} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (transferAbility) {
-      html += `
-            <div class="label">
-            <h2> Transfer Ability : ${transferAbility} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (bedSores) {
-      html += `
-            <div class="label">
-            <h2> Bed Sores : ${bedSores} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (deformity) {
-      html += `
-        <div class="label">
-        <h2> Deformity : ${deformity} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (
-      bicepLT ||
-      bicepRT ||
-      tricepsLT ||
-      tricepsRT ||
-      brachioradialisLT ||
-      brachioradialisRT ||
-      kneeLT ||
-      kneeRT ||
-      ankleLT ||
-      ankleRT ||
-      bowelBladder ||
-      balance ||
-      sitting ||
-      standing
-    ) {
-      html += `
-        <div class="label">
-          <h1><b>On Examination</b></h1>
-        </div>
-        <div class="value">
-        </div>
-        `;
-    }
-
-    if (bicepLT) {
-      html += `
-        <div class="label">
-        <h2> Bicep Left : ${bicepLT} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (bicepRT) {
-      html += `
-            <div class="label">
-            <h2> Bicep Right : ${bicepRT} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (tricepsLT) {
-      html += `
-        <div class="label">
-        <h2> Triceps Left : ${tricepsLT} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (tricepsRT) {
-      html += `
-                <div class="label">
-                <h2> Triceps Right : ${tricepsRT} </h2>
-                </div><div class="value dob">
-                </div>
-                `;
-    }
-
-    if (brachioradialisLT) {
-      html += `
-        <div class="label">
-        <h2> Brachioradialis Left : ${brachioradialisLT} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (brachioradialisRT) {
-      html += `
-                    <div class="label">
-                    <h2> Brachioradialis Right : ${brachioradialisRT} </h2>
-                    </div><div class="value dob">
-                    </div>
-                    `;
-    }
-
-    if (kneeLT) {
-      html += `
-        <div class="label">
-        <h2> Knee Left : ${kneeLT} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (kneeRT) {
-      html += `
-            <div class="label">
-            <h2> Knee Right : ${kneeRT} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (ankleLT) {
-      html += `
-            <div class="label">
-            <h2> Ankle Left : ${ankleLT} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (ankleRT) {
-      html += `
-                <div class="label">
-                <h2> Ankle Right : ${ankleRT} </h2>
-                </div><div class="value dob">
-                </div>
-                `;
-    }
-
-    if (bowelBladder) {
-      html += `
-        <div class="label">
-        <h2> Bowel Bladder : ${bowelBladder} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (balance) {
-      html += `
-        <div class="label">
-        <h2> Balance : ${balance} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (sitting) {
-      html += `
-            <div class="label">
-            <h2> Sitting : ${sitting} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (standing) {
-      html += `
-        <div class="label">
-        <h2> Standing : ${standing} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (scoringSystem) {
-      html += `
-            <div class="label">
-            <h2> Scoring System : ${scoringSystem} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (asiaScale) {
-      html += `
-                <div class="label">
-                <h2> Asia Scale : ${asiaScale} </h2>
-                </div><div class="value dob">
-                </div>
-                `;
-    }
-
-    if (longTermGoal) {
-      html += `
-        <div class="label">
-        <h2> Long Term Goal : ${longTermGoal} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (shortTermGoal) {
-      html += `
-        <div class="label">
-        <h2> Short Term Goal : ${shortTermGoal} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (remarks) {
-      html += `
-        <div class="label">
-        <h2> Remarks : ${remarks} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
+          </div>
+        </td>
+      </tr>
+    </table>
+  </footer>
+    
+    `;
 
     return html;
   };
 
+  const handleSharePdf = async () => {
+    try {
+      const htmlContent = generateHtml();
+
+      // Create the options for the PDF conversion
+      const options = {
+        html: htmlContent,
+        fileName: `${name}_${new Date().toISOString().slice(0, 10)}`,
+        directory: 'PDFReports',
+      };
+
+      // Convert HTML to PDF and save to device
+      const file = await RNHTMLtoPDF.convert(options);
+
+      // Share the PDF file using the Share module
+      await Share.open({
+        title: 'Share PDF',
+        url: `file://${file.filePath}`,
+        type: 'application/pdf',
+        message: 'Patient Report Ready',
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Request permission
   async function requestStoragePermission() {
     try {
       const granted = await PermissionsAndroid.request(
@@ -713,31 +346,6 @@ const Generateform1 = () => {
     }
   };
 
-  const handleSharePdf = async () => {
-    try {
-      const htmlContent = generateHtml();
-
-      // Create the options for the PDF conversion
-      const options = {
-        html: htmlContent,
-        fileName: `${name}_${new Date().toISOString().slice(0, 10)}`,
-        directory: 'PDFReports',
-      };
-
-      // Convert HTML to PDF and save to device
-      const file = await RNHTMLtoPDF.convert(options);
-
-      // Share the PDF file using the Share module
-      await Share.open({
-        title: 'Share PDF',
-        url: `file://${file.filePath}`,
-        type: 'application/pdf',
-        message: 'Patient Report Ready',
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
   return (
     <SafeAreaView>
       <View style={styles.inputFieldContainerSHARE}>
@@ -789,4 +397,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Generateform1;
+export default Generateform4;

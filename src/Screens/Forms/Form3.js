@@ -55,6 +55,7 @@ const Form3 = () => {
   const painSeverity = useSelector(state => state.form3.painSeverity);
   const history = useSelector(state => state.form3.history);
   const pain = useSelector(state => state.form3.pain);
+  const painSeverityBox = useSelector(state => state.form3.painSeverityBox);
   const onSet = useSelector(state => state.form3.onSet);
   const type = useSelector(state => state.form3.type);
   const aggravatingFactor = useSelector(state => state.form3.aggravatingFactor);
@@ -125,6 +126,9 @@ const Form3 = () => {
   };
   const painHandler = pain => {
     actions.updatePain(pain);
+  };
+  const painSeverityBoxHandler = painSeverityBox => {
+    actions.updatePainSeverityBox(painSeverityBox);
   };
   const onSetHandler = onSet => {
     actions.updateOnSet(onSet);
@@ -607,6 +611,16 @@ const Form3 = () => {
           </View>
           <View style={styles.inputTextContainer}>
             <TextInput
+              value={painSeverityBox}
+              onChangeText={painSeverityBoxHandler}
+              keyboardType="ascii-capable"
+              placeholder="Pain Severity Text "
+              placeholderTextColor="#FFFFFF"
+              style={styles.inputText}
+            />
+          </View>
+          <View style={styles.inputTextContainer}>
+            <TextInput
               value={history}
               onChangeText={historyHandler}
               keyboardType="ascii-capable"
@@ -620,7 +634,7 @@ const Form3 = () => {
               value={pain}
               onChangeText={painHandler}
               keyboardType="ascii-capable"
-              placeholder="Pain "
+              placeholder="Pain Area "
               placeholderTextColor="#FFFFFF"
               style={styles.inputText}
             />

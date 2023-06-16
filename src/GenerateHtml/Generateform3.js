@@ -42,6 +42,7 @@ const Generateform3 = () => {
   const gaitImbalance = useSelector(state => state.form3.gaitImbalance);
   const scarWound = useSelector(state => state.form3.scarWound);
   const swelling2 = useSelector(state => state.form3.swelling2);
+  const painSeverityBox = useSelector(state => state.form3.painSeverityBox);
   const oedema = useSelector(state => state.form3.oedema);
   const temperature = useSelector(state => state.form3.temperature);
   const tenderness = useSelector(state => state.form3.tenderness);
@@ -144,6 +145,7 @@ const Generateform3 = () => {
       painSeverity ||
       history ||
       pain ||
+      painSeverityBox ||
       onSet ||
       type ||
       aggravatingFactor ||
@@ -202,14 +204,14 @@ const Generateform3 = () => {
         patientImageClicked && patientImagePicked
           ? `
           <h1>Patient Image</h1>
-             <img src="${patientImageClicked}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
-             <img src="${patientImagePicked}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
+             <img src="${patientImageClicked}" alt="Clicked Image" style="max-width: 20%; height: auto;" />
+             <img src="${patientImagePicked}" alt="Selected Image" style="max-width: 20%; height: auto;" />`
           : patientImageClicked || patientImagePicked
           ? `
           <h1>Patient Image</h1>
              <img src="${
                patientImageClicked || patientImagePicked
-             }" alt="Image" style="max-width: 100%; height: auto;" />`
+             }" alt="Image" style="max-width: 20%; height: auto;" />`
           : ''
       }
     </div>`;
@@ -260,6 +262,14 @@ const Generateform3 = () => {
     `;
     }
 
+    if (painSeverityBox) {
+      html += `
+      <div class="label">
+      <h1>Pain Severity Text - ${painSeverityBox}</h1>
+      </div>
+  `;
+    }
+
     if (history) {
       html += `
       <div class="label">
@@ -271,7 +281,7 @@ const Generateform3 = () => {
     if (pain) {
       html += `
       <div class="label">
-      <h1>Pain - ${pain}</h1>
+      <h1>Pain Area - ${pain}</h1>
       </div>
     `;
     }
@@ -545,6 +555,22 @@ const Generateform3 = () => {
     `;
     }
 
+    if (dermatomes) {
+      html += `
+      <div class="label">
+      <h1>Dermatomes - ${dermatomes}</h1>
+      </div>
+    `;
+    }
+
+    if (myotomes) {
+      html += `
+      <div class="label">
+      <h1>Myotomes - ${myotomes}</h1>
+      </div>
+    `;
+    }
+
     if (diagnosis) {
       html += `
       <div class="label">
@@ -573,22 +599,6 @@ const Generateform3 = () => {
       html += `
       <div class="label">
       <h1>Sensory Examination - ${sensoryExamination}</h1>
-      </div>
-    `;
-    }
-
-    if (dermatomes) {
-      html += `
-      <div class="label">
-      <h1>Dermatomes - ${dermatomes}</h1>
-      </div>
-    `;
-    }
-
-    if (myotomes) {
-      html += `
-      <div class="label">
-      <h1>Myotomes - ${myotomes}</h1>
       </div>
     `;
     }

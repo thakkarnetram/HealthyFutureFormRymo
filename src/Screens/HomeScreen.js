@@ -66,6 +66,13 @@ const HomeScreen = ({navigation}) => {
               Musculoskeletal Assessment Form
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonStyle}
+            onPress={() => {
+              navigation.navigate('Form4');
+            }}>
+            <Text style={styles.buttonTextStyle}>Weekly Review Form</Text>
+          </TouchableOpacity>
           <Image
             source={require('../Assets/rymo.png')}
             style={{
@@ -96,7 +103,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     marginHorizontal: wp('20%'),
-    marginVertical: wp('5%'),
+    marginVertical: wp('3%'),
     borderRadius: 20,
     backgroundColor: '#2353B3',
     height: hp('6%'),

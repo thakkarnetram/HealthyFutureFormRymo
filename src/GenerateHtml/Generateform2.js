@@ -27,7 +27,6 @@ const Generateform2 = () => {
   const patientImagePicked = useSelector(
     state => state.form2.patientImagePicked,
   );
-  
   const clickedImage1 = useSelector(state => state.form2.clickedImage1);
   const clickedImage2 = useSelector(state => state.form2.clickedImage2);
   const clickedImage3 = useSelector(state => state.form2.clickedImage3);
@@ -295,14 +294,14 @@ const Generateform2 = () => {
         patientImageClicked && patientImagePicked
           ? `
           <h1>Patient Image</h1>
-             <img src="${patientImageClicked}" alt="Clicked Image" style="max-width: 100%; height: auto;" />
-             <img src="${patientImagePicked}" alt="Selected Image" style="max-width: 100%; height: auto;" />`
+             <img src="${patientImageClicked}" alt="Clicked Image" style="max-width: 20%; height: auto;" />
+             <img src="${patientImagePicked}" alt="Selected Image" style="max-width: 20%; height: auto;" />`
           : patientImageClicked || patientImagePicked
           ? `
           <h1>Patient Image</h1>
              <img src="${
                patientImageClicked || patientImagePicked
-             }" alt="Image" style="max-width: 100%; height: auto;" />`
+             }" alt="Image" style="max-width: 20%; height: auto;" />`
           : ''
       }
     </div>`;
@@ -532,6 +531,71 @@ const Generateform2 = () => {
         <div class="label">
         <h2> Deformity : ${deformity} </h2>
         </div><div class="value dob">
+        </div>
+        `;
+    }
+
+    if (
+      shoulderFlexorLT ||
+      shoulderExtensorLT ||
+      shoulderAbductorLT ||
+      shoulderAdductorLT ||
+      shoulderFlexorRT ||
+      shoulderExtensorRT ||
+      shoulderAbductorRT ||
+      shoulderAdductorRT ||
+      shoulderExtRotLT ||
+      shoulderExtRotRT ||
+      shoulderIntRotLT ||
+      shoulderIntRotRT ||
+      elbowFlexorLT ||
+      elbowExtensorLT ||
+      elbowFlexorRT ||
+      elbowExtensorRT ||
+      wristFlexorLT ||
+      wristExtensorLT ||
+      wristFlexorRT ||
+      wristExtensorRT ||
+      hipFlexorLT ||
+      hipExtensorLT ||
+      hipAbductorLT ||
+      hipAdductorLT ||
+      hipExtRotLT ||
+      hipIntRotLT ||
+      hipFlexorRT ||
+      hipExtensorRT ||
+      hipAbductorRT ||
+      hipAdductorRT ||
+      hipExtRotRT ||
+      hipIntRotRT ||
+      kneeFlexorLT ||
+      kneeExtensorLT ||
+      kneeFlexorRT ||
+      kneeExtensorRT ||
+      plantarFlexorLT ||
+      plantarFlexorRT ||
+      dorsiflexorLT ||
+      dorsiflexorRT ||
+      shoulderLT ||
+      shoulderRT ||
+      elbowLT ||
+      elbowRT ||
+      wristLT ||
+      wristRT ||
+      hipLT ||
+      hipRT ||
+      ankleRT ||
+      kneeLT ||
+      kneeRT ||
+      ankleLT ||
+      ankleRT ||
+      bowelBladder
+    ) {
+      html += `
+        <div class="label">
+          <h1><b>On Examination</b></h1>
+        </div>
+        <div class="value">
         </div>
         `;
     }

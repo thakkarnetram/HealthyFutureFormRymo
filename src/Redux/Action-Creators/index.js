@@ -1074,6 +1074,15 @@ export const updatePainSeverity = painSeverity => {
   };
 };
 
+export const updatePainSeverityBox = painSeverityBox => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePainSeverityBox',
+      payload: painSeverityBox,
+    });
+  };
+};
+
 export const updateHistory = history => {
   return dispatch => {
     dispatch({
@@ -1095,7 +1104,7 @@ export const updatePain = pain => {
 export const updateOnSet = onSet => {
   return dispatch => {
     dispatch({
-      type: 'updateOnset',
+      type: 'updateOnSet',
       payload: onSet,
     });
   };
@@ -1335,8 +1344,7 @@ export const updateTreatment = treatment => {
   };
 };
 
-
-// form1 
+// form1
 export const updateClickedImage1F1 = clickedImage1 => {
   return dispatch => {
     dispatch({
@@ -1661,6 +1669,115 @@ export const updatePatientImagePicked3 = patientImagePicked => {
     dispatch({
       type: 'updatePatientImagePicked3',
       payload: patientImagePicked,
+    });
+  };
+};
+
+// form 4
+export const updateNameForm4 = name => {
+  return dispatch => {
+    dispatch({
+      type: 'updateNameForm4',
+      payload: name,
+    });
+  };
+};
+
+export const updatePatientImageClicked4 = patientImageClicked => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImageClicked4',
+      payload: patientImageClicked,
+    });
+  };
+};
+
+export const updatePatientImagePicked4 = patientImagePicked => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImagePicked4',
+      payload: patientImagePicked,
+    });
+  };
+};
+
+export const updateDate = date => {
+  return dispatch => {
+    dispatch({
+      type: 'updateDate',
+      payload: date,
+    });
+  };
+};
+
+export const updateTherapist = therapist => {
+  return dispatch => {
+    dispatch({
+      type: 'updateTherapist',
+      payload: therapist,
+    });
+  };
+};
+
+export const updateMainTherapistName = mainTherapistName => {
+  return dispatch => {
+    dispatch({
+      type: 'updateMainTherapistName',
+      payload: mainTherapistName,
+    });
+  };
+};
+
+export const updatePresentProgress = presentProgress => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePresentProgress',
+      payload: presentProgress,
+    });
+  };
+};
+
+export const updatePresentConcern = presentConcern => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePresentConcern',
+      payload: presentConcern,
+    });
+  };
+};
+
+export const updateCommentAndPlan = commentAndPlan => {
+  return dispatch => {
+    dispatch({
+      type: 'updateCommentAndPlan',
+      payload: commentAndPlan,
+    });
+  };
+};
+
+export const updatePlanWithPatient = planWithPatient => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePlanWithPatient',
+      payload: planWithPatient,
+    });
+  };
+};
+
+export const updateVideoOfProgressTaken = videoOfProgressTaken => {
+  return dispatch => {
+    dispatch({
+      type: 'updateVideoOfProgressTaken',
+      payload: videoOfProgressTaken,
+    });
+  };
+};
+
+export const updateTherapistName = therapistName => {
+  return dispatch => {
+    dispatch({
+      type: 'updateTherapistName',
+      payload: therapistName,
     });
   };
 };
