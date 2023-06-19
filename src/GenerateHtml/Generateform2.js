@@ -575,25 +575,12 @@ const Generateform2 = () => {
       plantarFlexorLT ||
       plantarFlexorRT ||
       dorsiflexorLT ||
-      dorsiflexorRT ||
-      shoulderLT ||
-      shoulderRT ||
-      elbowLT ||
-      elbowRT ||
-      wristLT ||
-      wristRT ||
-      hipLT ||
-      hipRT ||
-      ankleRT ||
-      kneeLT ||
-      kneeRT ||
-      ankleLT ||
-      ankleRT ||
-      bowelBladder
+      dorsiflexorRT
     ) {
       html += `
         <div class="label">
           <h1><b>On Examination</b></h1>
+          <h2>Tone</h2>
         </div>
         <div class="value">
         </div>
@@ -957,6 +944,32 @@ const Generateform2 = () => {
       </div><div class="value dob">
       </div>
       `;
+    }
+
+    if (
+      shoulderLT ||
+      shoulderRT ||
+      elbowLT ||
+      elbowRT ||
+      wristLT ||
+      wristRT ||
+      hipLT ||
+      hipRT ||
+      ankleRT ||
+      kneeLT ||
+      kneeRT ||
+      ankleLT ||
+      ankleRT ||
+      bowelBladder
+    ) {
+      html += `
+        <div class="label">
+          <h1><b>On Examination</b></h1>
+          <h2>VCG</h2>
+        </div>
+        <div class="value">
+        </div>
+        `;
     }
 
     if (shoulderLT) {

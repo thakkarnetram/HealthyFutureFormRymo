@@ -531,6 +531,14 @@ const Generateform3 = () => {
     `;
     }
 
+    if (reflexes) {
+      html += `
+      <div class="label">
+      <h1>Reflexes - ${reflexes}</h1>
+      </div>
+    `;
+    }
+
     if (lld) {
       html += `
       <div class="label">
@@ -539,18 +547,10 @@ const Generateform3 = () => {
     `;
     }
 
-    if (investigations) {
+    if (sensoryExamination) {
       html += `
       <div class="label">
-      <h1>Investigations - ${investigations}</h1>
-      </div>
-    `;
-    }
-
-    if (specialTest) {
-      html += `
-      <div class="label">
-      <h1>Special Test - ${specialTest}</h1>
+      <h1>Sensory Examination - ${sensoryExamination}</h1>
       </div>
     `;
     }
@@ -571,6 +571,22 @@ const Generateform3 = () => {
     `;
     }
 
+    if (investigations) {
+      html += `
+      <div class="label">
+      <h1>Investigations - ${investigations}</h1>
+      </div>
+    `;
+    }
+
+    if (specialTest) {
+      html += `
+      <div class="label">
+      <h1>Special Test - ${specialTest}</h1>
+      </div>
+    `;
+    }
+
     if (diagnosis) {
       html += `
       <div class="label">
@@ -583,22 +599,6 @@ const Generateform3 = () => {
       html += `
       <div class="label">
       <h1>Treatment - ${treatment}</h1>
-      </div>
-    `;
-    }
-
-    if (reflexes) {
-      html += `
-      <div class="label">
-      <h1>Reflexes - ${reflexes}</h1>
-      </div>
-    `;
-    }
-
-    if (sensoryExamination) {
-      html += `
-      <div class="label">
-      <h1>Sensory Examination - ${sensoryExamination}</h1>
       </div>
     `;
     }
