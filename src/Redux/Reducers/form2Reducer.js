@@ -19,59 +19,8 @@ const initialState = {
   transferAbility: '',
   bedSores: '',
   deformity: '',
-  shoulderFlexorLT: '',
-  shoulderFlexorRT: '',
-  shoulderExtensorLT: '',
-  shoulderExtensorRT: '',
-  shoulderAbductorLT: '',
-  shoulderAbductorRT: '',
-  shoulderAdductorLT: '',
-  shoulderAdductorRT: '',
-  shoulderExtRotLT: '',
-  shoulderExtRotRT: '',
-  shoulderIntRotLT: '',
-  shoulderIntRotRT: '',
-  elbowFlexorLT: '',
-  elbowFlexorRT: '',
-  elbowExtensorLT: '',
-  elbowExtensorRT: '',
-  wristFlexorLT: '',
-  wristFlexorRT: '',
-  wristExtensorLT: '',
-  wristExtensorRT: '',
-  hipFlexorLT: '',
-  hipFlexorRT: '',
-  hipExtensorLT: '',
-  hipExtensorRT: '',
-  hipAbductorLT: '',
-  hipAbductorRT: '',
-  hipAdductorLT: '',
-  hipAdductorRT: '',
-  hipExtRotLT: '',
-  hipExtRotRT: '',
-  hipIntRotLT: '',
-  hipIntRotRT: '',
-  kneeFlexorLT: '',
-  kneeFlexorRT: '',
-  kneeExtensorLT: '',
-  kneeExtensorRT: '',
-  plantarFlexorLT: '',
-  plantarFlexorRT: '',
-  dorsiflexorLT: '',
-  dorsiflexorRT: '',
-  shoulderLT: '',
-  shoulderRT: '',
-  elbowLT: '',
-  elbowRT: '',
-  wristLT: '',
-  wristRT: '',
-  hipLT: '',
-  hipRT: '',
-  kneeLT: '',
-  kneeRT: '',
-  ankleLT: '',
-  ankleRT: '',
-  bowelBladder: '',
+  vcgComs: '',
+  toneComs: '',
   patientImageClicked: '',
   patientImagePicked: '',
   clickedImage1: '',
@@ -113,56 +62,66 @@ const reducer = (state = initialState, action) => {
         ...state,
         patientImagePicked: action.payload,
       };
-      case 'updateClickedImage1F2':
-        return {
-          ...state,
-          clickedImage1: action.payload,
-        };
-      case 'updateClickedImage2F2':
-        return {
-          ...state,
-          clickedImage2: action.payload,
-        };
-      case 'updateClickedImage3F2':
-        return {
-          ...state,
-          clickedImage3: action.payload,
-        };
-      case 'updateClickedImage4F2':
-        return {
-          ...state,
-          clickedImage4: action.payload,
-        };
-      case 'updateClickedImage5F2':
-        return {
-          ...state,
-          clickedImage5: action.payload,
-        };
-      case 'updatePickedImage1F2':
-        return {
-          ...state,
-          pickedImage1: action.payload,
-        };
-      case 'updatePickedImage2F2':
-        return {
-          ...state,
-          pickedImage2: action.payload,
-        };
-      case 'updatePickedImage3F2':
-        return {
-          ...state,
-          pickedImage3: action.payload,
-        };
-      case 'updatePickedImage4F2':
-        return {
-          ...state,
-          pickedImage4: action.payload,
-        };
-      case 'updatePickedImage5F2':
-        return {
-          ...state,
-          pickedImage5: action.payload,
-        };
+    case 'updateVcgComs':
+      return {
+        ...state,
+        vcgComs: action.payload,
+      };
+    case 'updateToneComs':
+      return {
+        ...state,
+        toneComs: action.payload,
+      };
+    case 'updateClickedImage1F2':
+      return {
+        ...state,
+        clickedImage1: action.payload,
+      };
+    case 'updateClickedImage2F2':
+      return {
+        ...state,
+        clickedImage2: action.payload,
+      };
+    case 'updateClickedImage3F2':
+      return {
+        ...state,
+        clickedImage3: action.payload,
+      };
+    case 'updateClickedImage4F2':
+      return {
+        ...state,
+        clickedImage4: action.payload,
+      };
+    case 'updateClickedImage5F2':
+      return {
+        ...state,
+        clickedImage5: action.payload,
+      };
+    case 'updatePickedImage1F2':
+      return {
+        ...state,
+        pickedImage1: action.payload,
+      };
+    case 'updatePickedImage2F2':
+      return {
+        ...state,
+        pickedImage2: action.payload,
+      };
+    case 'updatePickedImage3F2':
+      return {
+        ...state,
+        pickedImage3: action.payload,
+      };
+    case 'updatePickedImage4F2':
+      return {
+        ...state,
+        pickedImage4: action.payload,
+      };
+    case 'updatePickedImage5F2':
+      return {
+        ...state,
+        pickedImage5: action.payload,
+      };
     case 'updateGenderForm2':
       return {
         ...state,
@@ -242,271 +201,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         deformity: action.payload,
-      };
-    case 'updateShoulderFlexorLT':
-      return {
-        ...state,
-        shoulderFlexorLT: action.payload,
-      };
-    case 'updateShoulderFlexorRT':
-      return {
-        ...state,
-        shoulderFlexorRT: action.payload,
-      };
-    case 'updateShoulderExtensorLT':
-      return {
-        ...state,
-        shoulderExtensorLT: action.payload,
-      };
-    case 'updateShoulderExtensorRT':
-      return {
-        ...state,
-        shoulderExtensorRT: action.payload,
-      };
-    case 'updateShoulderAbductorLT':
-      return {
-        ...state,
-        shoulderAbductorLT: action.payload,
-      };
-    case 'updateShoulderAbductorRT':
-      return {
-        ...state,
-        shoulderAbductorRT: action.payload,
-      };
-    case 'updateShoulderAdductorLT':
-      return {
-        ...state,
-        shoulderAdductorLT: action.payload,
-      };
-    case 'updateShoulderAdductorRT':
-      return {
-        ...state,
-        shoulderAdductorRT: action.payload,
-      };
-    case 'updateShoulderExtRotLT':
-      return {
-        ...state,
-        shoulderExtRotLT: action.payload,
-      };
-    case 'updateShoulderExtRotRT':
-      return {
-        ...state,
-        shoulderExtRotRT: action.payload,
-      };
-    case 'updateShoulderIntRotLT':
-      return {
-        ...state,
-        shoulderIntRotLT: action.payload,
-      };
-    case 'updateShoulderIntRotRT':
-      return {
-        ...state,
-        shoulderIntRotRT: action.payload,
-      };
-    case 'updateElbowFlexorLT':
-      return {
-        ...state,
-        elbowFlexorLT: action.payload,
-      };
-    case 'updateElbowFlexorRT':
-      return {
-        ...state,
-        elbowFlexorRT: action.payload,
-      };
-    case 'updateElbowExtensorLT':
-      return {
-        ...state,
-        elbowExtensorLT: action.payload,
-      };
-    case 'updateElbowExtensorRT':
-      return {
-        ...state,
-        elbowExtensorRT: action.payload,
-      };
-    case 'updateWristFlexorLT':
-      return {
-        ...state,
-        wristFlexorLT: action.payload,
-      };
-    case 'updateWristFlexorRT':
-      return {
-        ...state,
-        wristFlexorRT: action.payload,
-      };
-    case 'updateWristExtensorLT':
-      return {
-        ...state,
-        wristExtensorLT: action.payload,
-      };
-    case 'updateWristExtensorRT':
-      return {
-        ...state,
-        wristExtensorRT: action.payload,
-      };
-    case 'updateHipFlexorLT':
-      return {
-        ...state,
-        hipFlexorLT: action.payload,
-      };
-    case 'updateHipFlexorRT':
-      return {
-        ...state,
-        hipFlexorRT: action.payload,
-      };
-    case 'updateHipExtensorLT':
-      return {
-        ...state,
-        hipExtensorLT: action.payload,
-      };
-    case 'updateHipExtensorRT':
-      return {
-        ...state,
-        hipExtensorRT: action.payload,
-      };
-    case 'updateHipAbductorLT':
-      return {
-        ...state,
-        hipAbductorLT: action.payload,
-      };
-    case 'updateHipAbductorRT':
-      return {
-        ...state,
-        hipAbductorRT: action.payload,
-      };
-    case 'updateHipAdductorLT':
-      return {
-        ...state,
-        hipAdductorLT: action.payload,
-      };
-    case 'updateHipAdductorRT':
-      return {
-        ...state,
-        hipAdductorRT: action.payload,
-      };
-    case 'updateHipExtRotLT':
-      return {
-        ...state,
-        hipExtRotLT: action.payload,
-      };
-    case 'updateHipExtRotRT':
-      return {
-        ...state,
-        hipExtRotRT: action.payload,
-      };
-    case 'updateHipIntRotLT':
-      return {
-        ...state,
-        hipIntRotLT: action.payload,
-      };
-    case 'updateHipIntRotRT':
-      return {
-        ...state,
-        hipIntRotRT: action.payload,
-      };
-    case 'updateKneeFlexorLT':
-      return {
-        ...state,
-        kneeFlexorLT: action.payload,
-      };
-    case 'updateKneeFlexorRT':
-      return {
-        ...state,
-        kneeFlexorRT: action.payload,
-      };
-    case 'updateKneeExtensorLT':
-      return {
-        ...state,
-        kneeExtensorLT: action.payload,
-      };
-    case 'updateKneeExtensorRT':
-      return {
-        ...state,
-        kneeExtensorRT: action.payload,
-      };
-    case 'updatePlantarFlexorLT':
-      return {
-        ...state,
-        plantarFlexorLT: action.payload,
-      };
-    case 'updatePlantarFlexorRT':
-      return {
-        ...state,
-        plantarFlexorRT: action.payload,
-      };
-    case 'updateDorsiFlexorLT':
-      return {
-        ...state,
-        dorsiflexorLT: action.payload,
-      };
-    case 'updateDorsiFlexorRT':
-      return {
-        ...state,
-        dorsiflexorRT: action.payload,
-      };
-    case 'updateShoulderLT':
-      return {
-        ...state,
-        shoulderLT: action.payload,
-      };
-    case 'updateShoulderRT':
-      return {
-        ...state,
-        shoulderRT: action.payload,
-      };
-    case 'updateElbowLT':
-      return {
-        ...state,
-        elbowLT: action.payload,
-      };
-    case 'updateElbowRT':
-      return {
-        ...state,
-        elbowRT: action.payload,
-      };
-    case 'updateWristLT':
-      return {
-        ...state,
-        wristLT: action.payload,
-      };
-    case 'updateWristRT':
-      return {
-        ...state,
-        wristRT: action.payload,
-      };
-    case 'updateHipLT':
-      return {
-        ...state,
-        hipLT: action.payload,
-      };
-    case 'updateHipRT':
-      return {
-        ...state,
-        hipRT: action.payload,
-      };
-    case 'updateKneeLT':
-      return {
-        ...state,
-        kneeLT: action.payload,
-      };
-    case 'updateKneeRT':
-      return {
-        ...state,
-        kneeRT: action.payload,
-      };
-    case 'updateAnkleLT':
-      return {
-        ...state,
-        ankleLT: action.payload,
-      };
-    case 'updateAnkleRT':
-      return {
-        ...state,
-        ankleRT: action.payload,
-      };
-    case 'updateBowelBladderForm2':
-      return {
-        ...state,
-        bowelBladder: action.payload,
       };
     default:
       return state;

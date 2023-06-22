@@ -15,6 +15,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const Generateform1 = () => {
   const [permission, setPermission] = useState(false);
@@ -55,20 +57,7 @@ const Generateform1 = () => {
   const transferAbility = useSelector(state => state.form1.transferAbility);
   const bedSores = useSelector(state => state.form1.bedSores);
   const deformity = useSelector(state => state.form1.deformity);
-  const bicepLT = useSelector(state => state.form1.bicepLT);
-  const bicepRT = useSelector(state => state.form1.bicepRT);
-  const tricepsLT = useSelector(state => state.form1.tricepsLT);
-  const tricepsRT = useSelector(state => state.form1.tricepsRT);
-  const brachioradialisLT = useSelector(state => state.form1.brachioradialisLT);
-  const brachioradialisRT = useSelector(state => state.form1.brachioradialisRT);
-  const kneeLT = useSelector(state => state.form1.kneeLT);
-  const kneeRT = useSelector(state => state.form1.kneeRT);
-  const ankleLT = useSelector(state => state.form1.ankleLT);
-  const ankleRT = useSelector(state => state.form1.ankleRT);
-  const bowelBladder = useSelector(state => state.form1.bowelBladder);
-  const balance = useSelector(state => state.form1.balance);
-  const sitting = useSelector(state => state.form1.sitting);
-  const standing = useSelector(state => state.form1.standing);
+  const reflexComs = useSelector(state => state.form1.reflexComs);
   const scoringSystem = useSelector(state => state.form1.scoringSystem);
   const asiaScale = useSelector(state => state.form1.asiaScale);
   const longTermGoal = useSelector(state => state.form1.longTermGoal);
@@ -157,20 +146,6 @@ const Generateform1 = () => {
       transferAbility ||
       bedSores ||
       deformity ||
-      bicepLT ||
-      bicepRT ||
-      tricepsLT ||
-      tricepsRT ||
-      brachioradialisLT ||
-      brachioradialisRT ||
-      kneeLT ||
-      kneeRT ||
-      ankleLT ||
-      ankleRT ||
-      bowelBladder ||
-      balance ||
-      sitting ||
-      standing ||
       scoringSystem ||
       asiaScale ||
       longTermGoal ||
@@ -457,22 +432,7 @@ const Generateform1 = () => {
         `;
     }
 
-    if (
-      bicepLT ||
-      bicepRT ||
-      tricepsLT ||
-      tricepsRT ||
-      brachioradialisLT ||
-      brachioradialisRT ||
-      kneeLT ||
-      kneeRT ||
-      ankleLT ||
-      ankleRT ||
-      bowelBladder ||
-      balance ||
-      sitting ||
-      standing
-    ) {
+    if (reflexComs) {
       html += `
         <div class="label">
           <h1><b>On Examination</b></h1>
@@ -483,130 +443,19 @@ const Generateform1 = () => {
         `;
     }
 
-    if (bicepLT) {
-      html += `
-        <div class="label">
-        <h2> Bicep Left : ${bicepLT} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
+    if (reflexComs) {
+      const lines = reflexComs.split('\n');
+      const bulletPoints = lines
+        .map(line => (line !== '' ? `<li>${line}</li>` : ''))
+        .join('');
 
-    if (bicepRT) {
-      html += `
-            <div class="label">
-            <h2> Bicep Right : ${bicepRT} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (tricepsLT) {
-      html += `
-        <div class="label">
-        <h2> Triceps Left : ${tricepsLT} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (tricepsRT) {
-      html += `
-                <div class="label">
-                <h2> Triceps Right : ${tricepsRT} </h2>
-                </div><div class="value dob">
-                </div>
-                `;
-    }
-
-    if (brachioradialisLT) {
-      html += `
-        <div class="label">
-        <h2> Brachioradialis Left : ${brachioradialisLT} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (brachioradialisRT) {
-      html += `
-                    <div class="label">
-                    <h2> Brachioradialis Right : ${brachioradialisRT} </h2>
-                    </div><div class="value dob">
-                    </div>
-                    `;
-    }
-
-    if (kneeLT) {
-      html += `
-        <div class="label">
-        <h2> Knee Left : ${kneeLT} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (kneeRT) {
-      html += `
-            <div class="label">
-            <h2> Knee Right : ${kneeRT} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (ankleLT) {
-      html += `
-            <div class="label">
-            <h2> Ankle Left : ${ankleLT} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (ankleRT) {
-      html += `
-                <div class="label">
-                <h2> Ankle Right : ${ankleRT} </h2>
-                </div><div class="value dob">
-                </div>
-                `;
-    }
-
-    if (bowelBladder) {
-      html += `
-        <div class="label">
-        <h2> Bowel Bladder : ${bowelBladder} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (balance) {
-      html += `
-        <div class="label">
-        <h2> Balance : ${balance} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
-    }
-
-    if (sitting) {
-      html += `
-            <div class="label">
-            <h2> Sitting : ${sitting} </h2>
-            </div><div class="value dob">
-            </div>
-            `;
-    }
-
-    if (standing) {
-      html += `
-        <div class="label">
-        <h2> Standing : ${standing} </h2>
-        </div><div class="value dob">
-        </div>
-        `;
+      if (bulletPoints) {
+        html += `
+              <div class="label">
+                <h1>Comments- ${bulletPoints}</h1>
+              </div>
+              `;
+      }
     }
 
     if (scoringSystem) {
@@ -739,8 +588,84 @@ const Generateform1 = () => {
       console.error(error);
     }
   };
+
+  // saving data
+
+  const saveFormData = async () => {
+    try {
+      // Prepare the form data to be saved
+      const formData = {
+        name: name,
+        handDominance: handDominance,
+        age: age,
+        gender: gender,
+        address: address,
+        occupation: occupation,
+        diagnosis: diagnosis,
+        chiefComplaint: chiefComplaint,
+        history: history,
+        pastMedical: pastMedical,
+        investigation: investigation,
+        attitudeofLimb: attitudeofLimb,
+        externalAids: externalAids,
+        gait: gait,
+        transferAbility: transferAbility,
+        bedSores: bedSores,
+        reflexComs: reflexComs,
+        scoringSystem: scoringSystem,
+        deformity: deformity,
+        asiaScale: asiaScale,
+        longTermGoal: longTermGoal,
+        shortTermGoal: shortTermGoal,
+        remarks: remarks,
+        therapistName: therapistName,
+        clickedImage1: clickedImage1,
+        clickedImage2: clickedImage2,
+        clickedImage3: clickedImage3,
+        clickedImage4: clickedImage4,
+        clickedImage5: clickedImage5,
+        pickedImage1: pickedImage1,
+        pickedImage2: pickedImage2,
+        pickedImage3: pickedImage3,
+        pickedImage4: pickedImage4,
+        pickedImage5: pickedImage5,
+        patientImageClicked: patientImageClicked,
+        patientImagePicked: patientImagePicked,
+      };
+
+      // Remove circular references from form data
+      const sanitizedData = JSON.parse(JSON.stringify(formData));
+
+      // Save the form data to AsyncStorage
+      await AsyncStorage.setItem('form1Data', JSON.stringify(sanitizedData));
+      successToast();
+      console.log('Form data saved:', sanitizedData);
+    } catch (error) {
+      console.log('Error saving form data:', error);
+      errorToast();
+    }
+  };
+
+  const successToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Data Saved Successfully !',
+    });
+  };
+
+  const errorToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Error Saving Data !',
+    });
+  };
   return (
     <SafeAreaView>
+      <View style={styles.inputFieldContainerSAVE}>
+        <TouchableOpacity style={styles.exportBtn} onPress={saveFormData}>
+          <Text style={styles.exportText}>Save Data</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.inputFieldContainerSHARE}>
         <TouchableOpacity style={styles.exportBtn} onPress={handleSharePdf}>
           <Text style={styles.exportText}>Share PDF</Text>
@@ -759,12 +684,24 @@ const styles = StyleSheet.create({
   inputFieldContainerSHARE: {
     width: wp('80%'),
     height: hp('5%'),
-    marginVertical: wp('10%'),
+    marginVertical: wp('4%'),
     marginHorizontal: wp('10%'),
     flexDirection: 'column',
     backgroundColor: 'red',
     borderRadius: 10,
     marginBottom: 20,
+    marginRight: 50,
+    elevation: 10,
+  },
+  inputFieldContainerSAVE: {
+    width: wp('80%'),
+    height: hp('5%'),
+    marginVertical: wp('10%'),
+    marginHorizontal: wp('10%'),
+    flexDirection: 'column',
+    backgroundColor: '#002f7a',
+    borderRadius: 10,
+    marginBottom: 1,
     marginRight: 50,
     elevation: 10,
   },

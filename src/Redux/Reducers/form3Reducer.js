@@ -221,7 +221,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         treatment: action.payload,
       };
-    case 'updateRemarks':
+    case 'updateRemarks2':
       return {
         ...state,
         remarks: action.payload,

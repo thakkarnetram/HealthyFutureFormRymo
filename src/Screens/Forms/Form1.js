@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-shadow */
 import React, {useState, useEffect} from 'react';
@@ -26,6 +27,8 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../Redux/index';
 import Generateform1 from '../../GenerateHtml/Generateform1';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const Form1 = () => {
   useEffect(() => {
@@ -65,20 +68,7 @@ const Form1 = () => {
   const transferAbility = useSelector(state => state.form1.transferAbility);
   const bedSores = useSelector(state => state.form1.bedSores);
   const deformity = useSelector(state => state.form1.deformity);
-  const bicepLT = useSelector(state => state.form1.bicepLT);
-  const bicepRT = useSelector(state => state.form1.bicepRT);
-  const tricepsLT = useSelector(state => state.form1.tricepsLT);
-  const tricepsRT = useSelector(state => state.form1.tricepsRT);
-  const brachioradialisLT = useSelector(state => state.form1.brachioradialisLT);
-  const brachioradialisRT = useSelector(state => state.form1.brachioradialisRT);
-  const kneeLT = useSelector(state => state.form1.kneeLT);
-  const kneeRT = useSelector(state => state.form1.kneeRT);
-  const ankleLT = useSelector(state => state.form1.ankleLT);
-  const ankleRT = useSelector(state => state.form1.ankleRT);
-  const bowelBladder = useSelector(state => state.form1.bowelBladder);
-  const balance = useSelector(state => state.form1.balance);
-  const sitting = useSelector(state => state.form1.sitting);
-  const standing = useSelector(state => state.form1.standing);
+  const reflexComs = useSelector(state => state.form1.reflexComs);
   const scoringSystem = useSelector(state => state.form1.scoringSystem);
   const asiaScale = useSelector(state => state.form1.asiaScale);
   const longTermGoal = useSelector(state => state.form1.longTermGoal);
@@ -116,6 +106,9 @@ const Form1 = () => {
   };
   const occupationHandler = occupation => {
     actions.updateOccupationForm1(occupation);
+  };
+  const reflexComsHandler = reflexComs => {
+    actions.updateReflexComs(reflexComs);
   };
   const datePickerHandlerDOO = () => {
     setDooDatePickerVisible(true);
@@ -163,48 +156,6 @@ const Form1 = () => {
   };
   const deformityHandler = deformity => {
     actions.updateDeformityForm1(deformity);
-  };
-  const bicepLTHandler = bicepLT => {
-    actions.updateBicepLT(bicepLT);
-  };
-  const bicepRTHandler = bicepRT => {
-    actions.updateBicepRT(bicepRT);
-  };
-  const tricepsLTHandler = tricepsLT => {
-    actions.updateTricepsLT(tricepsLT);
-  };
-  const tricepsRTHandler = tricepsRT => {
-    actions.updateTricepsRT(tricepsRT);
-  };
-  const brachioradialisLTHandler = brachioradialisLT => {
-    actions.updateBrachioradialisLT(brachioradialisLT);
-  };
-  const brachioradialisRTHandler = brachioradialisRT => {
-    actions.updateBrachioradialisRT(brachioradialisRT);
-  };
-  const kneeLTHandler = kneeLT => {
-    actions.updateKneeLTForm1(kneeLT);
-  };
-  const kneeRTHandler = kneeRT => {
-    actions.updateKneeRTForm1(kneeRT);
-  };
-  const ankleLTHandler = ankleLT => {
-    actions.updateAnkleLTForm1(ankleLT);
-  };
-  const ankleRTHandler = ankleRT => {
-    actions.updateAnkleRTForm1(ankleRT);
-  };
-  const bowelBladderHandler = bowelBladder => {
-    actions.updateBowelBladderForm1(bowelBladder);
-  };
-  const balanceHandler = balance => {
-    actions.updateBalance(balance);
-  };
-  const sittingHandler = sitting => {
-    actions.updateSitting(sitting);
-  };
-  const standingHandler = standing => {
-    actions.updateStanding(standing);
   };
   const scoringSystemHandler = scoringSystem => {
     actions.updateScoringSystem(scoringSystem);
@@ -325,6 +276,77 @@ const Form1 = () => {
     const result = await launchImageLibrary(options);
     actions.updatePickedImage5F1(result.assets[0].uri);
   };
+
+  useEffect(() => {
+    fetchFormData();
+  }, []);
+
+  // Fetch saved form data
+  const fetchFormData = async () => {
+    try {
+      // Fetch the saved form data from AsyncStorage
+      const savedFormData = await AsyncStorage.getItem('form1Data');
+      if (savedFormData) {
+        const parsedData = JSON.parse(savedFormData);
+        actions.updateNameForm1(parsedData.name);
+        actions.updateHandDominanceForm1(parsedData.handDominance);
+        actions.updateAgeForm1(parsedData.age);
+        actions.updateGenderForm1(parsedData.gender);
+        actions.updateAddressForm1(parsedData.address);
+        actions.updateOccupationForm1(parsedData.occupation);
+        actions.updateDiagnosisForm1(parsedData.diagnosis);
+        actions.updateChiefComplaintForm1(parsedData.chiefComplaint);
+        actions.updateHistoryForm1(parsedData.history);
+        actions.updatePastMedicalForm1(parsedData.pastMedical);
+        actions.updateInvestigationForm1(parsedData.investigation);
+        actions.updateAttitudeofLimbForm1(parsedData.attitudeofLimb);
+        actions.updateExternalAidsForm1(parsedData.externalAids);
+        actions.updateGaitForm1(parsedData.gait);
+        actions.updateTransferAbilityForm1(parsedData.transferAbility);
+        actions.updateBedSoresForm1(parsedData.bedSores);
+        actions.updateReflexComs(parsedData.reflexComs);
+        actions.updateDeformityForm1(parsedData.deformity);
+        actions.updateScoringSystem(parsedData.scoringSystem);
+        actions.updateAsiaScale(parsedData.asiaScale);
+        actions.updateLongTermGoal(parsedData.longTermGoal);
+        actions.updateShortTermGoal(parsedData.shortTermGoal);
+        actions.updateRemarks(parsedData.remarks);
+        actions.updateTherapistNameForm1(parsedData.therapistName);
+        actions.updateClickedImage1F1(parsedData.clickedImage1);
+        actions.updatePickedImage1F1(parsedData.pickedImage1);
+        actions.updateClickedImage2F1(parsedData.clickedImage2);
+        actions.updatePickedImage2F1(parsedData.pickedImage2);
+        actions.updateClickedImage3F1(parsedData.clickedImage3);
+        actions.updatePickedImage3F1(parsedData.pickedImage3);
+        actions.updateClickedImage4F1(parsedData.clickedImage4);
+        actions.updatePickedImage4F1(parsedData.pickedImage4);
+        actions.updateClickedImage5F1(parsedData.clickedImage5);
+        actions.updatePickedImage5F1(parsedData.pickedImage5);
+        actions.updatePatientImageClicked1(parsedData.patientImageClicked);
+        actions.updatePatientImagePicked1(parsedData.patientImagePicked);
+      }
+      console.log('data fetched', savedFormData);
+      successToast();
+    } catch (error) {
+      console.log('Error fetching form data:', error);
+      errorToast();
+    }
+  };
+
+  const successToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Data Fetched !',
+    });
+  };
+
+  const errorToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Error Fetching Data !',
+    });
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -1481,271 +1503,15 @@ const Form1 = () => {
             }}>
             Reflex
           </Text>
-          <View style={styles.normalContainerPicker}>
-            <Text
-              style={{
-                marginVertical: wp('2%'),
-                marginHorizontal: wp('6%'),
-                color: 'white',
-                fontSize: wp('3%'),
-              }}>
-              1.Bicep
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <TextInput
-                value={bicepLT}
-                multiline={true}
-                onChangeText={bicepLTHandler}
-                keyboardType="ascii-capable"
-                placeholder="Left"
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-              <TextInput
-                multiline={true}
-                value={bicepRT}
-                onChangeText={bicepRTHandler}
-                keyboardType="ascii-capable"
-                placeholder="Right"
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-            </View>
-            <Text
-              style={{
-                marginVertical: wp('6%'),
-                marginHorizontal: wp('6%'),
-                color: 'white',
-                fontSize: wp('3%'),
-              }}>
-              2. Triceps
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <TextInput
-                value={tricepsLT}
-                onChangeText={tricepsLTHandler}
-                keyboardType="ascii-capable"
-                multiline={true}
-                placeholder="Left"
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-              <TextInput
-                value={tricepsRT}
-                onChangeText={tricepsRTHandler}
-                keyboardType="ascii-capable"
-                placeholder="Right"
-                multiline={true}
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-            </View>
-            <Text
-              style={{
-                marginVertical: wp('6%'),
-                marginHorizontal: wp('6%'),
-                color: 'white',
-                fontSize: wp('3%'),
-              }}>
-              3. Brachioradialis
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <TextInput
-                value={brachioradialisLT}
-                onChangeText={brachioradialisLTHandler}
-                keyboardType="ascii-capable"
-                placeholder="Left"
-                multiline={true}
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-              <TextInput
-                value={brachioradialisRT}
-                onChangeText={brachioradialisRTHandler}
-                keyboardType="ascii-capable"
-                multiline={true}
-                placeholder="Right"
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-            </View>
-            <Text
-              style={{
-                marginVertical: wp('6%'),
-                marginHorizontal: wp('6%'),
-                color: 'white',
-                fontSize: wp('3%'),
-              }}>
-              4. Knee
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <TextInput
-                value={kneeLT}
-                onChangeText={kneeLTHandler}
-                keyboardType="ascii-capable"
-                placeholder="Left"
-                multiline={true}
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-              <TextInput
-                value={kneeRT}
-                onChangeText={kneeRTHandler}
-                keyboardType="ascii-capable"
-                placeholder="Right"
-                multiline={true}
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-            </View>
-            <Text
-              style={{
-                marginVertical: wp('6%'),
-                marginHorizontal: wp('6%'),
-                color: 'white',
-                fontSize: wp('3%'),
-              }}>
-              5. Ankle
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <TextInput
-                value={ankleLT}
-                onChangeText={ankleLTHandler}
-                keyboardType="ascii-capable"
-                placeholder="Left"
-                multiline={true}
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-              <TextInput
-                value={ankleRT}
-                onChangeText={ankleRTHandler}
-                keyboardType="ascii-capable"
-                placeholder="Right"
-                multiline={true}
-                placeholderTextColor="#d6d6d6"
-                style={{
-                  color: 'white',
-                  width: wp('10%'),
-                  fontSize: wp('3%'),
-                  marginHorizontal: wp('7%'),
-                  marginVertical: wp('2%'),
-                }}
-              />
-            </View>
-          </View>
-          <View style={styles.inputTextContainer}>
+          <View style={styles.inputTextContainerBig}>
             <TextInput
-              value={bowelBladder}
-              onChangeText={bowelBladderHandler}
+              value={reflexComs}
+              multiline={true}
+              onChangeText={reflexComsHandler}
               keyboardType="ascii-capable"
-              placeholder="Bowel / Bladder "
+              placeholder="Comments"
               placeholderTextColor="#FFFFFF"
-              style={{
-                marginVertical: wp('1%'),
-                color: 'white',
-                fontSize: wp('3.5%'),
-                marginHorizontal: wp('1.5%'),
-              }}
-            />
-          </View>
-          <View style={styles.inputTextContainer}>
-            <TextInput
-              value={balance}
-              onChangeText={balanceHandler}
-              keyboardType="ascii-capable"
-              placeholder="Balance  "
-              placeholderTextColor="#FFFFFF"
-              style={{
-                marginVertical: wp('1%'),
-                color: 'white',
-                fontSize: wp('3.5%'),
-                marginHorizontal: wp('1.5%'),
-              }}
-            />
-          </View>
-          <View style={styles.inputTextContainer}>
-            <TextInput
-              value={sitting}
-              onChangeText={sittingHandler}
-              keyboardType="ascii-capable"
-              placeholder="Sitting "
-              placeholderTextColor="#FFFFFF"
-              style={{
-                marginVertical: wp('1%'),
-                color: 'white',
-                fontSize: wp('3.5%'),
-                marginHorizontal: wp('1.5%'),
-              }}
-            />
-          </View>
-          <View style={styles.inputTextContainer}>
-            <TextInput
-              value={standing}
-              onChangeText={standingHandler}
-              keyboardType="ascii-capable"
-              placeholder="Standing "
-              placeholderTextColor="#FFFFFF"
-              style={{
-                marginVertical: wp('1%'),
-                color: 'white',
-                fontSize: wp('3.5%'),
-                marginHorizontal: wp('1.5%'),
-              }}
+              style={styles.firstName}
             />
           </View>
           <Text
@@ -1836,12 +1602,41 @@ const Form1 = () => {
 };
 
 const styles = StyleSheet.create({
+  inputFieldContainerSHARE: {
+    width: wp('80%'),
+    height: hp('5%'),
+    marginVertical: wp('10%'),
+    marginHorizontal: wp('10%'),
+    flexDirection: 'column',
+    backgroundColor: 'red',
+    borderRadius: 10,
+    marginBottom: 20,
+    marginRight: 50,
+    elevation: 10,
+  },
+  exportBtn: {
+    alignItems: 'center',
+  },
+  exportText: {
+    fontSize: hp('2%'),
+    color: 'white',
+    marginVertical: wp('1.7%'),
+    marginHorizontal: wp('1.3%'),
+  },
   mainContainer: {
     backgroundColor: '#d1b6b6',
   },
   inputTextContainer: {
     width: wp('90%'),
     height: hp('7%'),
+    marginVertical: wp('2%'),
+    marginHorizontal: wp('4%'),
+    backgroundColor: '#2e5db0',
+    borderRadius: 10,
+  },
+  inputTextContainerBig: {
+    width: wp('90%'),
+    height: hp('50%'),
     marginVertical: wp('2%'),
     marginHorizontal: wp('4%'),
     backgroundColor: '#2e5db0',

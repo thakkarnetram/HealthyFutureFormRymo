@@ -191,7 +191,7 @@ const Form3 = () => {
     actions.updateTreatment(treatment);
   };
   const remarksHandler = remarks => {
-    actions.updateRemarks(remarks);
+    actions.updateRemarks2(remarks);
   };
   const mmtHandler = mmt => {
     actions.updateMMT(mmt);

@@ -15,6 +15,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const Generateform4 = () => {
   const [permission, setPermission] = useState(false);
@@ -346,8 +348,59 @@ const Generateform4 = () => {
     }
   };
 
+  // saving data
+
+  const saveFormData = async () => {
+    try {
+      // Prepare the form data to be saved
+      const formData = {
+        name: name,
+        patientImageClicked: patientImageClicked,
+        patientImagePicked: patientImagePicked,
+        therapist: therapist,
+        mainTherapist: mainTherapist,
+        presentProgress: presentProgress,
+        presentConcern: presentConcern,
+        commentAndPlan: commentAndPlan,
+        planWithPatient: planWithPatient,
+        videoOfProgressTaken: videoOfProgressTaken,
+        therapistName: therapistName,
+      };
+
+      // Remove circular references from form data
+      const sanitizedData = JSON.parse(JSON.stringify(formData));
+
+      // Save the form data to AsyncStorage
+      await AsyncStorage.setItem('form1Data', JSON.stringify(sanitizedData));
+      successToast();
+      console.log('Form data saved:', sanitizedData);
+    } catch (error) {
+      console.log('Error saving form data:', error);
+      errorToast();
+    }
+  };
+
+  const successToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Data Saved Successfully !',
+    });
+  };
+
+  const errorToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Error Saving Data !',
+    });
+  };
+
   return (
     <SafeAreaView>
+      <View style={styles.inputFieldContainerSAVE}>
+        <TouchableOpacity style={styles.exportBtn} onPress={saveFormData}>
+          <Text style={styles.exportText}>Save Data</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.inputFieldContainerSHARE}>
         <TouchableOpacity style={styles.exportBtn} onPress={handleSharePdf}>
           <Text style={styles.exportText}>Share PDF</Text>
@@ -366,12 +419,24 @@ const styles = StyleSheet.create({
   inputFieldContainerSHARE: {
     width: wp('80%'),
     height: hp('5%'),
-    marginVertical: wp('10%'),
+    marginVertical: wp('4%'),
     marginHorizontal: wp('10%'),
     flexDirection: 'column',
     backgroundColor: 'red',
     borderRadius: 10,
     marginBottom: 20,
+    marginRight: 50,
+    elevation: 10,
+  },
+  inputFieldContainerSAVE: {
+    width: wp('80%'),
+    height: hp('5%'),
+    marginVertical: wp('10%'),
+    marginHorizontal: wp('10%'),
+    flexDirection: 'column',
+    backgroundColor: '#002f7a',
+    borderRadius: 10,
+    marginBottom: 1,
     marginRight: 50,
     elevation: 10,
   },

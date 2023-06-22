@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 const initialState = {
   name: '',
-  date: '',
+  date: new Date(),
   patientImageClicked: '',
   patientImagePicked: '',
   therapist: '',

@@ -9,6 +9,7 @@ import Orientation from 'react-native-orientation-locker';
 import Immersive from 'react-native-immersive';
 import {Provider} from 'react-redux';
 import store from './src/Redux/store';
+import Toast from 'react-native-toast-message';
 import HomeScreen from './src/Screens/HomeScreen';
 import Form1 from './src/Screens/Forms/Form1';
 import Form2 from './src/Screens/Forms/Form2';
@@ -56,6 +57,7 @@ function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast />
     </Provider>
   );
 }

@@ -6,6 +6,8 @@ const initialState = {
   gender: '',
   address: '',
   occupation: '',
+  formData: '',
+  saveFormData: '',
   dateOfOccurance: new Date(),
   dateOfAssessment: new Date(),
   diagnosis: '',
@@ -18,21 +20,8 @@ const initialState = {
   gait: '',
   transferAbility: '',
   bedSores: '',
+  reflexComs: '',
   deformity: '',
-  bicepLT: '',
-  bicepRT: '',
-  tricepsLT: '',
-  tricepsRT: '',
-  brachioradialisLT: '',
-  brachioradialisRT: '',
-  kneeLT: '',
-  kneeRT: '',
-  ankleLT: '',
-  ankleRT: '',
-  bowelBladder: '',
-  balance: '',
-  sitting: '',
-  standing: '',
   scoringSystem: '',
   asiaScale: '',
   longTermGoal: '',
@@ -64,6 +53,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         handDominance: action.payload,
+      };
+    case 'updateFormData1':
+      return {
+        ...state,
+        formData: action.payload,
+      };
+    case 'updateSaveFormData1':
+      return {
+        ...state,
+        saveFormData: action.payload,
       };
     case 'updateAgeForm1':
       return {
@@ -175,6 +174,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         chiefComplaint: action.payload,
       };
+    case 'updateReflexComs':
+      return {
+        ...state,
+        reflexComs: action.payload,
+      };
     case 'updateHistoryForm1':
       return {
         ...state,
@@ -219,76 +223,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         deformity: action.payload,
-      };
-    case 'updateBicepLT':
-      return {
-        ...state,
-        bicepLT: action.payload,
-      };
-    case 'updateBicepRT':
-      return {
-        ...state,
-        bicepRT: action.payload,
-      };
-    case 'updateTricepsLT':
-      return {
-        ...state,
-        tricepsLT: action.payload,
-      };
-    case 'updateTricepsRT':
-      return {
-        ...state,
-        tricepsRT: action.payload,
-      };
-    case 'updateBrachioradialisLT':
-      return {
-        ...state,
-        brachioradialisLT: action.payload,
-      };
-    case 'updateBrachioradialisRT':
-      return {
-        ...state,
-        brachioradialisRT: action.payload,
-      };
-    case 'updateKneeLTForm1':
-      return {
-        ...state,
-        kneeLT: action.payload,
-      };
-    case 'updateKneeRTForm1':
-      return {
-        ...state,
-        kneeRT: action.payload,
-      };
-    case 'updateAnkleLTForm1':
-      return {
-        ...state,
-        ankleLT: action.payload,
-      };
-    case 'updateAnkleRTForm1':
-      return {
-        ...state,
-        ankleRT: action.payload,
-      };
-    case 'updateBowelBladderForm1':
-      return {
-        ...state,
-        bowelBladder: action.payload,
-      };
-    case 'updateBalance':
-      return {
-        ...state,
-        balance: action.payload,
-      };
-    case 'updateSitting':
-      return {
-        ...state,
-        sitting: action.payload,
-      };
-    case 'updateStanding':
-      return {
-        ...state,
-        standing: action.payload,
       };
     case 'updateScoringSystem':
       return {

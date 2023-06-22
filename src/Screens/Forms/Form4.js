@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
@@ -14,7 +15,7 @@ import {
   PermissionsAndroid,
   StyleSheet,
 } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -27,6 +28,8 @@ import {actionCreators} from '../../Redux/index';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Picker} from '@react-native-picker/picker';
 import Generateform4 from '../../GenerateHtml/Generateform4';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const Form4 = () => {
   useEffect(() => {
@@ -41,6 +44,7 @@ const Form4 = () => {
   const dispatch = useDispatch();
   const name = useSelector(state => state.form4.name);
   const date = useSelector(state => state.form4.date);
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
   const patientImageClicked = useSelector(
     state => state.form4.patientImageClicked,
   );
@@ -64,6 +68,13 @@ const Form4 = () => {
   };
   const dateHandler = text => {
     actions.updateDate(text);
+  };
+  const datePickerHandler = () => {
+    setDatePickerVisible(true);
+  };
+  const dateConfirmHandler = date => {
+    actions.updateDate(date);
+    setDatePickerVisible(false);
   };
   const therapistHandler = text => {
     actions.updateTherapist(text);
@@ -110,6 +121,52 @@ const Form4 = () => {
     const result = await launchImageLibrary(options);
     actions.updatePatientImagePicked4(result.assets[0].uri);
   };
+
+  useEffect(() => {
+    fetchFormData();
+  }, []);
+
+  // Fetch saved form data
+  const fetchFormData = async () => {
+    try {
+      // Fetch the saved form data from AsyncStorage
+      const savedFormData = await AsyncStorage.getItem('form1Data');
+      if (savedFormData) {
+        const parsedData = JSON.parse(savedFormData);
+        actions.updateNameForm4(parsedData.name);
+        actions.updatePatientImageClicked4(parsedData.patientImageClicked);
+        actions.updatePatientImagePicked4(parsedData.patientImagePicked);
+        actions.updateTherapist(parsedData.therapist);
+        actions.updateMainTherapistName(parsedData.mainTherapistName);
+        actions.updatePresentProgress(parsedData.presentProgress);
+        actions.updatePresentConcern(parsedData.presentConcern);
+        actions.updateCommentAndPlan(parsedData.commentAndPlan);
+        actions.updatePlanWithPatient(parsedData.planWithPatient);
+        actions.updateVideoOfProgressTaken(parsedData.videoOfProgressTaken);
+        actions.updateTherapistName(parsedData.therapistName);
+      }
+      console.log('data fetched', savedFormData);
+      successToast();
+    } catch (error) {
+      console.log('Error fetching form data:', error);
+      errorToast();
+    }
+  };
+
+  const successToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Data Fetched !',
+    });
+  };
+
+  const errorToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Error Fetching Data !',
+    });
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -281,15 +338,24 @@ const Form4 = () => {
             )}
           </View>
           {/* End */}
-          <View style={styles.inputTextContainer}>
-            <TextInput
-              value={date}
-              onChangeText={dateHandler}
-              keyboardType="ascii-capable"
-              placeholder="Date"
-              placeholderTextColor="#FFFFFF"
-              style={styles.inputText}
-            />
+          <View style={styles.inputFieldContainerDOB}>
+            <Text style={styles.selectDOBText}>Date of Occurance :</Text>
+            <Text style={styles.dobText}>{date.toLocaleDateString()}</Text>
+            <TouchableOpacity
+              style={styles.buttonContainerDOB}
+              onPress={datePickerHandler}>
+              <Text style={styles.buttonTextDOB}>Select Date</Text>
+            </TouchableOpacity>
+            {datePickerVisible && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="calendar"
+                onChange={(event, selectedDate) =>
+                  dateConfirmHandler(selectedDate || date)
+                }
+              />
+            )}
           </View>
           <View style={styles.inputTextContainer}>
             <TextInput
@@ -452,6 +518,41 @@ const styles = StyleSheet.create({
     marginHorizontal: wp('4%'),
     backgroundColor: '#2e5db0',
     borderRadius: 10,
+  },
+  inputFieldContainerDOB: {
+    width: wp('90%'),
+    height: hp('6%'),
+    flexDirection: 'row',
+    backgroundColor: '#2e5db0',
+    borderRadius: 10,
+    marginVertical: wp('2%'),
+    marginHorizontal: wp('4%'),
+  },
+  selectDOBText: {
+    color: 'white',
+    fontSize: wp('3.5%'),
+    marginVertical: wp('2%'),
+    marginHorizontal: wp('3%'),
+  },
+  dobText: {
+    color: 'white',
+    fontSize: wp('3.5%'),
+    marginVertical: wp('2%'),
+    marginHorizontal: wp('7%'),
+  },
+  buttonContainerDOB: {
+    backgroundColor: '#0a5e78',
+    borderRadius: 5,
+    padding: 15,
+    marginVertical: wp('1%'),
+    marginHorizontal: wp('7%'),
+    alignSelf: 'center',
+  },
+  buttonTextDOB: {
+    color: 'white',
+    fontSize: wp('1.5%'),
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   inputText: {
     color: 'white',
