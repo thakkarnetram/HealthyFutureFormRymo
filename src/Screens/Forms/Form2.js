@@ -27,6 +27,8 @@ import {actionCreators} from '../../Redux/index';
 import {Picker} from '@react-native-picker/picker';
 import Generateform2 from '../../GenerateHtml/Generateform2';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const Form2 = () => {
   useEffect(() => {
@@ -252,6 +254,73 @@ const Form2 = () => {
     const result = await launchImageLibrary(options);
     actions.updatePickedImage5F2(result.assets[0].uri);
   };
+
+  useEffect(() => {
+    fetchFormData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Fetch saved form data
+  const fetchFormData = async () => {
+    try {
+      // Fetch the saved form data from AsyncStorage
+      const savedFormData = await AsyncStorage.getItem('form2Data');
+      if (savedFormData) {
+        const parsedData = JSON.parse(savedFormData);
+        actions.updateNameForm2(parsedData.name);
+        actions.updateAgeForm2(parsedData.age);
+        actions.updateHandDominanceForm2(parsedData.handDominance);
+        actions.updateGenderForm2(parsedData.gender);
+        actions.updateAddressForm2(parsedData.address);
+        actions.updateDiagnosisForm2(parsedData.diagnosis);
+        actions.updateOccupationForm2(parsedData.occupation);
+        actions.updateChiefComplaintForm2(parsedData.chiefComplaint);
+        actions.updateHistoryForm2(parsedData.history);
+        actions.updatePastMedicalForm2(parsedData.pastMedical);
+        actions.updateInvestigationForm2(parsedData.investigation);
+        actions.updateAttitudeofLimbForm2(parsedData.attitudeofLimb);
+        actions.updateExternalAidsForm2(parsedData.externalAids);
+        actions.updateGaitForm2(parsedData.gait);
+        actions.updateTransferAbilityForm2(parsedData.transferAbility);
+        actions.updateBedSoresForm2(parsedData.bedSores);
+        actions.updateDeformityForm2(parsedData.deformity);
+        actions.updateVcgComs(parsedData.vcgComs);
+        actions.updateToneComs(parsedData.toneComs);
+        actions.updateClickedImage1F2(parsedData.clickedImage1);
+        actions.updatePickedImage1F2(parsedData.pickedImage1);
+        actions.updateClickedImage2F2(parsedData.clickedImage2);
+        actions.updatePickedImage2F2(parsedData.pickedImage2);
+        actions.updateClickedImage3F2(parsedData.clickedImage3);
+        actions.updatePickedImage3F2(parsedData.pickedImage3);
+        actions.updateClickedImage4F2(parsedData.clickedImage4);
+        actions.updatePickedImage4F2(parsedData.pickedImage4);
+        actions.updateClickedImage5F2(parsedData.clickedImage5);
+        actions.updatePickedImage5F2(parsedData.pickedImage5);
+        actions.updatePatientImageClicked2(parsedData.patientImageClicked);
+        actions.updatePatientImagePicked2(parsedData.patientImagePicked);
+      }
+      console.log('data fetched', savedFormData);
+      successToast();
+    } catch (error) {
+      console.log('Error fetching form data:', error);
+      errorToast();
+    }
+  };
+
+  const successToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Data Fetched !',
+    });
+  };
+
+  const errorToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Error Fetching Data !',
+    });
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>

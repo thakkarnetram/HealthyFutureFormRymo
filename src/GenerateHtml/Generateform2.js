@@ -15,6 +15,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const Generateform2 = () => {
   const [permission, setPermission] = useState(false);
@@ -557,8 +559,80 @@ const Generateform2 = () => {
       console.error(error);
     }
   };
+
+  // saving data
+
+  const saveFormData = async () => {
+    try {
+      // Prepare the form data to be saved
+      const formData = {
+        name: name,
+        handDominance: handDominance,
+        age: age,
+        gender: gender,
+        address: address,
+        occupation: occupation,
+        diagnosis: diagnosis,
+        chiefComplaint: chiefComplaint,
+        history: history,
+        pastMedical: pastMedical,
+        investigation: investigation,
+        attitudeofLimb: attitudeofLimb,
+        externalAids: externalAids,
+        gait: gait,
+        transferAbility: transferAbility,
+        bedSores: bedSores,
+        deformity: deformity,
+        vcgComs: vcgComs,
+        toneComs: toneComs,
+        clickedImage1: clickedImage1,
+        clickedImage2: clickedImage2,
+        clickedImage3: clickedImage3,
+        clickedImage4: clickedImage4,
+        clickedImage5: clickedImage5,
+        pickedImage1: pickedImage1,
+        pickedImage2: pickedImage2,
+        pickedImage3: pickedImage3,
+        pickedImage4: pickedImage4,
+        pickedImage5: pickedImage5,
+        patientImageClicked: patientImageClicked,
+        patientImagePicked: patientImagePicked,
+      };
+
+      // Remove circular references from form data
+      const sanitizedData = JSON.parse(JSON.stringify(formData));
+
+      // Save the form data to AsyncStorage
+      await AsyncStorage.setItem('form2Data', JSON.stringify(sanitizedData));
+      successToast();
+      console.log('Form data saved:', sanitizedData);
+    } catch (error) {
+      console.log('Error saving form data:', error);
+      errorToast();
+    }
+  };
+
+  const successToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Data Saved Successfully !',
+    });
+  };
+
+  const errorToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Error Saving Data !',
+    });
+  };
+
   return (
     <SafeAreaView>
+      <View style={styles.inputFieldContainerSAVE}>
+        <TouchableOpacity style={styles.exportBtn} onPress={saveFormData}>
+          <Text style={styles.exportText}>Save Data</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.inputFieldContainerSHARE}>
         <TouchableOpacity style={styles.exportBtn} onPress={handleSharePdf}>
           <Text style={styles.exportText}>Share PDF</Text>
@@ -574,10 +648,22 @@ const Generateform2 = () => {
 };
 
 const styles = StyleSheet.create({
-  inputFieldContainerSHARE: {
+  inputFieldContainerSAVE: {
     width: wp('80%'),
     height: hp('5%'),
     marginVertical: wp('10%'),
+    marginHorizontal: wp('10%'),
+    flexDirection: 'column',
+    backgroundColor: '#002f7a',
+    borderRadius: 10,
+    marginBottom: 1,
+    marginRight: 50,
+    elevation: 10,
+  },
+  inputFieldContainerSHARE: {
+    width: wp('80%'),
+    height: hp('5%'),
+    marginVertical: wp('4%'),
     marginHorizontal: wp('10%'),
     flexDirection: 'column',
     backgroundColor: 'red',

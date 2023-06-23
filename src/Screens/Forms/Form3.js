@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
@@ -27,6 +28,8 @@ import {actionCreators} from '../../Redux/index';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Picker} from '@react-native-picker/picker';
 import Generateform3 from '../../GenerateHtml/Generateform3';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const Form3 = () => {
   useEffect(() => {
@@ -311,6 +314,90 @@ const Form3 = () => {
   const openGallery5 = async () => {
     const result = await launchImageLibrary(options);
     actions.updatePickedImage5(result.assets[0].uri);
+  };
+
+  useEffect(() => {
+    fetchFormData();
+  }, []);
+
+  // Fetch saved form data
+  const fetchFormData = async () => {
+    try {
+      // Fetch the saved form data from AsyncStorage
+      const savedFormData = await AsyncStorage.getItem('form3Data');
+      if (savedFormData) {
+        const parsedData = JSON.parse(savedFormData);
+        actions.updateNameForm3(parsedData.name);
+        actions.updateAgeForm3(parsedData.age);
+        actions.updateMale(parsedData.male);
+        actions.updateFemale(parsedData.female);
+        actions.updateOccupationForm3(parsedData.occupation);
+        actions.updateReferredBy(parsedData.referredBy);
+        actions.updateChiefComplaintForm3(parsedData.chiefComplaint);
+        actions.updatePainSeverity(parsedData.painSeverity);
+        actions.updateHistory(parsedData.history);
+        actions.updatePain(parsedData.pain);
+        actions.updateOnSet(parsedData.onSet);
+        actions.updateType(parsedData.type);
+        actions.updateAggravatingFactor(parsedData.aggravatingFactor);
+        actions.updateRelievingFactor(parsedData.relievingFactor);
+        actions.updateSwelling1(parsedData.swelling1);
+        actions.updateDeformity(parsedData.deformity);
+        actions.updateGaitImbalance(parsedData.gaitImbalance);
+        actions.updateScarWound(parsedData.scarWound);
+        actions.updateSwelling2(parsedData.swelling2);
+        actions.updatePainSeverityBox(parsedData.painSeverityBox);
+        actions.updateOedema(parsedData.oedema);
+        actions.updateTemperature(parsedData.temperature);
+        actions.updateTenderness(parsedData.tenderness);
+        actions.updateWasting(parsedData.wasting);
+        actions.updateCapsularPattern(parsedData.capsularPattern);
+        actions.updateJointPlay(parsedData.jointPlay);
+        actions.updateLLD(parsedData.lld);
+        actions.updateInvestigations(parsedData.investigations);
+        actions.updateSpecialTest(parsedData.specialTest);
+        actions.updateDiagnosis(parsedData.diagnosis);
+        actions.updateTreatment(parsedData.treatment);
+        actions.updateRemarks2(parsedData.remarks);
+        actions.updateMMT(parsedData.mmt);
+        actions.updateReflexes(parsedData.reflexes);
+        actions.updateROM(parsedData.rom);
+        actions.updateSensoryExamination(parsedData.sensoryExamination);
+        actions.updateDermatomes(parsedData.dermatomes);
+        actions.updateMyotomes(parsedData.myotomes);
+        actions.updateClickedImage1(parsedData.clickedImage1);
+        actions.updatePickedImage1(parsedData.pickedImage1);
+        actions.updateClickedImage2(parsedData.clickedImage2);
+        actions.updatePickedImage2(parsedData.pickedImage2);
+        actions.updateClickedImage3(parsedData.clickedImage3);
+        actions.updatePickedImage3(parsedData.pickedImage3);
+        actions.updateClickedImage4(parsedData.clickedImage4);
+        actions.updatePickedImage4(parsedData.pickedImage4);
+        actions.updateClickedImage5(parsedData.clickedImage5);
+        actions.updatePickedImage5(parsedData.pickedImage5);
+        actions.updatePatientImageClicked3(parsedData.patientImageClicked);
+        actions.updatePatientImagePicked3(parsedData.patientImagePicked);
+      }
+      console.log('data fetched', savedFormData);
+      successToast();
+    } catch (error) {
+      console.log('Error fetching form data:', error);
+      errorToast();
+    }
+  };
+
+  const successToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Data Fetched !',
+    });
+  };
+
+  const errorToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Error Fetching Data !',
+    });
   };
   return (
     <SafeAreaView>

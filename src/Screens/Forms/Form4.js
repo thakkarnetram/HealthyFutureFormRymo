@@ -130,7 +130,7 @@ const Form4 = () => {
   const fetchFormData = async () => {
     try {
       // Fetch the saved form data from AsyncStorage
-      const savedFormData = await AsyncStorage.getItem('form1Data');
+      const savedFormData = await AsyncStorage.getItem('form4Data');
       if (savedFormData) {
         const parsedData = JSON.parse(savedFormData);
         actions.updateNameForm4(parsedData.name);

@@ -371,7 +371,7 @@ const Generateform4 = () => {
       const sanitizedData = JSON.parse(JSON.stringify(formData));
 
       // Save the form data to AsyncStorage
-      await AsyncStorage.setItem('form1Data', JSON.stringify(sanitizedData));
+      await AsyncStorage.setItem('form4Data', JSON.stringify(sanitizedData));
       successToast();
       console.log('Form data saved:', sanitizedData);
     } catch (error) {
