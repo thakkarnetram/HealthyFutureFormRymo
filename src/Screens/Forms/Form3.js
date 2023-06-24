@@ -379,26 +379,78 @@ const Form3 = () => {
         actions.updatePatientImagePicked3(parsedData.patientImagePicked);
       }
       console.log('data fetched', savedFormData);
-      successToast();
     } catch (error) {
       console.log('Error fetching form data:', error);
-      errorToast();
     }
+  };
+
+  // Reset Form Data
+  const resetFormData = () => {
+    const formFields = [
+      'updateNameForm3',
+      'updateAgeForm3',
+      'updateMale',
+      'updateFemale',
+      'updateOccupationForm3',
+      'updateReferredBy',
+      'updateChiefComplaintForm3',
+      'updatePainSeverity',
+      'updateHistory',
+      'updatePain',
+      'updateOnSet',
+      'updateType',
+      'updateAggravatingFactor',
+      'updateRelievingFactor',
+      'updateSwelling1',
+      'updateDeformity',
+      'updateGaitImbalance',
+      'updateScarWound',
+      'updateSwelling2',
+      'updatePainSeverityBox',
+      'updateOedema',
+      'updateTemperature',
+      'updateTenderness',
+      'updateWasting',
+      'updateCapsularPattern',
+      'updateJointPlay',
+      'updateLLD',
+      'updateInvestigations',
+      'updateSpecialTest',
+      'updateDiagnosis',
+      'updateTreatment',
+      'updateRemarks2',
+      'updateMMT',
+      'updateReflexes',
+      'updateROM',
+      'updateSensoryExamination',
+      'updateDermatomes',
+      'updateMyotomes',
+      'updateClickedImage1',
+      'updatePickedImage1',
+      'updateClickedImage2',
+      'updatePickedImage2',
+      'updateClickedImage3',
+      'updatePickedImage3',
+      'updateClickedImage4',
+      'updatePickedImage4',
+      'updateClickedImage5',
+      'updatePickedImage5',
+      'updatePatientImageClicked3',
+      'updatePatientImagePicked3',
+    ];
+    formFields.forEach(field => {
+      actions[field]('');
+    });
+    successToast();
   };
 
   const successToast = () => {
     Toast.show({
       type: 'success',
-      text1: 'Data Fetched !',
+      text1: 'Reseted the Form',
     });
   };
 
-  const errorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error Fetching Data !',
-    });
-  };
   return (
     <SafeAreaView>
       <ScrollView>
@@ -414,6 +466,11 @@ const Form3 = () => {
             }}>
             Musculoskeletal Assessment Form
           </Text>
+          <View style={styles.inputFieldContainerSHARE}>
+            <TouchableOpacity style={styles.exportBtn} onPress={resetFormData}>
+              <Text style={styles.exportText}>Reset Form</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={name}
@@ -1719,6 +1776,27 @@ const Form3 = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#d1b6b6',
+  },
+  inputFieldContainerSHARE: {
+    width: wp('80%'),
+    height: hp('5%'),
+    marginVertical: wp('5%'),
+    marginHorizontal: wp('10%'),
+    flexDirection: 'column',
+    backgroundColor: 'red',
+    borderRadius: 10,
+    marginBottom: 20,
+    marginRight: 50,
+    elevation: 10,
+  },
+  exportBtn: {
+    alignItems: 'center',
+  },
+  exportText: {
+    fontSize: hp('2%'),
+    color: 'white',
+    marginVertical: wp('1.7%'),
+    marginHorizontal: wp('1.3%'),
   },
   inputTextContainer: {
     width: wp('90%'),

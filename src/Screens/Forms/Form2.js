@@ -300,24 +300,57 @@ const Form2 = () => {
         actions.updatePatientImagePicked2(parsedData.patientImagePicked);
       }
       console.log('data fetched', savedFormData);
-      successToast();
     } catch (error) {
       console.log('Error fetching form data:', error);
-      errorToast();
     }
+  };
+
+  // Reset Form Data
+  const resetFormData = () => {
+    const formFields = [
+      'updateNameForm2',
+      'updateAgeForm2',
+      'updateHandDominanceForm2',
+      'updateGenderForm2',
+      'updateAddressForm2',
+      'updateDiagnosisForm2',
+      'updateOccupationForm2',
+      'updateChiefComplaintForm2',
+      'updateHistoryForm2',
+      'updatePastMedicalForm2',
+      'updateInvestigationForm2',
+      'updateAttitudeofLimbForm2',
+      'updateExternalAidsForm2',
+      'updateGaitForm2',
+      'updateTransferAbilityForm2',
+      'updateBedSoresForm2',
+      'updateDeformityForm2',
+      'updateVcgComs',
+      'updateToneComs',
+      'updateClickedImage1F2',
+      'updatePickedImage1F2',
+      'updateClickedImage2F2',
+      'updatePickedImage2F2',
+      'updateClickedImage3F2',
+      'updatePickedImage3F2',
+      'updateClickedImage4F2',
+      'updatePickedImage4F2',
+      'updateClickedImage5F2',
+      'updatePickedImage5F2',
+      'updatePatientImageClicked2',
+      'updatePatientImagePicked2',
+    ];
+
+    formFields.forEach(field => {
+      actions[field]('');
+    });
+    successToast();
   };
 
   const successToast = () => {
     Toast.show({
       type: 'success',
-      text1: 'Data Fetched !',
-    });
-  };
-
-  const errorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error Fetching Data !',
+      text1: 'Reseted the Form',
     });
   };
 
@@ -336,6 +369,11 @@ const Form2 = () => {
             }}>
             Neurological Evaluation Form
           </Text>
+          <View style={styles.inputFieldContainerSHARE}>
+            <TouchableOpacity style={styles.exportBtn} onPress={resetFormData}>
+              <Text style={styles.exportText}>Reset Form</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={name}
@@ -1517,6 +1555,27 @@ const Form2 = () => {
 };
 
 const styles = StyleSheet.create({
+  inputFieldContainerSHARE: {
+    width: wp('80%'),
+    height: hp('5%'),
+    marginVertical: wp('5%'),
+    marginHorizontal: wp('10%'),
+    flexDirection: 'column',
+    backgroundColor: 'red',
+    borderRadius: 10,
+    marginBottom: 20,
+    marginRight: 50,
+    elevation: 10,
+  },
+  exportBtn: {
+    alignItems: 'center',
+  },
+  exportText: {
+    fontSize: hp('2%'),
+    color: 'white',
+    marginVertical: wp('1.7%'),
+    marginHorizontal: wp('1.3%'),
+  },
   mainContainer: {
     backgroundColor: '#d1b6b6',
   },

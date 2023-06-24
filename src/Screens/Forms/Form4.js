@@ -146,24 +146,36 @@ const Form4 = () => {
         actions.updateTherapistName(parsedData.therapistName);
       }
       console.log('data fetched', savedFormData);
-      successToast();
     } catch (error) {
       console.log('Error fetching form data:', error);
-      errorToast();
     }
+  };
+
+  // Reset Form Data
+  const resetFormData = () => {
+    const formFields = [
+      'updateNameForm4',
+      'updatePatientImageClicked4',
+      'updatePatientImagePicked4',
+      'updateTherapist',
+      'updateMainTherapistName',
+      'updatePresentProgress',
+      'updatePresentConcern',
+      'updateCommentAndPlan',
+      'updatePlanWithPatient',
+      'updateVideoOfProgressTaken',
+      'updateTherapistName',
+    ];
+    formFields.forEach(field => {
+      actions[field]('');
+    });
+    successToast();
   };
 
   const successToast = () => {
     Toast.show({
       type: 'success',
-      text1: 'Data Fetched !',
-    });
-  };
-
-  const errorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error Fetching Data !',
+      text1: 'Reseted the Form',
     });
   };
 
@@ -182,6 +194,11 @@ const Form4 = () => {
             }}>
             Weekly Review Form
           </Text>
+          <View style={styles.inputFieldContainerSHARE}>
+            <TouchableOpacity style={styles.exportBtn} onPress={resetFormData}>
+              <Text style={styles.exportText}>Reset Form</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={name}
@@ -463,6 +480,27 @@ const Form4 = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#d1b6b6',
+  },
+  inputFieldContainerSHARE: {
+    width: wp('80%'),
+    height: hp('5%'),
+    marginVertical: wp('5%'),
+    marginHorizontal: wp('10%'),
+    flexDirection: 'column',
+    backgroundColor: 'red',
+    borderRadius: 10,
+    marginBottom: 20,
+    marginRight: 50,
+    elevation: 10,
+  },
+  exportBtn: {
+    alignItems: 'center',
+  },
+  exportText: {
+    fontSize: hp('2%'),
+    color: 'white',
+    marginVertical: wp('1.7%'),
+    marginHorizontal: wp('1.3%'),
   },
   inputTextContainer: {
     width: wp('90%'),
