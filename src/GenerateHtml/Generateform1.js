@@ -1,12 +1,7 @@
 /* eslint-disable prettier/prettier */
+import {PermissionsAndroid} from 'react-native';
 import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  PermissionsAndroid,
-} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Platform, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Share from 'react-native-share';
@@ -17,6 +12,9 @@ import {
 import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import RNFS from 'react-native-fs';
+import {DocumentPickerOptions} from 'react-native-document-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const Generateform1 = () => {
   const [permission, setPermission] = useState(false);
@@ -506,45 +504,49 @@ const Generateform1 = () => {
     return html;
   };
 
-  async function requestStoragePermission() {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: 'Storage Permission',
-          message:
-            'Your app needs access to your device storage to save files.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('Storage permission granted');
-      } else {
-        console.log('Storage permission denied', granted);
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  }
+  // Flag to track if the directory has been created
+  let directoryCreated = false;
 
-  const handleSaveToLocal = async () => {
-    const permissionGranted = await requestStoragePermission();
-    if (permissionGranted) {
-      setPermission(true);
-      handleExportPdf();
-      handleSharePdf();
-    } else {
-      setPermission(false);
-      // Handle permission denied case
+  // const requestStoragePermission = async () => {
+  //   try {
+  //     const granted = await PermissionsAndroid.request(
+  //       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+  //       {
+  //         title: 'Storage Permission',
+  //         message: 'MyApp needs access to your storage to save PDF files.',
+  //       },
+  //     );
+  //     return granted === PermissionsAndroid.RESULTS.GRANTED;
+  //   } catch (error) {
+  //     console.error('Failed to request storage permission:', error);
+  //     return false;
+  //   }
+  // };
+
+  // Flag to track if the directory has been created
+
+  const createDirectoryIfNeeded = async () => {
+    if (!directoryCreated) {
+      // Customize the directory path
+      const customDirectoryPath = `${RNFetchBlob.fs.dirs.DownloadDir}/HealthyFutureExports/PdfExports`;
+
+      // Check if the directory exists
+      const isDirectoryExists = await RNFetchBlob.fs.exists(
+        customDirectoryPath,
+      );
+
+      if (!isDirectoryExists) {
+        // Create the directory
+        await RNFetchBlob.fs.mkdir(customDirectoryPath);
+      }
+
+      // Set the flag to indicate that the directory has been created
+      directoryCreated = true;
     }
   };
-  // Saving to Local Storage Logic
+
   const handleExportPdf = async (attachmentUrl, directory, fileName) => {
     try {
-      // Request storage permission if needed
-      handleSaveToLocal();
       // Generate the HTML to convert to PDF
       const htmlContent = generateHtml(attachmentUrl, directory, fileName);
 
@@ -557,12 +559,26 @@ const Generateform1 = () => {
 
       // Convert HTML to PDF and save to device
       const file = await RNHTMLtoPDF.convert(pdfOptions);
-      console.log(`PDF saved to ${file.filePath} + PDF NAME ${fileName}`);
+
+      // Get the file path
+      const filePath = file.filePath;
+
+      // Create the directory if needed
+      await createDirectoryIfNeeded();
+      const fileNamePDF = `${name}_${new Date().toISOString().slice(0, 10)}`;
+      // Customize the download path as desired
+      const customDownloadPath = `${RNFetchBlob.fs.dirs.DownloadDir}/HealthyFutureExports/PdfExports/${fileNamePDF}.pdf`;
+
+      // Download the file using the react-native-fetch-blob library
+      await RNFetchBlob.fs.cp(filePath, customDownloadPath);
+
+      console.log('File downloaded:', customDownloadPath);
     } catch (error) {
       console.error('Failed to export PDF:', error);
     }
   };
 
+  // share pdf
   const handleSharePdf = async () => {
     try {
       const htmlContent = generateHtml();
@@ -589,6 +605,29 @@ const Generateform1 = () => {
     }
   };
 
+  // custom directory
+
+  const getStorageDirectory = async () => {
+    try {
+      let baseDir = '';
+      if (Platform.OS === 'android') {
+        baseDir = `${RNFS.DocumentDirectoryPath}/Healthy Future/com.healthyfutureformapp/files/MyApp/PdfExports`;
+      } else {
+        baseDir = RNFS.DocumentDirectoryPath;
+      }
+
+      // Check if the directory exists, if not, create it
+      const dirExists = await RNFS.exists(baseDir);
+      if (!dirExists) {
+        await RNFS.mkdir(baseDir, {intermediates: true});
+      }
+
+      return baseDir;
+    } catch (error) {
+      console.error('Failed to retrieve storage directory:', error);
+      return null;
+    }
+  };
   // saving data
 
   const saveFormData = async () => {
@@ -663,7 +702,7 @@ const Generateform1 = () => {
     <SafeAreaView>
       <View style={styles.inputFieldContainerSAVE}>
         <TouchableOpacity style={styles.exportBtn} onPress={saveFormData}>
-          <Text style={styles.exportText}>Save Data</Text>
+          <Text style={styles.exportText}>Save Form</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.inputFieldContainerSHARE}>
@@ -673,7 +712,7 @@ const Generateform1 = () => {
       </View>
       <View style={styles.inputFieldContainerEXPORT}>
         <TouchableOpacity style={styles.exportBtn} onPress={handleExportPdf}>
-          <Text style={styles.exportText}>Save to Local Storage </Text>
+          <Text style={styles.exportText}>Save Pdf to Local Storage </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

@@ -628,9 +628,9 @@ const Generateform2 = () => {
 
   return (
     <SafeAreaView>
-      <View style={styles.inputFieldContainerSAVE}>
+       <View style={styles.inputFieldContainerSAVE}>
         <TouchableOpacity style={styles.exportBtn} onPress={saveFormData}>
-          <Text style={styles.exportText}>Save Data</Text>
+          <Text style={styles.exportText}>Save Form</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.inputFieldContainerSHARE}>
@@ -640,7 +640,7 @@ const Generateform2 = () => {
       </View>
       <View style={styles.inputFieldContainerEXPORT}>
         <TouchableOpacity style={styles.exportBtn} onPress={handleExportPdf}>
-          <Text style={styles.exportText}>Save to Local Storage </Text>
+          <Text style={styles.exportText}>Save Pdf to Local Storage </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

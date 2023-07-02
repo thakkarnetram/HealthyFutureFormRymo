@@ -330,7 +330,7 @@ const Form1 = () => {
       console.log('Error fetching form data:', error);
     }
   };
-  
+
   const resetFormData = () => {
     const formFields = [
       'updateNameForm1',
