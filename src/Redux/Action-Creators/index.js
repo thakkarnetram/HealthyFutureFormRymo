@@ -1,4 +1,36 @@
 /* eslint-disable prettier/prettier */
+// login creators
+export const UPDATE_OTP_CODE = 'UPDATE_OTP_CODE';
+export const SET_OTP = 'SET_OTP';
+export const GET_OTP = 'GET_OTP';
+export const VERIFY_OTP = 'VERIFY_OTP';
+// root urls
+const root = 'http://3.25.162.121:8090';
+const context = '/cb';
+export const GET_OTP_URL = root + context + '/get-otp';
+export const VERIFY_OTP_URL = root + context + '/verify-otp';
+// functions
+export const getOTP = () => {
+  return async dispatch => {
+    try {
+      const res = await fetch(GET_OTP_URL, {
+        method: 'GET',
+      });
+      if (res.ok) {
+        const json = await res.text();
+        dispatch({
+          type: GET_OTP,
+          payload: json,
+        });
+      } else {
+        console.log('Unable to fetch');
+      }
+    } catch (error) {
+      console.log('Failed to connect to server');
+    }
+  };
+};
+
 //    Spinal Cord Evaluation Form Creators
 export const updateNameForm1 = name => {
   return dispatch => {
