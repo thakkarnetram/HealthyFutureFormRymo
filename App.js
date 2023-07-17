@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 import Orientation from 'react-native-orientation-locker';
 import Immersive from 'react-native-immersive';
 import {Provider} from 'react-redux';
@@ -15,6 +16,7 @@ import Form2 from './src/Screens/Forms/Form2';
 import Form3 from './src/Screens/Forms/Form3';
 import Form4 from './src/Screens/Forms/Form4';
 import Login from './src/Screens/AuthScreen/Login';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
@@ -22,13 +24,16 @@ const Stack = createNativeStackNavigator();
 function App() {
   useEffect(() => {
     isUserLoggedIn();
+ 
     Orientation.lockToPortrait();
     return () => {
       Orientation.unlockAllOrientations(); // Unlocks all orientations when the component unmounts
     };
   }, []);
+
   Immersive.setImmersive(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const isUserLoggedIn = async () => {
     try {
       const value = await AsyncStorage.getItem('isLoggedIn');
@@ -37,6 +42,8 @@ function App() {
       console.log('Couldnt get login Status', error);
     }
   };
+
+
   return (
     <Provider store={store}>
       <NavigationContainer>
