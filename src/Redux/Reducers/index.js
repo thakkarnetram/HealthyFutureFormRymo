@@ -5,6 +5,7 @@ import form2Reducer from '../Reducers/form2Reducer';
 import form3Reducer from '../Reducers/form3Reducer';
 import form4Reducer from '../Reducers/form4Reducer';
 import loginReducer from '../Reducers/loginReducer';
+import patientReducer from '../Reducers/patientReducer';
 
 const reducers = combineReducers({
   form1: form1Reducer,
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   form3: form3Reducer,
   form4: form4Reducer,
   login: loginReducer,
+  patient: patientReducer,
 });
 
 export default reducers;

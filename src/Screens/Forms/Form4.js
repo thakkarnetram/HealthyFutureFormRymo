@@ -28,10 +28,10 @@ import {actionCreators} from '../../Redux/index';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Picker} from '@react-native-picker/picker';
 import Generateform4 from '../../GenerateHtml/Generateform4';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import db from '../../db/db';
 
-const Form4 = () => {
+const Form4 = ({route}) => {
   useEffect(() => {
     Orientation.lockToPortrait();
     return () => {
@@ -122,33 +122,58 @@ const Form4 = () => {
     actions.updatePatientImagePicked4(result.assets[0].uri);
   };
 
+  const {selectedPatientName, selectedPatientId} = route.params;
   useEffect(() => {
-    fetchFormData();
+    fetchFormData(selectedPatientId);
   }, []);
 
-  // Fetch saved form data
-  const fetchFormData = async () => {
-    try {
-      // Fetch the saved form data from AsyncStorage
-      const savedFormData = await AsyncStorage.getItem('form4Data');
-      if (savedFormData) {
-        const parsedData = JSON.parse(savedFormData);
-        actions.updateNameForm4(parsedData.name);
-        actions.updatePatientImageClicked4(parsedData.patientImageClicked);
-        actions.updatePatientImagePicked4(parsedData.patientImagePicked);
-        actions.updateTherapist(parsedData.therapist);
-        actions.updateMainTherapistName(parsedData.mainTherapistName);
-        actions.updatePresentProgress(parsedData.presentProgress);
-        actions.updatePresentConcern(parsedData.presentConcern);
-        actions.updateCommentAndPlan(parsedData.commentAndPlan);
-        actions.updatePlanWithPatient(parsedData.planWithPatient);
-        actions.updateVideoOfProgressTaken(parsedData.videoOfProgressTaken);
-        actions.updateTherapistName(parsedData.therapistName);
-      }
-      console.log('data fetched', savedFormData);
-    } catch (error) {
-      console.log('Error fetching form data:', error);
-    }
+
+  const fetchFormData = selectedPatientId => {
+    db.transaction(txn => {
+      resetFormData();
+      txn.executeSql(
+        'SELECT * FROM form4_data WHERE patient_id = ? ORDER BY patient_data_created_at DESC LIMIT 1',
+        [selectedPatientId],
+        (_, res) => {
+          if (res.rows.length > 0) {
+            const patientData = res.rows.item(0);
+            console.log(JSON.stringify(patientData));
+            const parsedData = JSON.parse(patientData.form_data);
+            actions.updateNameForm4(parsedData.name);
+            actions.updatePatientImageClicked4(parsedData.patientImageClicked);
+            actions.updatePatientImagePicked4(parsedData.patientImagePicked);
+            actions.updateTherapist(parsedData.therapist);
+            actions.updateMainTherapistName(parsedData.mainTherapistName);
+            actions.updatePresentProgress(parsedData.presentProgress);
+            actions.updatePresentConcern(parsedData.presentConcern);
+            actions.updateCommentAndPlan(parsedData.commentAndPlan);
+            actions.updatePlanWithPatient(parsedData.planWithPatient);
+            actions.updateVideoOfProgressTaken(parsedData.videoOfProgressTaken);
+            actions.updateTherapistName(parsedData.therapistName);
+            console.log('FORM DATA ' + JSON.stringify(parsedData));
+          } else {
+            console.error('IFFFFFFFFFFFFFFFFF  ' + selectedPatientId);
+            txn.executeSql(
+              'SELECT * FROM patient_data WHERE _id = ?',
+              [selectedPatientId],
+              (_, res) => {
+                if (res.rows.length > 0) {
+                  const patientData = res.rows.item(0);
+                  const patientName = patientData.patient_name;
+                  actions.updateNameForm4(patientName);
+                }
+              },
+              (_, error) => {
+                console.log('Couldnt fetch data ', error);
+              },
+            );
+          }
+        },
+        (_, error) => {
+          console.error('Error executing SQL query: ', error);
+        },
+      );
+    });
   };
 
   // Reset Form Data
@@ -199,6 +224,14 @@ const Form4 = () => {
               <Text style={styles.exportText}>Reset Form</Text>
             </TouchableOpacity>
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Name
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={name}
@@ -374,6 +407,14 @@ const Form4 = () => {
               />
             )}
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Therapist
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={therapist}
@@ -384,6 +425,14 @@ const Form4 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Main Therapist
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={mainTherapist}
@@ -394,6 +443,14 @@ const Form4 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Present Progress
+          </Text>
           <View style={styles.inputTextContainerMultiLine}>
             <TextInput
               value={presentProgress}
@@ -405,6 +462,14 @@ const Form4 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Present Concern
+          </Text>
           <View style={styles.inputTextContainerMultiLine}>
             <TextInput
               value={presentConcern}
@@ -416,6 +481,14 @@ const Form4 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Comment and Plan
+          </Text>
           <View style={styles.inputTextContainerMultiLine}>
             <TextInput
               value={commentAndPlan}
@@ -427,6 +500,14 @@ const Form4 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Plan Discussed with Patient
+          </Text>
           <View style={styles.inputTextContainerMultiLine}>
             <TextInput
               value={planWithPatient}
@@ -460,6 +541,14 @@ const Form4 = () => {
               </View>
             </View>
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Therapist Name
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={therapistName}
@@ -470,7 +559,10 @@ const Form4 = () => {
               style={styles.inputText}
             />
           </View>
-          <Generateform4 />
+          <Generateform4
+            selectedPatientName={selectedPatientName}
+            selectedPatientId={selectedPatientId}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

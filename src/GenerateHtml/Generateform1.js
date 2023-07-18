@@ -13,10 +13,10 @@ import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import RNFS from 'react-native-fs';
-import {DocumentPickerOptions} from 'react-native-document-picker';
+import db from '../db/db';
 import RNFetchBlob from 'rn-fetch-blob';
 
-const Generateform1 = () => {
+const Generateform1 = ({selectedPatientId, selectedPatientName}) => {
   const [permission, setPermission] = useState(false);
   const name = useSelector(state => state.form1.name);
   const patientImageClicked = useSelector(
@@ -605,99 +605,72 @@ const Generateform1 = () => {
     }
   };
 
-  // custom directory
-
-  const getStorageDirectory = async () => {
-    try {
-      let baseDir = '';
-      if (Platform.OS === 'android') {
-        baseDir = `${RNFS.DocumentDirectoryPath}/Healthy Future/com.healthyfutureformapp/files/MyApp/PdfExports`;
-      } else {
-        baseDir = RNFS.DocumentDirectoryPath;
-      }
-
-      // Check if the directory exists, if not, create it
-      const dirExists = await RNFS.exists(baseDir);
-      if (!dirExists) {
-        await RNFS.mkdir(baseDir, {intermediates: true});
-      }
-
-      return baseDir;
-    } catch (error) {
-      console.error('Failed to retrieve storage directory:', error);
-      return null;
-    }
-  };
   // saving data
 
-  const saveFormData = async () => {
-    try {
-      // Prepare the form data to be saved
-      const formData = {
-        name: name,
-        handDominance: handDominance,
-        age: age,
-        gender: gender,
-        address: address,
-        occupation: occupation,
-        diagnosis: diagnosis,
-        chiefComplaint: chiefComplaint,
-        history: history,
-        pastMedical: pastMedical,
-        investigation: investigation,
-        attitudeofLimb: attitudeofLimb,
-        externalAids: externalAids,
-        gait: gait,
-        transferAbility: transferAbility,
-        bedSores: bedSores,
-        reflexComs: reflexComs,
-        scoringSystem: scoringSystem,
-        deformity: deformity,
-        asiaScale: asiaScale,
-        longTermGoal: longTermGoal,
-        shortTermGoal: shortTermGoal,
-        remarks: remarks,
-        therapistName: therapistName,
-        clickedImage1: clickedImage1,
-        clickedImage2: clickedImage2,
-        clickedImage3: clickedImage3,
-        clickedImage4: clickedImage4,
-        clickedImage5: clickedImage5,
-        pickedImage1: pickedImage1,
-        pickedImage2: pickedImage2,
-        pickedImage3: pickedImage3,
-        pickedImage4: pickedImage4,
-        pickedImage5: pickedImage5,
-        patientImageClicked: patientImageClicked,
-        patientImagePicked: patientImagePicked,
-      };
+  const saveFormData = () => {
+    // Prepare the form data to be saved
+    const formData = JSON.stringify({
+      name: name,
+      handDominance: handDominance,
+      age: age,
+      gender: gender,
+      address: address,
+      occupation: occupation,
+      diagnosis: diagnosis,
+      chiefComplaint: chiefComplaint,
+      history: history,
+      pastMedical: pastMedical,
+      investigation: investigation,
+      attitudeofLimb: attitudeofLimb,
+      externalAids: externalAids,
+      gait: gait,
+      transferAbility: transferAbility,
+      bedSores: bedSores,
+      reflexComs: reflexComs,
+      scoringSystem: scoringSystem,
+      deformity: deformity,
+      asiaScale: asiaScale,
+      longTermGoal: longTermGoal,
+      shortTermGoal: shortTermGoal,
+      remarks: remarks,
+      therapistName: therapistName,
+      clickedImage1: clickedImage1,
+      clickedImage2: clickedImage2,
+      clickedImage3: clickedImage3,
+      clickedImage4: clickedImage4,
+      clickedImage5: clickedImage5,
+      pickedImage1: pickedImage1,
+      pickedImage2: pickedImage2,
+      pickedImage3: pickedImage3,
+      pickedImage4: pickedImage4,
+      pickedImage5: pickedImage5,
+      patientImageClicked: patientImageClicked,
+      patientImagePicked: patientImagePicked,
+    });
 
-      // Remove circular references from form data
-      const sanitizedData = JSON.parse(JSON.stringify(formData));
-
-      // Save the form data to AsyncStorage
-      await AsyncStorage.setItem('form1Data', JSON.stringify(sanitizedData));
-      successToast();
-      console.log('Form data saved:', sanitizedData);
-    } catch (error) {
-      console.log('Error saving form data:', error);
-      errorToast();
-    }
-  };
-
-  const successToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Data Saved Successfully !',
+    db.transaction(txn => {
+      txn.executeSql(
+        'SELECT _id FROM patient_data WHERE patient_name = ?',
+        [selectedPatientName],
+        (_, result) => {
+          if (result.rows.length > 0) {
+            const patientId = result.rows.item(0)._id;
+            txn.executeSql(
+              'INSERT INTO form1_data(patient_id, form_data) VALUES (?, ?)',
+              [patientId, formData],
+              (_, res) => {
+                console.log(res);
+              },
+              (_, error) => {
+                console.log('Couldnt Save Data ', error);
+              },
+            );
+          }
+        },
+      );
     });
   };
 
-  const errorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error Saving Data !',
-    });
-  };
   return (
     <SafeAreaView>
       <View style={styles.inputFieldContainerSAVE}>

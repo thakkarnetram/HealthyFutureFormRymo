@@ -31,6 +31,61 @@ export const getOTP = () => {
   };
 };
 
+// Patient List
+export const updatePatientList = patientList => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientList',
+      payload: patientList,
+    });
+  };
+};
+
+export const updatePatientName = patientName => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientName',
+      payload: patientName,
+    });
+  };
+};
+
+export const updatePatientAddress = patientAddress => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientAddress',
+      payload: patientAddress,
+    });
+  };
+};
+
+export const updatePatientContact = patientContact => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientContact',
+      payload: patientContact,
+    });
+  };
+};
+
+export const updatePatientImageMain = patientImage => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientImageMain',
+      payload: patientImage,
+    });
+  };
+};
+
+export const updatePatientId = patientId => {
+  return dispatch => {
+    dispatch({
+      type: 'updatePatientId',
+      payload: patientId,
+    });
+  };
+};
+
 //    Spinal Cord Evaluation Form Creators
 export const updateNameForm1 = name => {
   return dispatch => {

@@ -17,8 +17,9 @@ import {
 import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import db from '../db/db';
 
-const Generateform3 = () => {
+const Generateform3 = ({selectedPatientName, selectedPatientId}) => {
   const [permission, setPermission] = useState(false);
   const patientImageClicked = useSelector(
     state => state.form3.patientImageClicked,
@@ -695,92 +696,86 @@ const Generateform3 = () => {
 
   // saving data
 
-  const saveFormData = async () => {
-    try {
-      // Prepare the form data to be saved
-      const formData = {
-        name: name,
-        age: age,
-        male: male,
-        female: female,
-        occupation: occupation,
-        referredBy: referredBy,
-        chiefComplaint: chiefComplaint,
-        painSeverity: painSeverity,
-        history: history,
-        pain: pain,
-        onSet: onSet,
-        type: type,
-        aggravatingFactor: aggravatingFactor,
-        relievingFactor: relievingFactor,
-        swelling1: swelling1,
-        deformity: deformity,
-        gaitImbalance: gaitImbalance,
-        scarWound: scarWound,
-        swelling2: swelling2,
-        painSeverityBox: painSeverityBox,
-        oedema: oedema,
-        temperature: temperature,
-        tenderness: tenderness,
-        wasting: wasting,
-        capsularPattern: capsularPattern,
-        jointPlay: jointPlay,
-        lld: lld,
-        investigations: investigations,
-        specialTest: specialTest,
-        diagnosis: diagnosis,
-        treatment: treatment,
-        remarks: remarks,
-        mmt: mmt,
-        reflexes: reflexes,
-        rom: rom,
-        sensoryExamination: sensoryExamination,
-        dermatomes: dermatomes,
-        myotomes: myotomes,
-        clickedImage1: clickedImage1,
-        clickedImage2: clickedImage2,
-        clickedImage3: clickedImage3,
-        clickedImage4: clickedImage4,
-        clickedImage5: clickedImage5,
-        pickedImage1: pickedImage1,
-        pickedImage2: pickedImage2,
-        pickedImage3: pickedImage3,
-        pickedImage4: pickedImage4,
-        pickedImage5: pickedImage5,
-        patientImageClicked: patientImageClicked,
-        patientImagePicked: patientImagePicked,
-      };
-
-      // Remove circular references from form data
-      const sanitizedData = JSON.parse(JSON.stringify(formData));
-
-      // Save the form data to AsyncStorage
-      await AsyncStorage.setItem('form3Data', JSON.stringify(sanitizedData));
-      successToast();
-      console.log('Form data saved:', sanitizedData);
-    } catch (error) {
-      console.log('Error saving form data:', error);
-      errorToast();
-    }
-  };
-
-  const successToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Data Saved Successfully !',
+  const saveFormData = () => {
+    // Prepare the form data to be saved
+    const formData = JSON.stringify({
+      name: name,
+      age: age,
+      male: male,
+      female: female,
+      occupation: occupation,
+      referredBy: referredBy,
+      chiefComplaint: chiefComplaint,
+      painSeverity: painSeverity,
+      history: history,
+      pain: pain,
+      onSet: onSet,
+      type: type,
+      aggravatingFactor: aggravatingFactor,
+      relievingFactor: relievingFactor,
+      swelling1: swelling1,
+      deformity: deformity,
+      gaitImbalance: gaitImbalance,
+      scarWound: scarWound,
+      swelling2: swelling2,
+      painSeverityBox: painSeverityBox,
+      oedema: oedema,
+      temperature: temperature,
+      tenderness: tenderness,
+      wasting: wasting,
+      capsularPattern: capsularPattern,
+      jointPlay: jointPlay,
+      lld: lld,
+      investigations: investigations,
+      specialTest: specialTest,
+      diagnosis: diagnosis,
+      treatment: treatment,
+      remarks: remarks,
+      mmt: mmt,
+      reflexes: reflexes,
+      rom: rom,
+      sensoryExamination: sensoryExamination,
+      dermatomes: dermatomes,
+      myotomes: myotomes,
+      clickedImage1: clickedImage1,
+      clickedImage2: clickedImage2,
+      clickedImage3: clickedImage3,
+      clickedImage4: clickedImage4,
+      clickedImage5: clickedImage5,
+      pickedImage1: pickedImage1,
+      pickedImage2: pickedImage2,
+      pickedImage3: pickedImage3,
+      pickedImage4: pickedImage4,
+      pickedImage5: pickedImage5,
+      patientImageClicked: patientImageClicked,
+      patientImagePicked: patientImagePicked,
     });
-  };
-
-  const errorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error Saving Data !',
+    db.transaction(txn => {
+      txn.executeSql(
+        'SELECT _id FROM patient_data WHERE patient_name = ?',
+        [selectedPatientName],
+        (_, result) => {
+          if (result.rows.length > 0) {
+            const patientId = result.rows.item(0)._id;
+            txn.executeSql(
+              'INSERT INTO form3_data(patient_id, form_data) VALUES (?, ?)',
+              [patientId, formData],
+              (_, res) => {
+                console.log(res);
+              },
+              (_, error) => {
+                console.log('Couldnt Save Data ', error);
+              },
+            );
+          }
+        },
+      );
     });
   };
 
   return (
     <SafeAreaView>
-       <View style={styles.inputFieldContainerSAVE}>
+      <View style={styles.inputFieldContainerSAVE}>
         <TouchableOpacity style={styles.exportBtn} onPress={saveFormData}>
           <Text style={styles.exportText}>Save Form</Text>
         </TouchableOpacity>

@@ -17,8 +17,9 @@ import {
 import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import db from '../db/db';
 
-const Generateform4 = () => {
+const Generateform4 = ({selectedPatientId, selectedPatientName}) => {
   const [permission, setPermission] = useState(false);
   const name = useSelector(state => state.form4.name);
   const date = useSelector(state => state.form4.date);
@@ -350,47 +351,41 @@ const Generateform4 = () => {
 
   // saving data
 
-  const saveFormData = async () => {
-    try {
-      // Prepare the form data to be saved
-      const formData = {
-        name: name,
-        patientImageClicked: patientImageClicked,
-        patientImagePicked: patientImagePicked,
-        therapist: therapist,
-        mainTherapist: mainTherapist,
-        presentProgress: presentProgress,
-        presentConcern: presentConcern,
-        commentAndPlan: commentAndPlan,
-        planWithPatient: planWithPatient,
-        videoOfProgressTaken: videoOfProgressTaken,
-        therapistName: therapistName,
-      };
-
-      // Remove circular references from form data
-      const sanitizedData = JSON.parse(JSON.stringify(formData));
-
-      // Save the form data to AsyncStorage
-      await AsyncStorage.setItem('form4Data', JSON.stringify(sanitizedData));
-      successToast();
-      console.log('Form data saved:', sanitizedData);
-    } catch (error) {
-      console.log('Error saving form data:', error);
-      errorToast();
-    }
-  };
-
-  const successToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Data Saved Successfully !',
+  const saveFormData = () => {
+    // Prepare the form data to be saved
+    const formData = JSON.stringify({
+      name: name,
+      patientImageClicked: patientImageClicked,
+      patientImagePicked: patientImagePicked,
+      therapist: therapist,
+      mainTherapist: mainTherapist,
+      presentProgress: presentProgress,
+      presentConcern: presentConcern,
+      commentAndPlan: commentAndPlan,
+      planWithPatient: planWithPatient,
+      videoOfProgressTaken: videoOfProgressTaken,
+      therapistName: therapistName,
     });
-  };
-
-  const errorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error Saving Data !',
+    db.transaction(txn => {
+      txn.executeSql(
+        'SELECT _id FROM patient_data WHERE patient_name = ?',
+        [selectedPatientName],
+        (_, result) => {
+          if (result.rows.length > 0) {
+            const patientId = result.rows.item(0)._id;
+            txn.executeSql(
+              'INSERT INTO form4_data(patient_id, form_data) VALUES (?, ?)',
+              [patientId, formData],
+              (_, res) => {
+                console.log(res);
+              },
+              (_, error) => {
+                console.log('Couldnt Save Data ', error);
+              },
+            );
+          }
+        },
+      );
     });
   };
 

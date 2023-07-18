@@ -16,58 +16,17 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Orientation from 'react-native-orientation-locker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Immersive from 'react-native-immersive';
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation, route}) => {
   useEffect(() => {
-    getLoginTime();
     Orientation.lockToPortrait();
     return () => {
       Orientation.unlockAllOrientations(); // Unlocks all orientations when the component unmounts
     };
   }, []);
   Immersive.setImmersive(true);
-  const TIME = 2592000000; // 30days in milliseconds
-  const getLoginTime = async () => {
-    try {
-      const value = await AsyncStorage.getItem('loginTime');
-      if (!value) {
-        saveLoginTime();
-      } else if (value !== null) {
-        const loginTime = new Date(value);
-        const currentTime = new Date();
-        const timeDifference = currentTime.getTime() - loginTime.getTime();
-        if (timeDifference > TIME) {
-          logout();
-          saveLoginTime();
-        }
-      }
-    } catch (error) {
-      console.log('error logging out ' + error);
-    }
-  };
+  const {selectedPatientName, selectedPatientId, selectedImage} = route.params;
 
-  const saveLoginTime = async () => {
-    try {
-      await AsyncStorage.setItem('loginTime', new Date().toString());
-    } catch (error) {
-      console.log('Error saving the Key', error);
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await AsyncStorage.removeItem('isLoggedIn');
-      if (navigation.canGoBack()) {
-        navigation.goBack(); // First go back
-      }
-      if (navigation.canGoBack()) {
-        navigation.goBack(); // Second go back
-      }
-    } catch (error) {
-      console.log('couldnt remove' + error);
-    }
-  };
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
@@ -82,10 +41,38 @@ const HomeScreen = ({navigation}) => {
               marginVertical: wp('10%'),
             }}
           />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderRadius: 15,
+              width: wp('70%'),
+              height: hp('10%'),
+              marginVertical: wp('1%'),
+              marginHorizontal: wp('10%'),
+            }}>
+            {selectedImage ? (
+              <Image
+                source={{uri: selectedImage}}
+                style={styles.patientImage}
+              />
+            ) : (
+              <Image
+                source={require('../Assets/profile.png')}
+                style={styles.patientImage}
+              />
+            )}
+            <View style={styles.patientNameContainer}>
+              <Text style={styles.patientText}>{selectedPatientName}</Text>
+            </View>
+          </View>
           <TouchableOpacity
             style={styles.buttonStyle}
             onPress={() => {
-              navigation.navigate('Form1');
+              navigation.navigate('Form1', {
+                selectedPatientName: selectedPatientName,
+                selectedPatientId: selectedPatientId,
+              });
             }}>
             <Text style={styles.buttonTextStyle}>
               Spinal Cord Evaluation Form
@@ -94,7 +81,10 @@ const HomeScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             onPress={() => {
-              navigation.navigate('Form2');
+              navigation.navigate('Form2', {
+                selectedPatientName: selectedPatientName,
+                selectedPatientId: selectedPatientId,
+              });
             }}>
             <Text style={styles.buttonTextStyle}>
               Neurological Evaluation Form
@@ -103,7 +93,10 @@ const HomeScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             onPress={() => {
-              navigation.navigate('Form3');
+              navigation.navigate('Form3', {
+                selectedPatientName: selectedPatientName,
+                selectedPatientId: selectedPatientId,
+              });
             }}>
             <Text style={styles.buttonTextStyle}>
               Musculoskeletal Assessment Form
@@ -112,7 +105,10 @@ const HomeScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             onPress={() => {
-              navigation.navigate('Form4');
+              navigation.navigate('Form4', {
+                selectedPatientName: selectedPatientName,
+                selectedPatientId: selectedPatientId,
+              });
             }}>
             <Text style={styles.buttonTextStyle}>Weekly Review Form</Text>
           </TouchableOpacity>
@@ -143,6 +139,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#e8e8e8',
     height: hp('100%'),
     width: wp('100%'),
+  },
+  patientImage: {
+    borderRadius: 20,
+    width: 50,
+    height: 50,
+    marginHorizontal: wp('3%'),
+  },
+  patientText: {
+    marginVertical: wp('1.5%'),
+    color: '#082173',
+    marginHorizontal: wp('3%'),
+    fontSize: wp('3%'),
   },
   buttonStyle: {
     marginHorizontal: wp('20%'),

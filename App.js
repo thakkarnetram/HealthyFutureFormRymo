@@ -16,6 +16,7 @@ import Form2 from './src/Screens/Forms/Form2';
 import Form3 from './src/Screens/Forms/Form3';
 import Form4 from './src/Screens/Forms/Form4';
 import Login from './src/Screens/AuthScreen/Login';
+import PatientHome from './src/Screens/PatientScreen/Patient';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -24,7 +25,6 @@ const Stack = createNativeStackNavigator();
 function App() {
   useEffect(() => {
     isUserLoggedIn();
- 
     Orientation.lockToPortrait();
     return () => {
       Orientation.unlockAllOrientations(); // Unlocks all orientations when the component unmounts
@@ -43,13 +43,17 @@ function App() {
     }
   };
 
-
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           {isLoggedIn ? (
             <>
+              <Stack.Screen
+                name="PatientScreen"
+                component={PatientHome}
+                options={{headerShown: false}}
+              />
               <Stack.Screen
                 name="HomeScreen"
                 component={HomeScreen}
@@ -81,6 +85,11 @@ function App() {
               <Stack.Screen
                 name="Login"
                 component={Login}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="PatientScreen"
+                component={PatientHome}
                 options={{headerShown: false}}
               />
               <Stack.Screen

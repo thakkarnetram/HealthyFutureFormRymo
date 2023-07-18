@@ -17,8 +17,9 @@ import {
 import {useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import db from '../db/db';
 
-const Generateform2 = () => {
+const Generateform2 = ({selectedPatientId, selectedPatientName}) => {
   const [permission, setPermission] = useState(false);
   const name = useSelector(state => state.form2.name);
   const handDominance = useSelector(state => state.form2.handDominance);
@@ -562,73 +563,67 @@ const Generateform2 = () => {
 
   // saving data
 
-  const saveFormData = async () => {
-    try {
-      // Prepare the form data to be saved
-      const formData = {
-        name: name,
-        handDominance: handDominance,
-        age: age,
-        gender: gender,
-        address: address,
-        occupation: occupation,
-        diagnosis: diagnosis,
-        chiefComplaint: chiefComplaint,
-        history: history,
-        pastMedical: pastMedical,
-        investigation: investigation,
-        attitudeofLimb: attitudeofLimb,
-        externalAids: externalAids,
-        gait: gait,
-        transferAbility: transferAbility,
-        bedSores: bedSores,
-        deformity: deformity,
-        vcgComs: vcgComs,
-        toneComs: toneComs,
-        clickedImage1: clickedImage1,
-        clickedImage2: clickedImage2,
-        clickedImage3: clickedImage3,
-        clickedImage4: clickedImage4,
-        clickedImage5: clickedImage5,
-        pickedImage1: pickedImage1,
-        pickedImage2: pickedImage2,
-        pickedImage3: pickedImage3,
-        pickedImage4: pickedImage4,
-        pickedImage5: pickedImage5,
-        patientImageClicked: patientImageClicked,
-        patientImagePicked: patientImagePicked,
-      };
-
-      // Remove circular references from form data
-      const sanitizedData = JSON.parse(JSON.stringify(formData));
-
-      // Save the form data to AsyncStorage
-      await AsyncStorage.setItem('form2Data', JSON.stringify(sanitizedData));
-      successToast();
-      console.log('Form data saved:', sanitizedData);
-    } catch (error) {
-      console.log('Error saving form data:', error);
-      errorToast();
-    }
-  };
-
-  const successToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Data Saved Successfully !',
+  const saveFormData = () => {
+    // Prepare the form data to be saved
+    const formData = JSON.stringify({
+      name: name,
+      handDominance: handDominance,
+      age: age,
+      gender: gender,
+      address: address,
+      occupation: occupation,
+      diagnosis: diagnosis,
+      chiefComplaint: chiefComplaint,
+      history: history,
+      pastMedical: pastMedical,
+      investigation: investigation,
+      attitudeofLimb: attitudeofLimb,
+      externalAids: externalAids,
+      gait: gait,
+      transferAbility: transferAbility,
+      bedSores: bedSores,
+      deformity: deformity,
+      vcgComs: vcgComs,
+      toneComs: toneComs,
+      clickedImage1: clickedImage1,
+      clickedImage2: clickedImage2,
+      clickedImage3: clickedImage3,
+      clickedImage4: clickedImage4,
+      clickedImage5: clickedImage5,
+      pickedImage1: pickedImage1,
+      pickedImage2: pickedImage2,
+      pickedImage3: pickedImage3,
+      pickedImage4: pickedImage4,
+      pickedImage5: pickedImage5,
+      patientImageClicked: patientImageClicked,
+      patientImagePicked: patientImagePicked,
     });
-  };
-
-  const errorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error Saving Data !',
+    db.transaction(txn => {
+      txn.executeSql(
+        'SELECT _id FROM patient_data WHERE patient_name = ?',
+        [selectedPatientName],
+        (_, result) => {
+          if (result.rows.length > 0) {
+            const patientId = result.rows.item(0)._id;
+            txn.executeSql(
+              'INSERT INTO form2_data(patient_id, form_data) VALUES (?, ?)',
+              [patientId, formData],
+              (_, res) => {
+                console.log(res);
+              },
+              (_, error) => {
+                console.log('Couldnt Save Data ', error);
+              },
+            );
+          }
+        },
+      );
     });
   };
 
   return (
     <SafeAreaView>
-       <View style={styles.inputFieldContainerSAVE}>
+      <View style={styles.inputFieldContainerSAVE}>
         <TouchableOpacity style={styles.exportBtn} onPress={saveFormData}>
           <Text style={styles.exportText}>Save Form</Text>
         </TouchableOpacity>

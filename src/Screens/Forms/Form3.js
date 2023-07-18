@@ -28,10 +28,10 @@ import {actionCreators} from '../../Redux/index';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Picker} from '@react-native-picker/picker';
 import Generateform3 from '../../GenerateHtml/Generateform3';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import db from '../../db/db';
 
-const Form3 = () => {
+const Form3 = ({route}) => {
   useEffect(() => {
     Orientation.lockToPortrait();
     return () => {
@@ -315,73 +315,98 @@ const Form3 = () => {
     const result = await launchImageLibrary(options);
     actions.updatePickedImage5(result.assets[0].uri);
   };
-
+  const {selectedPatientName, selectedPatientId} = route.params;
   useEffect(() => {
-    fetchFormData();
+    fetchFormData(selectedPatientId);
   }, []);
 
-  // Fetch saved form data
-  const fetchFormData = async () => {
-    try {
-      // Fetch the saved form data from AsyncStorage
-      const savedFormData = await AsyncStorage.getItem('form3Data');
-      if (savedFormData) {
-        const parsedData = JSON.parse(savedFormData);
-        actions.updateNameForm3(parsedData.name);
-        actions.updateAgeForm3(parsedData.age);
-        actions.updateMale(parsedData.male);
-        actions.updateFemale(parsedData.female);
-        actions.updateOccupationForm3(parsedData.occupation);
-        actions.updateReferredBy(parsedData.referredBy);
-        actions.updateChiefComplaintForm3(parsedData.chiefComplaint);
-        actions.updatePainSeverity(parsedData.painSeverity);
-        actions.updateHistory(parsedData.history);
-        actions.updatePain(parsedData.pain);
-        actions.updateOnSet(parsedData.onSet);
-        actions.updateType(parsedData.type);
-        actions.updateAggravatingFactor(parsedData.aggravatingFactor);
-        actions.updateRelievingFactor(parsedData.relievingFactor);
-        actions.updateSwelling1(parsedData.swelling1);
-        actions.updateDeformity(parsedData.deformity);
-        actions.updateGaitImbalance(parsedData.gaitImbalance);
-        actions.updateScarWound(parsedData.scarWound);
-        actions.updateSwelling2(parsedData.swelling2);
-        actions.updatePainSeverityBox(parsedData.painSeverityBox);
-        actions.updateOedema(parsedData.oedema);
-        actions.updateTemperature(parsedData.temperature);
-        actions.updateTenderness(parsedData.tenderness);
-        actions.updateWasting(parsedData.wasting);
-        actions.updateCapsularPattern(parsedData.capsularPattern);
-        actions.updateJointPlay(parsedData.jointPlay);
-        actions.updateLLD(parsedData.lld);
-        actions.updateInvestigations(parsedData.investigations);
-        actions.updateSpecialTest(parsedData.specialTest);
-        actions.updateDiagnosis(parsedData.diagnosis);
-        actions.updateTreatment(parsedData.treatment);
-        actions.updateRemarks2(parsedData.remarks);
-        actions.updateMMT(parsedData.mmt);
-        actions.updateReflexes(parsedData.reflexes);
-        actions.updateROM(parsedData.rom);
-        actions.updateSensoryExamination(parsedData.sensoryExamination);
-        actions.updateDermatomes(parsedData.dermatomes);
-        actions.updateMyotomes(parsedData.myotomes);
-        actions.updateClickedImage1(parsedData.clickedImage1);
-        actions.updatePickedImage1(parsedData.pickedImage1);
-        actions.updateClickedImage2(parsedData.clickedImage2);
-        actions.updatePickedImage2(parsedData.pickedImage2);
-        actions.updateClickedImage3(parsedData.clickedImage3);
-        actions.updatePickedImage3(parsedData.pickedImage3);
-        actions.updateClickedImage4(parsedData.clickedImage4);
-        actions.updatePickedImage4(parsedData.pickedImage4);
-        actions.updateClickedImage5(parsedData.clickedImage5);
-        actions.updatePickedImage5(parsedData.pickedImage5);
-        actions.updatePatientImageClicked3(parsedData.patientImageClicked);
-        actions.updatePatientImagePicked3(parsedData.patientImagePicked);
-      }
-      console.log('data fetched', savedFormData);
-    } catch (error) {
-      console.log('Error fetching form data:', error);
-    }
+  const fetchFormData = selectedPatientId => {
+    db.transaction(txn => {
+      resetFormData();
+      txn.executeSql(
+        'SELECT * FROM form3_data WHERE patient_id = ? ORDER BY patient_data_created_at DESC LIMIT 1',
+        [selectedPatientId],
+        (_, res) => {
+          if (res.rows.length > 0) {
+            const patientData = res.rows.item(0);
+            console.log(JSON.stringify(patientData));
+            const parsedData = JSON.parse(patientData.form_data);
+            actions.updateNameForm3(parsedData.name);
+            actions.updateAgeForm3(parsedData.age);
+            actions.updateMale(parsedData.male);
+            actions.updateFemale(parsedData.female);
+            actions.updateOccupationForm3(parsedData.occupation);
+            actions.updateReferredBy(parsedData.referredBy);
+            actions.updateChiefComplaintForm3(parsedData.chiefComplaint);
+            actions.updatePainSeverity(parsedData.painSeverity);
+            actions.updateHistory(parsedData.history);
+            actions.updatePain(parsedData.pain);
+            actions.updateOnSet(parsedData.onSet);
+            actions.updateType(parsedData.type);
+            actions.updateAggravatingFactor(parsedData.aggravatingFactor);
+            actions.updateRelievingFactor(parsedData.relievingFactor);
+            actions.updateSwelling1(parsedData.swelling1);
+            actions.updateDeformity(parsedData.deformity);
+            actions.updateGaitImbalance(parsedData.gaitImbalance);
+            actions.updateScarWound(parsedData.scarWound);
+            actions.updateSwelling2(parsedData.swelling2);
+            actions.updatePainSeverityBox(parsedData.painSeverityBox);
+            actions.updateOedema(parsedData.oedema);
+            actions.updateTemperature(parsedData.temperature);
+            actions.updateTenderness(parsedData.tenderness);
+            actions.updateWasting(parsedData.wasting);
+            actions.updateCapsularPattern(parsedData.capsularPattern);
+            actions.updateJointPlay(parsedData.jointPlay);
+            actions.updateLLD(parsedData.lld);
+            actions.updateInvestigations(parsedData.investigations);
+            actions.updateSpecialTest(parsedData.specialTest);
+            actions.updateDiagnosis(parsedData.diagnosis);
+            actions.updateTreatment(parsedData.treatment);
+            actions.updateRemarks2(parsedData.remarks);
+            actions.updateMMT(parsedData.mmt);
+            actions.updateReflexes(parsedData.reflexes);
+            actions.updateROM(parsedData.rom);
+            actions.updateSensoryExamination(parsedData.sensoryExamination);
+            actions.updateDermatomes(parsedData.dermatomes);
+            actions.updateMyotomes(parsedData.myotomes);
+            actions.updateClickedImage1(parsedData.clickedImage1);
+            actions.updatePickedImage1(parsedData.pickedImage1);
+            actions.updateClickedImage2(parsedData.clickedImage2);
+            actions.updatePickedImage2(parsedData.pickedImage2);
+            actions.updateClickedImage3(parsedData.clickedImage3);
+            actions.updatePickedImage3(parsedData.pickedImage3);
+            actions.updateClickedImage4(parsedData.clickedImage4);
+            actions.updatePickedImage4(parsedData.pickedImage4);
+            actions.updateClickedImage5(parsedData.clickedImage5);
+            actions.updatePickedImage5(parsedData.pickedImage5);
+            actions.updatePatientImageClicked3(parsedData.patientImageClicked);
+            actions.updatePatientImagePicked3(parsedData.patientImagePicked);
+            console.log('FORM DATA ' + JSON.stringify(parsedData));
+          } else {
+            console.error('IFFFFFFFFFFFFFFFFF  ' + selectedPatientId);
+            txn.executeSql(
+              'SELECT * FROM patient_data WHERE _id = ?',
+              [selectedPatientId],
+              (_, res) => {
+                if (res.rows.length > 0) {
+                  const patientData = res.rows.item(0);
+                  const patientName = patientData.patient_name;
+                  const address = patientData.patient_address;
+                  actions.updateNameForm3(patientName);
+                  actions.updateAddressForm3(address);
+                }
+              },
+              (_, error) => {
+                console.log('Couldnt fetch data ', error);
+              },
+            );
+          }
+        },
+        (_, error) => {
+          console.error('Error executing SQL query: ', error);
+        },
+      );
+    });
   };
 
   // Reset Form Data
@@ -471,6 +496,14 @@ const Form3 = () => {
               <Text style={styles.exportText}>Reset Form</Text>
             </TouchableOpacity>
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Name
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={name}
@@ -481,6 +514,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Age
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={age}
@@ -637,6 +678,14 @@ const Form3 = () => {
             )}
           </View>
           {/* End */}
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Select Gender
+          </Text>
           <View style={styles.checkBoxContainer}>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.genderHead}>Select your Gender</Text>
@@ -656,6 +705,14 @@ const Form3 = () => {
               </View>
             </View>
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Occupation
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={occupation}
@@ -666,6 +723,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Referred By
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={referredBy}
@@ -676,6 +741,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Chief Complaint
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={chiefComplaint}
@@ -753,6 +826,14 @@ const Form3 = () => {
               </View>
             </View>
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Pain Severity Text
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={painSeverityBox}
@@ -763,6 +844,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            History
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={history}
@@ -773,6 +862,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Pain Area
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={pain}
@@ -783,6 +880,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Onset
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={onSet}
@@ -793,6 +898,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Type
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={type}
@@ -803,6 +916,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Aggravating Factor
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={aggravatingFactor}
@@ -813,6 +934,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Relieving Factor
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={relievingFactor}
@@ -835,6 +964,14 @@ const Form3 = () => {
             }}>
             On Observation
           </Text>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Swelling
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={swelling1}
@@ -845,6 +982,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Deformity
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={deformity}
@@ -855,6 +1000,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Gait Imbalance
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={gaitImbalance}
@@ -865,6 +1018,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Scar Wound
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={scarWound}
@@ -887,6 +1048,14 @@ const Form3 = () => {
             }}>
             On Palpation
           </Text>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Swelling
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={swelling2}
@@ -897,6 +1066,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Oedema
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={oedema}
@@ -907,6 +1084,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Temperature
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={temperature}
@@ -917,6 +1102,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Tenderness
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={tenderness}
@@ -927,6 +1120,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Wasting
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={wasting}
@@ -1625,6 +1826,14 @@ const Form3 = () => {
             )}
           </View>
           {/* New section */}
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Remarks
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={remarks}
@@ -1635,6 +1844,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            MMT
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={mmt}
@@ -1645,6 +1862,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            ROM
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={rom}
@@ -1656,6 +1881,14 @@ const Form3 = () => {
             />
           </View>
           {/* New section */}
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Capsular Pattern
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={capsularPattern}
@@ -1666,6 +1899,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Joint Play
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={jointPlay}
@@ -1676,6 +1917,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Reflexes
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={reflexes}
@@ -1686,6 +1935,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            LLD
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={lld}
@@ -1696,6 +1953,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Sensory Examination
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={sensoryExamination}
@@ -1706,6 +1971,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Deramatomes
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={dermatomes}
@@ -1716,6 +1989,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Myotomes
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={myotomes}
@@ -1726,6 +2007,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Investigations
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={investigations}
@@ -1736,6 +2025,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Special Test
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={specialTest}
@@ -1746,6 +2043,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Diagnosis
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={diagnosis}
@@ -1756,6 +2061,14 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
+          <Text
+            style={{
+              color: '#195794',
+              fontSize: wp('3%'),
+              marginHorizontal: wp('5%'),
+            }}>
+            Treatment
+          </Text>
           <View style={styles.inputTextContainer}>
             <TextInput
               value={treatment}
@@ -1766,7 +2079,10 @@ const Form3 = () => {
               style={styles.inputText}
             />
           </View>
-          <Generateform3 />
+          <Generateform3
+            selectedPatientName={selectedPatientName}
+            selectedPatientId={selectedPatientId}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
