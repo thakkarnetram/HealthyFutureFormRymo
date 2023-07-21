@@ -30,7 +30,7 @@ import {Picker} from '@react-native-picker/picker';
 import Generateform4 from '../../GenerateHtml/Generateform4';
 import Toast from 'react-native-toast-message';
 import db from '../../db/db';
-
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 const Form4 = ({route}) => {
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -227,7 +227,7 @@ const Form4 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Name
@@ -410,7 +410,7 @@ const Form4 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Therapist
@@ -428,7 +428,7 @@ const Form4 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Main Therapist
@@ -446,7 +446,7 @@ const Form4 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Present Progress
@@ -465,7 +465,7 @@ const Form4 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Present Concern
@@ -484,7 +484,7 @@ const Form4 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Comment and Plan
@@ -503,7 +503,7 @@ const Form4 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Plan Discussed with Patient
@@ -544,7 +544,7 @@ const Form4 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Therapist Name
@@ -612,7 +612,7 @@ const styles = StyleSheet.create({
   },
   newBtn: {
     marginHorizontal: wp('5%'),
-    marginVertical: wp('3%'),
+    marginVertical: moderateScale(15),
     borderRadius: 20,
     backgroundColor: '#2e5db0',
     height: hp('5%'),
@@ -662,7 +662,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: wp('3.5%'),
     marginVertical: wp('2%'),
-    marginHorizontal: wp('3%'),
+    marginHorizontal: moderateScale(15),
   },
   dobText: {
     color: 'white',

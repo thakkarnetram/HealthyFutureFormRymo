@@ -29,6 +29,7 @@ import Generateform2 from '../../GenerateHtml/Generateform2';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Toast from 'react-native-toast-message';
 import db from '../../db/db';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 const Form2 = ({route}) => {
   useEffect(() => {
@@ -402,7 +403,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Name
@@ -420,7 +421,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Age
@@ -584,7 +585,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Select Gender
@@ -612,7 +613,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Hand Dominance
@@ -642,7 +643,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Address
@@ -665,7 +666,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Occupation
@@ -688,7 +689,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Diagnosis
@@ -753,7 +754,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Chief Complaint
@@ -773,7 +774,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             History
@@ -792,7 +793,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Past Medical
@@ -812,7 +813,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Investigation
@@ -1519,7 +1520,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Attitude of Limb
@@ -1542,7 +1543,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             External Aids
@@ -1565,7 +1566,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Gait
@@ -1588,7 +1589,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Transfer Ability
@@ -1611,7 +1612,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Bed Sores
@@ -1634,7 +1635,7 @@ const Form2 = ({route}) => {
           <Text
             style={{
               color: '#195794',
-              fontSize: wp('3%'),
+              fontSize: moderateScale(15),
               marginHorizontal: wp('5%'),
             }}>
             Deformity
@@ -1781,26 +1782,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginHorizontal: wp('18%'),
-    fontSize: wp('3%'),
+    fontSize: moderateScale(15),
   },
   inputRTRT: {
     fontWeight: 'bold',
     color: 'white',
     marginHorizontal: wp('20%'),
-    fontSize: wp('3%'),
+    fontSize: moderateScale(15),
   },
   inputLTLT: {
     flexDirection: 'column',
     fontWeight: 'bold',
     color: 'white',
     marginHorizontal: wp('20%'),
-    fontSize: wp('3%'),
+    fontSize: moderateScale(15),
   },
   inputLTRT: {
     fontWeight: 'bold',
     color: 'white',
     marginHorizontal: wp('25%'),
-    fontSize: wp('3%'),
+    fontSize: moderateScale(15),
   },
   firstName: {
     color: 'white',
@@ -1840,7 +1841,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: wp('3.5%'),
     marginVertical: wp('2%'),
-    marginHorizontal: wp('3%'),
+    marginHorizontal: moderateScale(15),
   },
   dobText: {
     color: 'white',
@@ -1875,7 +1876,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: wp('3.5%'),
     marginVertical: wp('2%'),
-    marginHorizontal: wp('3%'),
+    marginHorizontal: moderateScale(15),
   },
   buttonTextDOE: {
     color: 'white',
@@ -1941,7 +1942,7 @@ const styles = StyleSheet.create({
   },
   newBtn: {
     marginHorizontal: wp('5%'),
-    marginVertical: wp('3%'),
+    marginVertical: moderateScale(15),
     borderRadius: 20,
     backgroundColor: '#2e5db0',
     height: hp('5%'),

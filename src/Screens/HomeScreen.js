@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -17,6 +18,8 @@ import {
 } from 'react-native-responsive-screen';
 import Orientation from 'react-native-orientation-locker';
 import Immersive from 'react-native-immersive';
+import {horizontalScale} from '../Scale/Metric';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 const HomeScreen = ({navigation, route}) => {
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -26,21 +29,28 @@ const HomeScreen = ({navigation, route}) => {
   }, []);
   Immersive.setImmersive(true);
   const {selectedPatientName, selectedPatientId, selectedImage} = route.params;
-
-
+  const {width, height} = Dimensions.get('screen');
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView style={styles.scrollViewContainer}>
         <View style={styles.container}>
-          <Image
-            source={require('../Assets/logo.png')}
+          <View
             style={{
-              width: wp('80%'),
-              height: hp('7%'),
-              marginHorizontal: wp('7%'),
-              marginVertical: wp('10%'),
-            }}
-          />
+              width: width / 1.1,
+              height: null,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Image
+              source={require('../Assets/logo.png')}
+              style={{
+                width: moderateScale(350),
+                height: height / 15,
+                marginVertical: verticalScale(25),
+                marginHorizontal: horizontalScale(3),
+              }}
+            />
+          </View>
           <View
             style={{
               flexDirection: 'row',

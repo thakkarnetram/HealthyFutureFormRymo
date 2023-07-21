@@ -15,6 +15,7 @@ import {
   PermissionsAndroid,
   Image,
   Modal,
+  Dimensions,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -25,8 +26,10 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../Redux/index';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {FloatingAction} from 'react-native-floating-action';
+import {horizontalScale} from '../../Scale/Metric';
 import db from '../../db/db';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 const PatientHome = ({navigation}) => {
   // locking screen to potrait mode
@@ -349,19 +352,26 @@ const PatientHome = ({navigation}) => {
       console.log('couldnt remove' + error);
     }
   };
-
+  const {width, height} = Dimensions.get('window');
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        source={require('../../Assets/logo.png')}
+      <View
         style={{
-          width: wp('80%'),
-          height: hp('7%'),
-          marginHorizontal: wp('7%'),
-          marginVertical: wp('10%'),
-        }}
-      />
-
+          width: width / 1.1,
+          height: null,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={require('../../Assets/logo.png')}
+          style={{
+            width: moderateScale(350),
+            height: height / 15,
+            marginVertical: verticalScale(25),
+            marginHorizontal: horizontalScale(3),
+          }}
+        />
+      </View>
       <View style={{flexDirection: 'row'}}>
         <View>
           <Text style={styles.header}>Patient</Text>
@@ -462,9 +472,9 @@ const PatientHome = ({navigation}) => {
           <FloatingAction
             actions={floatingActions}
             onPressItem={resetModalFields}
-            buttonSize={90}
             position="right"
             iconHeight={30}
+            buttonSize={70}
             iconWidth={30}
           />
         </View>
@@ -547,8 +557,8 @@ const PatientHome = ({navigation}) => {
 
 const styles = StyleSheet.create({
   imageBtn: {
-    marginHorizontal: hp('2%'),
-    marginVertical: hp('2%'),
+    marginHorizontal: horizontalScale(20),
+    marginVertical: verticalScale(20),
   },
   container: {
     flex: 1,
@@ -558,14 +568,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   patientContainer: {
-    marginBottom: 20,
+    marginBottom: verticalScale(20),
   },
   patientImage: {
     borderRadius: 20,
-    width: 50,
-    height: 50,
-    left: 50,
-    top: 10,
+    width: moderateScale(30),
+    height: moderateScale(30),
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
+    marginHorizontal: moderateScale(30),
+    marginVertical: verticalScale(15),
   },
   selectImageButton: {
     backgroundColor: 'blue',
@@ -574,30 +588,30 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   header: {
-    fontSize: wp('5%'),
+    fontSize: moderateScale(25),
     fontWeight: 'bold',
     color: '#032491',
-    marginVertical: wp('3%'),
-    marginHorizontal: wp('3%'),
+    marginHorizontal: horizontalScale(10),
+    marginVertical: verticalScale(10),
   },
   patientListContainer: {
-    marginVertical: wp('3%'),
-    marginHorizontal: wp('3%'),
+    marginHorizontal: horizontalScale(10),
+    marginVertical: verticalScale(10),
   },
   patientItem: {
     borderRadius: 15,
     backgroundColor: '#9cb3ff',
-    height: hp('7%'),
-    marginVertical: wp('2%'),
-    marginHorizontal: wp('3%'),
+    height: verticalScale(60),
+    marginHorizontal: horizontalScale(10),
+    marginVertical: verticalScale(10),
   },
   patientText: {
-    top: 10,
-    left: 40,
-    marginVertical: wp('1.5%'),
+    top: 0,
+    left: 0,
+    marginVertical: verticalScale(10),
     color: '#082173',
-    marginHorizontal: wp('3%'),
-    fontSize: wp('3%'),
+    marginHorizontal: horizontalScale(10),
+    fontSize: moderateScale(15),
   },
   addButton: {
     backgroundColor: 'blue',
@@ -607,12 +621,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'black',
-    fontSize: wp('2.5%'),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
   },
   buttonText1: {
     color: 'white',
-    fontSize: wp('3%'),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
   },
   modalContainer: {
@@ -626,55 +640,52 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 5,
     alignItems: 'center',
-    width: '90%',
-    height: null,
+    width: '100%',
   },
   modalTitle: {
-    fontSize: wp('3%'),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
     marginBottom: 10,
     color: 'black',
   },
   headText: {
     color: 'black',
-    fontSize: wp('2.5%'),
+    fontSize: moderateScale(12),
   },
   headContainer: {
-    marginRight: hp('40%'),
-    marginVertical: wp('1.5%'),
-    height: hp('2%'),
-    width: wp('20%'),
+    height: scale(15),
+    width: moderateScale(50),
+    alignSelf: 'flex-start',
   },
   textInput: {
     width: '100%',
-    height: hp('5%'),
+    height: verticalScale(40),
     borderWidth: 1,
     color: 'black',
     borderColor: '#ccc',
     borderRadius: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: horizontalScale(10),
   },
   modalButtonContainer: {
     flexDirection: 'row',
   },
   modalButton: {
     backgroundColor: 'blue',
-    padding: wp('1.5%'),
-    width: wp('15%'),
+    padding: scale(5),
+    width: moderateScale(75),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    marginHorizontal: wp('2%'),
-    marginVertical: wp('2%'),
+    marginHorizontal: horizontalScale(60),
+    marginVertical: verticalScale(10),
   },
   patientNameContainer: {
-    flex: 1,
-    marginLeft: wp('1%'), // Add spacing between the image and the patient name
+    flex: 1, // Add spacing between the image and the patient name
   },
   searchContainer: {
-    width: wp('70%'),
-    height: hp('5%'),
-    marginVertical: wp('2%'),
+    width: horizontalScale(250),
+    height: verticalScale(45),
+    marginVertical: horizontalScale(5),
   },
   searchInput: {
     flex: 1,
